@@ -1,0 +1,23 @@
+-- Memory Layout -- 
+    MaxSize: 256 files
+
+    0 - Program Counter
+    1 - Logic Unit Flags
+        0, 0, 0, 0, 0, 0, Carry, Zero
+    2 - port
+    3 -> 255 - free use
+
+-- Instruction Set --
+Flow control
+    nop                 | 0xxxx
+    goto l              | 1nnxx
+    ifBitFlow f b       | 2nnxn
+File Actions
+    clear f             | 3nnxx
+    flip f              | 4nnxx
+    inc f               | 5nnxx
+    lShift f            | 6nnxx
+File on File Actions
+    copy f f            | 7nnnn
+    nand f f            | 8nnnn
+    add f f             | 9nnnn

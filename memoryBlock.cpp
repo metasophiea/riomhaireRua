@@ -16,7 +16,7 @@ bool memoryBlock::getBit(std::string byte, unsigned int bit){ return getBit(HEXt
 bool memoryBlock::getBit(unsigned int byte, unsigned int bit){
     if( byte >= memorySize){ std::cout << "bad byte selected - " << UINTtoHEX(byte) << "/" << UINTtoHEX(memorySize) << std::endl; return false; }
     if( bit > getBitCount() ){ std::cout << "bad bit provided - " << UINTtoHEX(bit) << "/" << UINTtoHEX(getBitCount()) << std::endl; return false; }
-    if( UINTtoHEX(memory[byte])[bit] == '1' ){ return true; }else{ return false; }
+    if( UINTtoBIN(memory[byte])[getBitCount()-bit-1] == '1' ){ return true; }else{ return false; }
 }
 void memoryBlock::setBit(std::string byte, unsigned int bit, bool value){ setBit(HEXtoUINT(byte),bit,value); }
 void memoryBlock::setBit(unsigned int byte, unsigned int bit, bool value){
