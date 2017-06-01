@@ -9,5 +9,3 @@ g++ -c executer.cpp
 g++ -c programManager.cpp
 
 g++ main.cpp *.o
-
-./a.out testProgram.rr
