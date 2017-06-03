@@ -4,7 +4,7 @@
     0 - Program Counter
     1 - Logic Unit Flags
         0, 0, 0, 0, 0, 0, Carry, Zero
-    2 - port
+    2 - port (console)
     3 -> 255 - free use
 
 -- Instruction Set --
