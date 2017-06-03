@@ -30,4 +30,13 @@ std::string consoleAccess::getByte(){
     return input;
 }
 
-void consoleAccess::writeByte(std::string value){std::cout << value << std::endl;}
+void consoleAccess::writeByte(std::string value){
+    unsigned int val = HEXtoUINT(value);
+    if( val < 128){ std::cout << (char)val; return; }
+    std::string output = "";
+    switch(val){
+        case 128: output = "riomhaireRua"; break;
+        default: output = " -unknown character: " + std::to_string(val) + "- "; break;
+    }
+    std::cout << output;
+}

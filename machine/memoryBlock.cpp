@@ -15,13 +15,13 @@ unsigned int memoryBlock::size(){ return memorySize; }
 bool memoryBlock::getBit(std::string byte, unsigned int bit){ return getBit(HEXtoUINT(byte),bit); }
 bool memoryBlock::getBit(unsigned int byte, unsigned int bit){
     if( byte >= memorySize){ std::cout << "bad byte selected - " << UINTtoHEX(byte) << "/" << UINTtoHEX(memorySize) << std::endl; return false; }
-    if( bit > getBitCount() ){ std::cout << "bad bit provided - " << UINTtoHEX(bit) << "/" << UINTtoHEX(getBitCount()) << std::endl; return false; }
+    if( bit >= getBitCount() ){ std::cout << "bad bit provided - " << UINTtoHEX(bit) << "/" << UINTtoHEX(getBitCount()) << std::endl; return false; }
     if( UINTtoBIN(memory[byte])[getBitCount()-bit-1] == '1' ){ return true; }else{ return false; }
 }
 void memoryBlock::setBit(std::string byte, unsigned int bit, bool value){ setBit(HEXtoUINT(byte),bit,value); }
 void memoryBlock::setBit(unsigned int byte, unsigned int bit, bool value){
     if( byte >= memorySize){ std::cout << "bad byte selected - " << UINTtoHEX(byte) << "/" << UINTtoHEX(memorySize) << std::endl; return; }
-    if( bit > getBitCount() ){ std::cout << "bad bit provided - " << UINTtoHEX(bit) << "/" << UINTtoHEX(getBitCount()) << std::endl; return; }
+    if( bit >= getBitCount() ){ std::cout << "bad bit provided - " << UINTtoHEX(bit) << "/" << UINTtoHEX(getBitCount()) << std::endl; return; }
     
     std::string temp = UINTtoBIN(memory[byte]);
     temp[getBitCount()-bit-1] = value ? '1' : '0'; 

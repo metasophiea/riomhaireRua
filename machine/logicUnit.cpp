@@ -11,9 +11,10 @@ bareMetal(bitCount)
 logicUnit::~logicUnit(){}
 
 std::string logicUnit::analyseAndReturn(std::string result){
+    if( checkForComplyingLength(result) == 1 ){ carry = true; }else{ carry = false; } 
+    result = localSizeHex(result);
     if( HEXtoUINT(result) == 0 ){ zero = true; }else{ zero = false; }
-    if( checkForComplyingLength(result) == 1 ){ carry = true; }else{ carry = false; }
-    return localSizeHex(result);
+    return result;
 }
 
 bool logicUnit::isZero(){return zero;}
@@ -39,7 +40,7 @@ std::string logicUnit::lShift( std::string value ){
 
     char temp = b[0];
     for(unsigned int a = 1; a < b.length(); a++){ b[a-1] = b[a]; }
-    b[ b.length() ] = temp;
+    b[ b.length()-1 ] = temp;
 
     return analyseAndReturn(BINtoHEX(b));
 }

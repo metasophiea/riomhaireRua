@@ -24,7 +24,7 @@ int main(int argumentCount, char *arguments[]){
         unsigned int bitCount = 8;
         unsigned int memorySize = 256;
         unsigned int programSize = 256;
-        programManager machine = programManager(bitCount,memorySize,bitCount);
+        programManager machine = programManager(bitCount,memorySize,programSize);
 
     //load in program
         std::ifstream inputFile(arguments[1]); std::string line;

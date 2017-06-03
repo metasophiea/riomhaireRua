@@ -9,7 +9,7 @@ class accessManager: public bareMetal
 {
     private:
         memoryBlock memoryBlock;
-        consoleAccess console; unsigned int console_port;
+        consoleAccess console; static const unsigned int console_port = 2;
 
     public:
         accessManager(unsigned int bitCount, unsigned int memorySize);

@@ -3,9 +3,7 @@
 #include "accessManager.h"
 
 accessManager::accessManager(unsigned int bitCount, unsigned int memorySize):
-bareMetal(bitCount),memoryBlock(bitCount, memorySize),console(bitCount){
-    console_port = 2;
-}
+bareMetal(bitCount),memoryBlock(bitCount, memorySize),console(bitCount){}
 accessManager::~accessManager(){}
 
 unsigned int accessManager::size()                                          { return memoryBlock.size(); }

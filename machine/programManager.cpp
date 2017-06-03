@@ -16,15 +16,15 @@ void programManager::load(std::string newProgram[], unsigned int newProgramLengt
 void programManager::appendCommand(std::string command){
     if( programLength + 1 > maxProgramLength ){ std::cout << "programManager::appendCommand error - no more command space left" << std::endl; return;}
     program[programLength] = command;
-    programLength++;
+    programLength++; 
 }
 
 void programManager::run(){
     unsigned int nextCommand;
     while(true){
         nextCommand = executer.nextCommandNumber();
-        if( nextCommand >= programLength || nextCommand >= maxProgramLength ){break;}
-        executer.runCommand(program[nextCommand]);
+        if( nextCommand >= programLength || nextCommand >= maxProgramLength ){ break; }
+        executer.runCommand(program[nextCommand]); 
     }
 }
 
