@@ -8,7 +8,7 @@ std::vector<std::string> compiler(std::vector<std::string> program, unsigned int
         return std::vector<std::string>();
     }
 
-    //check for comments and blank lines; and remove
+    //check for comments, tabs/spacing and blank lines; and remove
         //look for slash
         //no second slash -> stop
     program = commentHandler(program); if(program.empty()){

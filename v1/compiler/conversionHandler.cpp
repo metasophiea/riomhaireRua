@@ -11,6 +11,31 @@ std::string localSizeHex(std::string HEX, unsigned int byteSize){
     }
 }
 
+bool testForHexNumber(std::string number){
+    for(unsigned int a = 0; a < number.length(); a++){
+		switch(number[a]){
+			case '0': 			break;
+			case '1': 			break;
+			case '2': 			break;
+			case '3': 			break;
+			case '4': 			break;
+			case '5': 			break;
+			case '6': 			break;
+			case '7': 			break;
+			case '8': 			break;
+			case '9': 			break;
+			case 'a': case 'A': break;
+			case 'b': case 'B': break;
+			case 'c': case 'C': break;
+			case 'd': case 'D': break;
+			case 'e': case 'E': break;
+			case 'f': case 'F': break;
+            default: return false; break;
+		}
+    }
+    return true;
+}
+
 std::vector<std::string> splitString(std::string line){
     std::vector<std::string> output; std::string temp;
 
@@ -32,17 +57,20 @@ std::vector<std::string> conversionHandler(std::vector<std::string> program, uns
 
     for(unsigned int a = 0; a < program.size(); a++){
         thisCommand = splitString(program[a]);
+        if( thisCommand.size() > 3 ){ std::cout << "unknown command: " << program[a] << std::endl; return std::vector<std::string>(); }
+        if( thisCommand.size() > 1 ){ if( !testForHexNumber(thisCommand[1]) ){ std::cout << "unknown command: " << program[a] << std::endl; return std::vector<std::string>(); } }
+        if( thisCommand.size() > 2 ){ if( !testForHexNumber(thisCommand[2]) ){ std::cout << "unknown command: " << program[a] << std::endl; return std::vector<std::string>(); } }
 
-        if(     thisCommand[0].find("nop") != std::string::npos ){          temp = "00000";}
-        else if(thisCommand[0].find("goto") != std::string::npos ){         temp = "1" + localSizeHex(thisCommand[1],byteSize) + "00"; }
-        else if(thisCommand[0].find("ifbitflow") != std::string::npos ){    temp = "2" + localSizeHex(thisCommand[1],byteSize) + localSizeHex(thisCommand[2],byteSize);}
-        else if(thisCommand[0].find("clear") != std::string::npos ){        temp = "3" + localSizeHex(thisCommand[1],byteSize) + "00"; }
-        else if(thisCommand[0].find("flip") != std::string::npos ){         temp = "4" + localSizeHex(thisCommand[1],byteSize) + "00"; }
-        else if(thisCommand[0].find("inc") != std::string::npos ){          temp = "5" + localSizeHex(thisCommand[1],byteSize) + "00"; }
-        else if(thisCommand[0].find("lshift") != std::string::npos ){       temp = "6" + localSizeHex(thisCommand[1],byteSize) + "00"; }
-        else if(thisCommand[0].find("copy") != std::string::npos ){         temp = "7" + localSizeHex(thisCommand[1],byteSize) + localSizeHex(thisCommand[2],byteSize);}
-        else if(thisCommand[0].find("nand") != std::string::npos ){         temp = "8" + localSizeHex(thisCommand[1],byteSize) + localSizeHex(thisCommand[2],byteSize);}
-        else if(thisCommand[0].find("add") != std::string::npos ){          temp = "9" + localSizeHex(thisCommand[1],byteSize) + localSizeHex(thisCommand[2],byteSize);}
+        if(     thisCommand[0].find("nop") != std::string::npos         ){ temp = "00000"; }
+        else if(thisCommand[0].find("goto") != std::string::npos        ){ temp = "1" + localSizeHex(thisCommand[1],byteSize) + "00"; }
+        else if(thisCommand[0].find("ifbitflow") != std::string::npos   ){ temp = "2" + localSizeHex(thisCommand[1],byteSize) + localSizeHex(thisCommand[2],byteSize);}
+        else if(thisCommand[0].find("clear") != std::string::npos       ){ temp = "3" + localSizeHex(thisCommand[1],byteSize) + "00"; }
+        else if(thisCommand[0].find("flip") != std::string::npos        ){ temp = "4" + localSizeHex(thisCommand[1],byteSize) + "00"; }
+        else if(thisCommand[0].find("inc") != std::string::npos         ){ temp = "5" + localSizeHex(thisCommand[1],byteSize) + "00"; }
+        else if(thisCommand[0].find("lshift") != std::string::npos      ){ temp = "6" + localSizeHex(thisCommand[1],byteSize) + "00"; }
+        else if(thisCommand[0].find("copy") != std::string::npos        ){ temp = "7" + localSizeHex(thisCommand[1],byteSize) + localSizeHex(thisCommand[2],byteSize);}
+        else if(thisCommand[0].find("nand") != std::string::npos        ){ temp = "8" + localSizeHex(thisCommand[1],byteSize) + localSizeHex(thisCommand[2],byteSize);}
+        else if(thisCommand[0].find("add") != std::string::npos         ){ temp = "9" + localSizeHex(thisCommand[1],byteSize) + localSizeHex(thisCommand[2],byteSize);}
         else{ std::cout << "unknown command: " << thisCommand[0] << std::endl; return std::vector<std::string>(); }
 
         result.push_back(temp);

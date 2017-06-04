@@ -125,7 +125,7 @@
 125 | }
 126 | ~
 127 | DEL (delete)
-128 | prints: riomhaireRua
+128 | prints: "riomhaireRua"
 129 | ? (unused)
 130 | ? (unused)
 131 | ? (unused)

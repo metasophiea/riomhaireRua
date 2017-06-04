@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 g++ main.cpp -o ruac
 
-./ruac ../programs/testProgram.rr output.rua
+./ruac ../examplePrograms/tests/testProgram.rr output.rua
