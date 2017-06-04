@@ -1,17 +1,17 @@
 //comment
-//bad comment
 #file.rr
 badFile.rr
 
 nop
 goto:tag
 clear:10
+::tag2
+//comment
 inc:10
 flip:10
 goto:tag
-::tag GG3 
+::tag
 lShift:10
-:bad tag
 ifBitFlow:10:0
 copy:10:11
 nand:10:11

@@ -36,8 +36,8 @@ std::string bareMetal::UINTtoHEX(unsigned int UINT){
             UINT = UINT - (unsigned int)(UINT/pow(16,biggestPow)) * pow(16,biggestPow);
         }while( biggestPow != 0 && UINT > 0 );
 
-		//add in remaining zeros
-			while(biggestPow > 0){ biggestPow--; HEX += "0"; }
+	//add in remaining zeros
+		while(biggestPow > 0){ biggestPow--; HEX += "0"; }
 
     return HEX;
 }
