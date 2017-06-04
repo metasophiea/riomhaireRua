@@ -4,4 +4,4 @@
 
 g++ main.cpp -o ruac
 
-./ruac ../programs/testProgram.rr
+./ruac ../programs/testProgram.rr output.rua

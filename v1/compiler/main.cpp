@@ -3,12 +3,12 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-//#include <algorithm>
-//#include <regex>
 
 #include "importHandler.cpp"
 #include "commentHandler.cpp"
 #include "tagHandler.cpp"
+#include "conversionHandler.cpp"
+#include "compiler.cpp"
 
 int main(int argumentCount, char *arguments[]){    
     std::string inputFileName, outputFileName, inputFileFolder;
@@ -25,53 +25,26 @@ int main(int argumentCount, char *arguments[]){
         std::ifstream inputFile(inputFileName); std::string line;
         while(getline( inputFile, line )){ program.push_back(line); }
 
+    //compile
+        //// globals: maxProgramLength, memorySize, byteSize
+        unsigned int maxProgramLength = 256;
+        unsigned int memorySize = 256;
+        unsigned int byteSize = 8;
 
-    //// globals: maxProgramLength, memorySize
-    unsigned int maxProgramLength = 256;
+        program = compiler(program,maxProgramLength,memorySize,byteSize,inputFileFolder); if(program.empty()){ return 0; }
 
-    //check for imports and do imports
-        //find file (stop if can't be found)
-        //paste text in from where this import was
-        //remove import command
-    program = importHandler(program,inputFileFolder); if(program.empty()){
-        std::cout << "compilation failed - import issue" << std::endl;
-        return 1;
-    }
+    //print program
+        //look to see if output file name has been provided; if so; use that name and place it back in the folder
+        //if not; take the original name, attach '.rua' and place it back in the folder
+        if(outputFileName.length() != 0){ outputFileName = inputFileFolder + outputFileName;  }
+        else{ outputFileName = inputFileName + ".rua"; }
 
-    //check for comments and blank lines; and remove
-        //look for slash
-        //no second slash -> stop
-    program = commentHandler(program); if(program.empty()){
-        std::cout << "compilation failed - comment issue" << std::endl;
-        return 1;
-    }
-
-    //tags
-        //find tag
-        //add tag name to list with corrisponding line number
-        //remove tag
-        //if line number is larger than maxProgramLength -> stop
-        //go through code again, replace goto:X tags with line numbers (in HEX) from tag list
-    program = tagHandler(program); if(program.empty()){
-        std::cout << "compilation failed - tagging issue" << std::endl;
-        return 1;
-    }  
-
-    //check if resulting code is too long; if so stop
-    if( program.size() >= maxProgramLength ){
-        std::cout << "compilation failed - program too long" << std::endl;
-        std::cout << program.size() << "/" << maxProgramLength << std::endl;
-        return 1;
-    }
-    //convert to byte code
-        //unknown command -> stop
-        //adjust hex number to suit architecture
-        //command references file beyond memorySize -> stop
-
-    std::cout << std::endl << " -result- " << std::endl;
-    for(unsigned int a = 0; a < program.size(); a++){
-        std::cout << program[a] << std::endl;
-    }
+        //printing
+        FILE* output = fopen((outputFileName).c_str(), "w");
+        for(unsigned int a = 0; a < program.size(); a++){
+            for(unsigned int b = 0; b < program[a].length(); b++){ fprintf(output, "%c", program[a][b]); }
+            if( a < program.size()-1 ){ fprintf(output, "%c", '\n'); }
+        }
 
     return 0;
 }

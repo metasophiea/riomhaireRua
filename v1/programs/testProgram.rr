@@ -1,6 +1,5 @@
 //comment
 #file.rr
-badFile.rr
 
 nop
 goto:tag
