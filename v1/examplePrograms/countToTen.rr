@@ -14,7 +14,7 @@ copy:10:2
 
 clear:10
 
-//print a next line twice
+//print a "newline" twice
 inc:10
 lShift:10
 lShift:10
