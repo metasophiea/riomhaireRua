@@ -66,7 +66,7 @@ std::vector<std::string> conversionHandler(std::vector<std::string> program, uns
         else if(thisCommand[0].find("ifbitflow") != std::string::npos   ){ temp = "2" + localSizeHex(thisCommand[1],byteSize) + localSizeHex(thisCommand[2],byteSize);}
         else if(thisCommand[0].find("ifbitskip") != std::string::npos   ){ temp = "3" + localSizeHex(thisCommand[1],byteSize) + localSizeHex(thisCommand[2],byteSize);}
         else if(thisCommand[0].find("clear") != std::string::npos       ){ temp = "4" + localSizeHex(thisCommand[1],byteSize) + "00"; }
-        else if(thisCommand[0].find("set") != std::string::npos         ){ temp = "5" + localSizeHex(thisCommand[1],byteSize) + "00"; }
+        else if(thisCommand[0].find("set") != std::string::npos         ){ temp = "5" + localSizeHex(thisCommand[1],byteSize) + localSizeHex(thisCommand[2],byteSize); }
         else if(thisCommand[0].find("flip") != std::string::npos        ){ temp = "6" + localSizeHex(thisCommand[1],byteSize) + "00"; }
         else if(thisCommand[0].find("inc") != std::string::npos         ){ temp = "7" + localSizeHex(thisCommand[1],byteSize) + "00"; }
         else if(thisCommand[0].find("dec") != std::string::npos         ){ temp = "8" + localSizeHex(thisCommand[1],byteSize) + "00"; }

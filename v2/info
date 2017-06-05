@@ -87,7 +87,7 @@ Max Program Size: 65536 commands
 |     ifBitSkip f b      |       3nnxn       |
 | File Actions --------- |                   |
 |     clear f            |       4nnxx       |
-|     set f              |       5nnxx       |
+|     set f              |       5nnnn       |
 |     flip f             |       6nnxx       |
 |     inc f              |       7nnxx       |
 |     dec f              |       8nnxx       |
@@ -223,259 +223,260 @@ Max Program Size: 65536 commands
 
               -- Extra Info --        
 -- Console Port Character Codes --------------
-
-1  | NUL (null)
-2  | SOH (start of header)
-3  | STX (start of text)
-4  | ETX (end of text)
-5  | ENQ (enquiry)
-6  | ACK (acknowledge)
-7  | BEL (bell)
-8  | BS (baskspace)
-9  | HT (horizontal tab)
-10 | LF (line feed/new line)
-11 | VT (vertical tab)
-12 | FF (form feed / new page)
-13 | CR (carriage return)
-14 | SO (shift out)
-15 | SI (shift in)
-16 | DLE (data link escape)
-17 | DC1 (data control 1)
-18 | DC2 (data control 2)
-19 | DC3 (data control 3)
-20 | DC4 (data control 4)
-21 | NAK (negative acknowledge)
-22 | SYN (synchronous idle)
-23 | ETB (end of transmission block)
-24 | CAN (cancel)
-25 | EM (end of medium)
-26 | SUB (substitute)
-27 | ESC (escape)
-28 | FS (file separator)
-29 | GS (group separator)
-30 | RS (record separator)
-31 | US (unit separator)
-32 | (space)
-33 | !
-34 | "
-35 | #
-36 | $
-37 | %
-38 | &
-39 | '
-40 | (
-41 | )
-42 | *
-43 | +
-44 | ,
-45 | -
-46 | .
-47 | /
-48 | 0
-49 | 1
-50 | 2
-51 | 3
-52 | 4
-53 | 5
-54 | 6
-55 | 7
-56 | 8
-57 | 9
-58 | :
-59 | ;
-60 | <
-61 | =
-62 | >
-63 | ?
-64 | @
-65 | A
-66 | B
-67 | C
-68 | D
-69 | E
-70 | F
-71 | G
-72 | H
-73 | I
-74 | J
-75 | K
-76 | L
-77 | M
-78 | N
-79 | O
-80 | P
-81 | Q
-82 | R
-83 | S
-84 | T
-85 | U
-86 | V
-87 | W
-88 | X
-89 | Y
-90 | Z
-91 | [
-92 | \
-93 | ]
-94 | ^
-95 | _
-96 | `
-97 | a
-98 | b
-99 | c
-100 | d
-101 | e
-102 | f
-103 | g
-104 | h
-105 | i
-106 | j
-107 | k
-108 | l
-109 | m
-110 | n
-111 | o
-112 | p
-113 | q
-114 | r
-115 | s
-116 | t
-117 | u
-118 | v
-119 | w
-120 | x
-121 | y
-122 | z
-123 | {
-124 | |
-125 | }
-126 | ~
-127 | DEL (delete)
-128 | prints: "riomhaireRua"
-129 | ? (unused)
-130 | ? (unused)
-131 | ? (unused)
-132 | ? (unused)
-133 | ? (unused)
-134 | ? (unused)
-135 | ? (unused)
-136 | ? (unused)
-137 | ? (unused)
-138 | ? (unused)
-139 | ? (unused)
-140 | ? (unused)
-141 | ? (unused)
-142 | ? (unused)
-143 | ? (unused)
-144 | ? (unused)
-145 | ? (unused)
-146 | ? (unused)
-147 | ? (unused)
-148 | ? (unused)
-149 | ? (unused)
-150 | ? (unused)
-151 | ? (unused)
-152 | ? (unused)
-153 | ? (unused)
-154 | ? (unused)
-155 | ? (unused)
-156 | ? (unused)
-157 | ? (unused)
-158 | ? (unused)
-159 | ? (unused)
-160 | ? (unused)
-161 | ? (unused)
-162 | ? (unused)
-163 | ? (unused)
-164 | ? (unused)
-165 | ? (unused)
-166 | ? (unused)
-167 | ? (unused)
-168 | ? (unused)
-169 | ? (unused)
-170 | ? (unused)
-171 | ? (unused)
-172 | ? (unused)
-173 | ? (unused)
-174 | ? (unused)
-175 | ? (unused)
-176 | ? (unused)
-177 | ? (unused)
-178 | ? (unused)
-179 | ? (unused)
-180 | ? (unused)
-181 | ? (unused)
-182 | ? (unused)
-183 | ? (unused)
-184 | ? (unused)
-185 | ? (unused)
-186 | ? (unused)
-187 | ? (unused)
-188 | ? (unused)
-189 | ? (unused)
-190 | ? (unused)
-191 | ? (unused)
-192 | ? (unused)
-193 | ? (unused)
-194 | ? (unused)
-195 | ? (unused)
-196 | ? (unused)
-197 | ? (unused)
-198 | ? (unused)
-199 | ? (unused)
-200 | ? (unused)
-201 | ? (unused)
-202 | ? (unused)
-203 | ? (unused)
-204 | ? (unused)
-205 | ? (unused)
-206 | ? (unused)
-207 | ? (unused)
-208 | ? (unused)
-209 | ? (unused)
-210 | ? (unused)
-211 | ? (unused)
-212 | ? (unused)
-213 | ? (unused)
-214 | ? (unused)
-215 | ? (unused)
-216 | ? (unused)
-217 | ? (unused)
-218 | ? (unused)
-219 | ? (unused)
-220 | ? (unused)
-221 | ? (unused)
-222 | ? (unused)
-223 | ? (unused)
-224 | ? (unused)
-225 | ? (unused)
-226 | ? (unused)
-227 | ? (unused)
-228 | ? (unused)
-229 | ? (unused)
-230 | ? (unused)
-231 | ? (unused)
-232 | ? (unused)
-233 | ? (unused)
-234 | ? (unused)
-235 | ? (unused)
-236 | ? (unused)
-237 | ? (unused)
-238 | ? (unused)
-239 | ? (unused)
-240 | ? (unused)
-241 | ? (unused)
-242 | ? (unused)
-243 | ? (unused)
-244 | ? (unused)
-245 | ? (unused)
-246 | ? (unused)
-247 | ? (unused)
-248 | ? (unused)
-249 | ? (unused)
-250 | ? (unused)
-251 | ? (unused)
-252 | ? (unused)
-253 | ? (unused)
-254 | ? (unused)
-255 | ? (unused)
+number | code | symbol
+-------|------|-------
+1      |  01  | NUL (null)
+2      |  02  | SOH (start of header)
+3      |  03  | STX (start of text)
+4      |  04  | ETX (end of text)
+5      |  05  | ENQ (enquiry)
+6      |  06  | ACK (acknowledge)
+7      |  07  | BEL (bell)
+8      |  08  | BS (baskspace)
+9      |  09  | HT (horizontal tab)
+10     |  0a  | LF (line feed/new line)
+11     |  0b  | VT (vertical tab)
+12     |  0c  | FF (form feed / new page)
+13     |  0d  | CR (carriage return)
+14     |  0e  | SO (shift out)
+15     |  0f  | SI (shift in)
+16     |  10  | DLE (data link escape)
+17     |  11  | DC1 (data control 1)
+18     |  12  | DC2 (data control 2)
+19     |  13  | DC3 (data control 3)
+20     |  14  | DC4 (data control 4)
+21     |  15  | NAK (negative acknowledge)
+22     |  16  | SYN (synchronous idle)
+23     |  17  | ETB (end of transmission block)
+24     |  18  | CAN (cancel)
+25     |  19  | EM (end of medium)
+26     |  1a  | SUB (substitute)
+27     |  1b  | ESC (escape)
+28     |  1c  | FS (file separator)
+29     |  1d  | GS (group separator)
+30     |  1e  | RS (record separator)
+31     |  1f  | US (unit separator)
+32     |  20  | (space)
+33     |  21  | !
+34     |  22  | "
+35     |  23  | #
+36     |  24  | $
+37     |  25  | %
+38     |  26  | &
+39     |  27  | '
+40     |  28  | (
+41     |  29  | )
+42     |  2a  | *
+43     |  2b  | +
+44     |  2c  | ,
+45     |  2d  | -
+46     |  2e  | .
+47     |  2f  | /
+48     |  30  | 0
+49     |  31  | 1
+50     |  32  | 2
+51     |  33  | 3
+52     |  34  | 4
+53     |  35  | 5
+54     |  36  | 6
+55     |  37  | 7
+56     |  38  | 8
+57     |  39  | 9
+58     |  3a  | :
+59     |  3b  | ;
+60     |  3c  | <
+61     |  3d  | =
+62     |  3e  | >
+63     |  3f  | ?
+64     |  40  | @
+65     |  41  | A
+66     |  42  | B
+67     |  43  | C
+68     |  44  | D
+69     |  45  | E
+70     |  46  | F
+71     |  47  | G
+72     |  48  | H
+73     |  49  | I
+74     |  4a  | J
+75     |  4b  | K
+76     |  4c  | L
+77     |  4d  | M
+78     |  4e  | N
+79     |  4f  | O
+80     |  50  | P
+81     |  51  | Q
+82     |  52  | R
+83     |  53  | S
+84     |  54  | T
+85     |  55  | U
+86     |  56  | V
+87     |  57  | W
+88     |  58  | X
+89     |  59  | Y
+90     |  5a  | Z
+91     |  5b  | [
+92     |  5c  | \
+93     |  5d  | ]
+94     |  5e  | ^
+95     |  5f  | _
+96     |  60  | `
+97     |  61  | a
+98     |  62  | b
+99     |  63  | c
+100    |  64  | d
+101    |  65  | e
+102    |  66  | f
+103    |  67  | g
+104    |  68  | h
+105    |  69  | i
+106    |  6a  | j
+107    |  6b  | k
+108    |  6c  | l
+109    |  6d  | m
+110    |  6e  | n
+111    |  6f  | o
+112    |  70  | p
+113    |  71  | q
+114    |  72  | r
+115    |  73  | s
+116    |  74  | t
+117    |  75  | u
+118    |  76  | v
+119    |  77  | w
+120    |  78  | x
+121    |  79  | y
+122    |  7a  | z
+123    |  7b  | {
+124    |  7c  | |
+125    |  7d  | }
+126    |  7e  | ~
+127    |  7f  | DEL (delete)
+128    |  80  | prints: "riomhaireRua"
+129    |  81  | ? (unused)
+130    |  82  | ? (unused)
+131    |  83  | ? (unused)
+132    |  84  | ? (unused)
+133    |  85  | ? (unused)
+134    |  86  | ? (unused)
+135    |  87  | ? (unused)
+136    |  88  | ? (unused)
+137    |  89  | ? (unused)
+138    |  8a  | ? (unused)
+139    |  8b  | ? (unused)
+140    |  8c  | ? (unused)
+141    |  8d  | ? (unused)
+142    |  8e  | ? (unused)
+143    |  8f  | ? (unused)
+144    |  90  | ? (unused)
+145    |  91  | ? (unused)
+146    |  92  | ? (unused)
+147    |  93  | ? (unused)
+148    |  94  | ? (unused)
+149    |  95  | ? (unused)
+150    |  96  | ? (unused)
+151    |  97  | ? (unused)
+152    |  98  | ? (unused)
+153    |  99  | ? (unused)
+154    |  9a  | ? (unused)
+155    |  9b  | ? (unused)
+156    |  9c  | ? (unused)
+157    |  9d  | ? (unused)
+158    |  9e  | ? (unused)
+159    |  9f  | ? (unused)
+160    |  a0  | ? (unused)
+161    |  a1  | ? (unused)
+162    |  a2  | ? (unused)
+163    |  a3  | ? (unused)
+164    |  a4  | ? (unused)
+165    |  a5  | ? (unused)
+166    |  a6  | ? (unused)
+167    |  a7  | ? (unused)
+168    |  a8  | ? (unused)
+169    |  a9  | ? (unused)
+170    |  aa  | ? (unused)
+171    |  ab  | ? (unused)
+172    |  ac  | ? (unused)
+173    |  ad  | ? (unused)
+174    |  ae  | ? (unused)
+175    |  af  | ? (unused)
+176    |  b0  | ? (unused)
+177    |  b1  | ? (unused)
+178    |  b2  | ? (unused)
+179    |  b3  | ? (unused)
+180    |  b4  | ? (unused)
+181    |  b5  | ? (unused)
+182    |  b6  | ? (unused)
+183    |  b7  | ? (unused)
+184    |  b8  | ? (unused)
+185    |  b9  | ? (unused)
+186    |  ba  | ? (unused)
+187    |  bb  | ? (unused)
+188    |  bc  | ? (unused)
+189    |  bd  | ? (unused)
+190    |  be  | ? (unused)
+191    |  bf  | ? (unused)
+192    |  c0  | ? (unused)
+193    |  c1  | ? (unused)
+194    |  c2  | ? (unused)
+195    |  c3  | ? (unused)
+196    |  c4  | ? (unused)
+197    |  c5  | ? (unused)
+198    |  c6  | ? (unused)
+199    |  c7  | ? (unused)
+200    |  c8  | ? (unused)
+201    |  c9  | ? (unused)
+202    |  ca  | ? (unused)
+203    |  cb  | ? (unused)
+204    |  cc  | ? (unused)
+205    |  cd  | ? (unused)
+206    |  ce  | ? (unused)
+207    |  cf  | ? (unused)
+208    |  d0  | ? (unused)
+209    |  d1  | ? (unused)
+210    |  d2  | ? (unused)
+211    |  d3  | ? (unused)
+212    |  d4  | ? (unused)
+213    |  d5  | ? (unused)
+214    |  d6  | ? (unused)
+215    |  d7  | ? (unused)
+216    |  d8  | ? (unused)
+217    |  d9  | ? (unused)
+218    |  da  | ? (unused)
+219    |  db  | ? (unused)
+220    |  dc  | ? (unused)
+221    |  dd  | ? (unused)
+222    |  de  | ? (unused)
+223    |  df  | ? (unused)
+224    |  e0  | ? (unused)
+225    |  e1  | ? (unused)
+226    |  e2  | ? (unused)
+227    |  e3  | ? (unused)
+228    |  e4  | ? (unused)
+229    |  e5  | ? (unused)
+230    |  e6  | ? (unused)
+231    |  e7  | ? (unused)
+232    |  e8  | ? (unused)
+233    |  e9  | ? (unused)
+234    |  ea  | ? (unused)
+235    |  eb  | ? (unused)
+236    |  ec  | ? (unused)
+237    |  ed  | ? (unused)
+238    |  ee  | ? (unused)
+239    |  ef  | ? (unused)
+240    |  f0  | ? (unused)
+241    |  f1  | ? (unused)
+242    |  f2  | ? (unused)
+243    |  f3  | ? (unused)
+244    |  f4  | ? (unused)
+245    |  f5  | ? (unused)
+246    |  f6  | ? (unused)
+247    |  f7  | ? (unused)
+248    |  f8  | ? (unused)
+249    |  f9  | ? (unused)
+250    |  fa  | ? (unused)
+251    |  fb  | ? (unused)
+252    |  fc  | ? (unused)
+253    |  fd  | ? (unused)
+254    |  fe  | ? (unused)
+255    |  ff  | ? (unused)
