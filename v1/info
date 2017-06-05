@@ -43,24 +43,30 @@ Max Program Size: 256 commands
      -- Instruction Set --     
 -- Overview -------------------
 
-Compiler Commands
+- Compiler Commands
     // comments
     # included file 
     :: tag
 
-Flow Control
-    nop          
-    goto tag       
-    ifBitFlow f b
-File Actions
-    clear f      
-    flip f       
-    inc f        
-    lShift f     
-File on File Actions
-    copy f f     
-    nand f f     
-    add f f      
+- Language Commands
+|------------------------|-----------------------|
+|       Code Name        |     Compiled Code     |
+|------------------------|-----------------------|
+| Flow Control --------- |                       |
+|     nop                |         0xxxx         |
+|     goto tag           |         1nnxx         |
+|     ifBitFlow f b      |         2nnxn         |
+| File Actions --------- |                       |
+|     clear f            |         3nnxx         |
+|     flip f             |         4nnxx         |
+|     inc f              |         5nnxx         |
+|     lShift f           |         6nnxx         |
+| File on File Actions - |                       |
+|     copy f f           |         7nnnn         |
+|     nand f f           |         8nnnn         |
+|     add f f            |         9nnnn         |
+|------------------------|-----------------------|
+
 
 -- Details --------------------
 ---- // comments
@@ -92,6 +98,14 @@ File on File Actions
 
     - usage example:
         nop
+
+---- goto
+        goes to the commnad following
+    the named tag
+
+    - usage example:
+        goto:myTag
+        ::myTag
 
 ---- ifBitFlow
         Tests value of a selected 
