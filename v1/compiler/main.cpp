@@ -4,6 +4,8 @@
 #include <vector>
 #include <unordered_map>
 
+#include "errorHandler.h"
+
 #include "importHandler.cpp"
 #include "commentHandler.cpp"
 #include "tagHandler.cpp"

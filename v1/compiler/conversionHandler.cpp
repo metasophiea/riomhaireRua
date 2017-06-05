@@ -51,15 +51,15 @@ std::vector<std::string> splitString(std::string line){
     return output;
 }
 
-std::vector<std::string> conversionHandler(std::vector<std::string> program, unsigned int byteSize){
+std::vector<std::string> conversionHandler(std::vector<std::string> program, unsigned int byteSize, errorHandler errorHandler){
     std::vector<std::string> thisCommand, result; 
     std::string temp;
 
     for(unsigned int a = 0; a < program.size(); a++){
         thisCommand = splitString(program[a]);
-        if( thisCommand.size() > 3 ){ std::cout << "unknown command: " << program[a] << std::endl; return std::vector<std::string>(); }
-        if( thisCommand.size() > 1 ){ if( !testForHexNumber(thisCommand[1]) ){ std::cout << "unknown command: " << program[a] << std::endl; return std::vector<std::string>(); } }
-        if( thisCommand.size() > 2 ){ if( !testForHexNumber(thisCommand[2]) ){ std::cout << "unknown command: " << program[a] << std::endl; return std::vector<std::string>(); } }
+        if( thisCommand.size() > 3 ){ errorHandler.reportError("unknown command",program[a]); return std::vector<std::string>(); }
+        if( thisCommand.size() > 1 ){ if( !testForHexNumber(thisCommand[1]) ){ errorHandler.reportError("unknown command",program[a]); return std::vector<std::string>(); } }
+        if( thisCommand.size() > 2 ){ if( !testForHexNumber(thisCommand[2]) ){ errorHandler.reportError("unknown command",program[a]); return std::vector<std::string>(); } }
 
         if(     thisCommand[0].find("nop") != std::string::npos         ){ temp = "00000"; }
         else if(thisCommand[0].find("goto") != std::string::npos        ){ temp = "1" + localSizeHex(thisCommand[1],byteSize) + "00"; }
@@ -71,7 +71,7 @@ std::vector<std::string> conversionHandler(std::vector<std::string> program, uns
         else if(thisCommand[0].find("copy") != std::string::npos        ){ temp = "7" + localSizeHex(thisCommand[1],byteSize) + localSizeHex(thisCommand[2],byteSize);}
         else if(thisCommand[0].find("nand") != std::string::npos        ){ temp = "8" + localSizeHex(thisCommand[1],byteSize) + localSizeHex(thisCommand[2],byteSize);}
         else if(thisCommand[0].find("add") != std::string::npos         ){ temp = "9" + localSizeHex(thisCommand[1],byteSize) + localSizeHex(thisCommand[2],byteSize);}
-        else{ std::cout << "unknown command: " << thisCommand[0] << std::endl; return std::vector<std::string>(); }
+        else{ errorHandler.reportError("unknown command",program[a]); return std::vector<std::string>(); }
 
         result.push_back(temp);
     }

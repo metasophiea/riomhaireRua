@@ -9,7 +9,7 @@ executer::~executer(){}
 
 void executer::update(){
     memory.setBit( 1, 0, logicUnit.isZero() );
-    memory.setBit( 1, 1, logicUnit.isCarry() );
+    memory.setBit( 1, 1, logicUnit.isOverflow() );
 }
 
 unsigned int executer::nextCommandNumber(){return programCounter;}

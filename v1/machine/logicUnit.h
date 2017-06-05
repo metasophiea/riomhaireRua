@@ -7,7 +7,7 @@ class logicUnit: public bareMetal
 {
     private:
         bool zero;
-        bool carry;
+        bool overflow;
         virtual std::string analyseAndReturn(std::string result);
 
     public:
@@ -15,7 +15,7 @@ class logicUnit: public bareMetal
         virtual ~logicUnit();
 
         virtual bool isZero();
-        virtual bool isCarry();
+        virtual bool isOverflow();
 
         virtual std::string pass( std::string value );
 

@@ -1,9 +1,13 @@
 std::vector<std::string> compiler(std::vector<std::string> program, unsigned int maxProgramLength, unsigned int memorySize, unsigned int byteSize, std::string inputFileFolder){
+    //set up error handler
+        errorHandler errorHandler;
+        errorHandler.importMainProgram(program);
+ 
     //check for imports and do imports
         //find file (stop if can't be found)
         //paste text in from where this import was
         //remove import command
-    program = importHandler(program,inputFileFolder); if(program.empty()){
+    program = importHandler(program,inputFileFolder,errorHandler); if(program.empty()){
         std::cout << "compilation failed - import issue" << std::endl;
         return std::vector<std::string>();
     }
@@ -11,7 +15,7 @@ std::vector<std::string> compiler(std::vector<std::string> program, unsigned int
     //check for comments, tabs/spacing and blank lines; and remove
         //look for slash
         //no second slash -> stop
-    program = commentHandler(program); if(program.empty()){
+    program = commentHandler(program,errorHandler); if(program.empty()){
         std::cout << "compilation failed - comment issue" << std::endl;
         return std::vector<std::string>();
     }
@@ -22,7 +26,7 @@ std::vector<std::string> compiler(std::vector<std::string> program, unsigned int
         //remove tag
         //if line number is larger than maxProgramLength -> stop
         //go through code again, replace goto:X tags with line numbers (in HEX) from tag list
-    program = tagHandler(program); if(program.empty()){
+    program = tagHandler(program,errorHandler); if(program.empty()){
         std::cout << "compilation failed - tagging issue" << std::endl;
         return std::vector<std::string>();
     }  
@@ -38,7 +42,7 @@ std::vector<std::string> compiler(std::vector<std::string> program, unsigned int
         //unknown command -> stop
         //adjust hex number to suit architecture
         //command references file beyond memorySize -> stop
-    program = conversionHandler(program,byteSize); if(program.empty()){
+    program = conversionHandler(program,byteSize,errorHandler); if(program.empty()){
         std::cout << "compilation failed - conversion issue" << std::endl;
         return std::vector<std::string>();
     }

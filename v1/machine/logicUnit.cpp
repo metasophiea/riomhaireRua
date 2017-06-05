@@ -6,19 +6,19 @@ logicUnit::logicUnit(unsigned int bitCount):
 bareMetal(bitCount)
 {
     zero = false;
-    carry = false;
+    overflow = false;
 }
 logicUnit::~logicUnit(){}
 
 std::string logicUnit::analyseAndReturn(std::string result){
-    if( checkForComplyingLength(result) == 1 ){ carry = true; }else{ carry = false; } 
+    if( checkForComplyingLength(result) == 1 ){ overflow = true; }else{ overflow = false; } 
     result = localSizeHex(result);
     if( HEXtoUINT(result) == 0 ){ zero = true; }else{ zero = false; }
     return result;
 }
 
 bool logicUnit::isZero(){return zero;}
-bool logicUnit::isCarry(){return carry;}
+bool logicUnit::isOverflow(){return overflow;}
 
 
 std::string logicUnit::pass( std::string value ){ return analyseAndReturn(value); }

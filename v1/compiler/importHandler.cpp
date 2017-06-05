@@ -26,7 +26,7 @@ std::vector<std::string> importHandler_getFile(std::string fileName){
 }
 
 //go through file, looking for import commands. When found; get the file and paste the code in place. Do so in a recursive manor
-std::vector<std::string> importHandler(std::vector<std::string> program, std::string inputFileFolder, std::vector<std::string> importedFiles = std::vector<std::string>()){
+std::vector<std::string> importHandler(std::vector<std::string> program, std::string inputFileFolder, errorHandler errorHandler, std::vector<std::string> importedFiles = std::vector<std::string>()){
     std::vector<std::string> tempVector; std::string tempString;
     unsigned int lineCount = 0;
 
@@ -36,14 +36,16 @@ std::vector<std::string> importHandler(std::vector<std::string> program, std::st
             //parse file to have correct address
                 tempString = importHandler_parseFileAddress(program[a],inputFileFolder);
             //check if file exists, if so import it. If not; complain and return empty vector
-                if(!importHandler_doesFileExist(tempString)){ std::cout << "import file not found: " << std::endl << lineCount << " | "<< program[a] << std::endl; return std::vector<std::string>(); }
+                if(!importHandler_doesFileExist(tempString)){ errorHandler.reportError("import file not found",program[a]); return std::vector<std::string>(); }
                 tempVector = importHandler_getFile(tempString);
+            //add file to error handler list
+                errorHandler.addFile(tempString);
             //add file name to list of files already imported
                 tempString = program[a]; 
                 tempString.erase(0,1);
                 importedFiles.push_back(tempString);
             //go through this file in a recursive manor to look for import code
-                tempVector = importHandler(tempVector,inputFileFolder,importedFiles); if(tempVector.empty()){ std::cout << "error within imported file related to line " << lineCount << " in the file \"" << tempString << "\"" << std::endl; return std::vector<std::string>(); }
+                tempVector = importHandler(tempVector,inputFileFolder,errorHandler,importedFiles); if(tempVector.empty()){ return std::vector<std::string>(); }
             //paste imported code into file
                 std::vector<std::string>::iterator it = program.begin();
                 program.insert(it+a+1, tempVector.begin(), tempVector.end());

@@ -1,0 +1,32 @@
+-- Memory Layout -- 
+    MaxSize: 256 bytes
+    MaxProgramSize: 65536 commands
+    8 Bits each
+
+    0 - Program Counter High
+    1 - Program Counter Low
+    2 - Logic Unit Flags
+        0, 0, 0, 0, 0, Underflow, Overflow, Zero
+    2 - port (console)
+    3 - Visual Port Access
+    4 - Visual Port Address
+    5 -> 255 - free use
+
+-- Instruction Set --
+Flow control
+    nop                 | 0xxxx
+    goto l              | 1nnxx
+    ifBitFlow f b       | 2nnxn
+    ifBitSkip f b       | 3nnxn
+File Actions
+    clear f             | 4nnxx
+    set f l             | 5nnnn
+    flip f              | 6nnxx
+    inc f               | 7nnxx
+    dec f               | 8nnxx
+    lShift f            | 9nnxx
+    rShift f            | annxx
+File on File Actions
+    copy f f            | bnnnn
+    nand f f            | cnnnn
+    add f f             | dnnnn

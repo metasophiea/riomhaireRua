@@ -22,7 +22,7 @@ inc:10
 lShift:10
 copy:10:02
 copy:10:02
-//put this value in file 20 for later
+//put this value in byte 20 for later
 copy:10:20
 
 clear:10

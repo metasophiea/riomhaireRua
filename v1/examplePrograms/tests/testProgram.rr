@@ -8,8 +8,8 @@ clear:10
 //comment
 inc:10
 flip:10
-goto:tag
-::tag
+goto:tag //strange comment
+::tag//other comment
 lShift:10
 ifBitFlow:10:0
 copy:10:11
