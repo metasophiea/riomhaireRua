@@ -11,12 +11,12 @@ Max Program Size: 256 commands
     3 -> 255 - Regular storage
 
 -- Details --------------------
--   0 - Program Counter
+--- 0 - Program Counter
         this byte contains the number of
     the next command in the program to be
     run.
 
--   1 - Logic Unit Flags
+--- 1 - Logic Unit Flags
         Each bit contains information on
     calculations that have just been done
     by the logic unit. 
@@ -25,7 +25,7 @@ Max Program Size: 256 commands
         - "Zero" means the number was zero
     The rest of the bits are unused
 
--   2 - Console Port
+--- 2 - Console Port
         This is an access port to the console.
     Writing bits to this will print that bit 
     to the console. Writing a byte will print
@@ -35,7 +35,7 @@ Max Program Size: 256 commands
     the console to get an up to 2 digit hex 
     number
 
--   3 -> 255 - regular storage
+--- 3 -> 255 - regular storage
         These bytes can be used for regular
     storage of values.
 
@@ -63,35 +63,92 @@ File on File Actions
     add f f      
 
 -- Details --------------------
--   // comments
+---- // comments
         All text after a double
     slash, will be removed during
     compilation
     
-    usage example:
+    - usage example:
         //This text will be removed
 
--   # included file 
+---- # included file 
         A file's contents will 
     replace this code
 
-    usage example:
+    - usage example:
         #file.rr
 
--   :: tag
+---- :: tag
         Used with goto commands.
     tag must have no spaces in them
 
-    usage example:
+    - usage example:
         goto:myTag
         ::myTag
 
--   nop
+---- nop
         No action will be taken
     (useful for timing)
 
-    usage example:
+    - usage example:
         nop
+
+---- ifBitFlow
+        Tests value of a selected 
+    bit in the chosen byte. If this
+    bit is '1' execution continues as 
+    normal. If not, the command that 
+    follows this one is skipped.
+
+    - usage example:
+        ifBitFlow:10:0
+
+---- clear
+        Sets the value of a byte 
+    to zero
+
+    - usage example:
+        clear:10
+
+---- flip
+        Flips the bits in a byte
+
+    - usage example:
+        flip:10
+
+---- inc
+        Adds 1 to a byte
+
+    - usage example:
+        inc:10
+
+---- lShift
+        Left rotate shifts a byte
+
+    - usage example:
+        lShift:10
+
+---- copy
+        Copies the value of one byte
+    into another
+
+    - usage example:
+        copy:10:20
+
+---- nand
+        Nands the bits of a byte with
+    those of another, placing the
+    result in the second byte
+
+    - usage example:
+        nand:10:20
+
+---- add
+        Adds two bytes together, placing
+    the result in the second byte
+
+    - usage example:
+        add:10:20
 
 
         -- Extra Info --        
