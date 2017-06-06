@@ -5,6 +5,10 @@
 
 class visualDisplay: public bareMetal
 {
+    private:
+        unsigned int width, height;
+        static std::vector<std::string>  pixelArray;
+        std::string selectedPixel;
 
     public:
         visualDisplay(unsigned int bitCount, unsigned int width, unsigned int height);
@@ -19,6 +23,14 @@ class visualDisplay: public bareMetal
         virtual void setPixelByte(std::string value);
         virtual std::string getAddressByte();
         virtual std::string getPixelByte();    
+
+        virtual void display();
+
+    //openGL functions
+    public:
+        static void setUp();
+    private:
+        static void render();
 
 };
 

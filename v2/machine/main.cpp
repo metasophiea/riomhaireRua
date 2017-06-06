@@ -27,7 +27,9 @@ int main(int argumentCount, char *arguments[]){
         programManager machine = programManager(bitCount,memorySize,programSize);
 
     //load in program
-        std::ifstream inputFile(arguments[1]); std::string line;
+        std::ifstream inputFile(arguments[1]); 
+        if( !inputFile.good() ){ std::cout << "machine failed to start - provided file does not exist" << std::endl; return 3;}
+        std::string line;
         while(getline( inputFile, line )){ machine.appendCommand(line); }
 
     //run, and print memory when all is done

@@ -11,7 +11,12 @@ accessManager::accessManager(unsigned int bitCount, unsigned int memorySize):
 accessManager::~accessManager(){}
 
 unsigned int accessManager::size()                                          { return memoryBlock.size(); }
-void accessManager::display(){ memoryBlock.display(); }
+void accessManager::display(){ 
+    std::cout << "Internal Memory" << std::endl;
+    memoryBlock.display(); 
+    std::cout << std::endl << "Visual Display Memory" << std::endl;
+    visual.display();
+}
 
 bool accessManager::getBit(std::string byte, unsigned int bit)              { return getBit(HEXtoUINT(byte),bit); }
 void accessManager::setBit(std::string byte, unsigned int bit, bool value)  { setBit(HEXtoUINT(byte),bit,value); }

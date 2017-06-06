@@ -48,14 +48,14 @@ Max Program Size: 65536 commands
     - RRRGGGBB
 
     Example Colours:
-    - Black   : 00000000
-    - White   : 11111111
-    - Red     : 11100000
-    - Green   : 00011100
-    - Blue    : 00000011
-    - Yellow  : 11111100
-    - Fuchsia : 11100011
-    - Aqua    : 00011111
+    - Black   : 00000000 : 00
+    - White   : 11111111 : ff
+    - Red     : 11100000 : e0
+    - Green   : 00011100 : 1c
+    - Blue    : 00000011 : 03
+    - Yellow  : 11111100 : fc
+    - Fuchsia : 11100011 : e3
+    - Aqua    : 00011111 : 1f
 
 
 --- 5 - Visual Port Address
