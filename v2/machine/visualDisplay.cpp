@@ -2,7 +2,6 @@
 #include <vector>
 
 #include "visualDisplay.h"
-#include <Cocoa/Cocoa.h>
 
 visualDisplay::visualDisplay(unsigned int bitCount, unsigned int width, unsigned int height):
     bareMetal(bitCount),
@@ -29,10 +28,10 @@ void visualDisplay::setPixelBit         (unsigned int bit, bool value){
     pixelArray[HEXtoUINT(selectedPixel)] = BINtoHEX(temp); 
 }
 bool visualDisplay::getAddressBit       (unsigned int bit){return HEXtoBIN(selectedPixel)[bit];}
-bool visualDisplay::getPixelBit         (unsigned int bit){return HEXtoBIN(pixelArray[HEXtoUINT(selectedPixel)])[bit]; render();}
+bool visualDisplay::getPixelBit         (unsigned int bit){return HEXtoBIN(pixelArray[HEXtoUINT(selectedPixel)])[bit];}
 
 void visualDisplay::setAddressByte          (std::string value){ selectedPixel = value;}
-void visualDisplay::setPixelByte            (std::string value){ pixelArray[HEXtoUINT(selectedPixel)] = value; render();}
+void visualDisplay::setPixelByte            (std::string value){ pixelArray[HEXtoUINT(selectedPixel)] = value; }
 std::string visualDisplay::getAddressByte   (){return selectedPixel;}
 std::string visualDisplay::getPixelByte     (){return pixelArray[HEXtoUINT(selectedPixel)];}
 
@@ -62,6 +61,6 @@ void visualDisplay::display(){
         }
 }
 
-    //openGL functions
+    //graphical functions
     void visualDisplay::setUp(){}
     void visualDisplay::render(){}
