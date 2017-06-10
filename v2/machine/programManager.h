@@ -18,6 +18,7 @@ class programManager
         virtual void load(std::string program[], unsigned int programLength);
         virtual void appendCommand(std::string command);
         virtual void run();
+        virtual void stop();
         virtual void printMemory();
 
 };

@@ -1,17 +1,22 @@
 #ifndef _INCL_GUARD_HEX_UINT_visualDisplay
 #define _INCL_GUARD_HEX_UINT_visualDisplay
+#include <iostream>
+#include <vector>
+#include <GLFW/glfw3.h>
 
 #include "bareMetal.h"
 
 class visualDisplay: public bareMetal
 {
     private:
-        unsigned int width, height;
-        static std::vector<std::string>  pixelArray;
+        unsigned int pixelCountX, pixelCountY, windowWidth, windowHeight;
+        float pixelWidth, pixelHeight;
+        std::vector<std::string> pixelArray;
         std::string selectedPixel;
+        GLFWwindow* window;
 
     public:
-        visualDisplay(unsigned int bitCount, unsigned int width, unsigned int height);
+        visualDisplay(unsigned int bitCount, unsigned int pixelCountX, unsigned int pixelCountY, unsigned int windowWidth, unsigned int windowHeight);
         virtual ~visualDisplay();
 
         virtual void setAddressBit(unsigned int bit, bool value);
@@ -26,11 +31,15 @@ class visualDisplay: public bareMetal
 
         virtual void display();
 
-    //openGL functions
+    //graphical functions
     public:
-        static void setUp();
+        virtual void setUp();
+        virtual void shutDown();
     private:
-        static void render();
+        virtual void render();
+        virtual float eightBitColour_extractRed(std::string colourHEX);
+        virtual float eightBitColour_extractGreen(std::string colourHEX);
+        virtual float eightBitColour_extractBlue(std::string colourHEX);
 
 };
 

@@ -6,7 +6,7 @@ accessManager::accessManager(unsigned int bitCount, unsigned int memorySize):
     bareMetal(bitCount),
     memoryBlock(bitCount, memorySize),
     console(bitCount),
-    visual(bitCount,16,16)
+    visual(bitCount,16,16,500,500)
     {}
 accessManager::~accessManager(){}
 

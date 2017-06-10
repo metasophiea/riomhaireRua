@@ -9,4 +9,4 @@ g++ -c accessManager.cpp
 g++ -c executer.cpp
 g++ -c programManager.cpp 
 
-g++ main.cpp *.o -o rua
+g++ main.cpp *.o -o rua  -framework OpenGL -lglfw3

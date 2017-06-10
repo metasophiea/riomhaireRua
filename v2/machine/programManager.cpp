@@ -29,6 +29,9 @@ void programManager::run(){
         if( nextCommand >= programLength || nextCommand >= maxProgramLength ){ break; }
         executer.runCommand(program[nextCommand]); 
     }
+    stop();
 }
+
+void programManager::stop(){}
 
 void programManager::printMemory(){executer.printMemory();}
