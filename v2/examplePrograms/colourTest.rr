@@ -1,14 +1,14 @@
 //background
-::loop
-    copy:10:05
-    inc:4
-    inc:10
-    inc:10
-    inc:11
-ifBitFlow:02:1
-goto:afterLoop
-goto:loop
-::afterLoop
+    ::loop
+        copy:10:05
+        inc:4
+        inc:10
+        inc:10
+        inc:11
+    ifBitFlow:02:1
+    goto:afterLoop
+    goto:loop
+    ::afterLoop
 
 //smile
     set:4:43
