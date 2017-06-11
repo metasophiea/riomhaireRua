@@ -21,6 +21,14 @@
         "tuple": "cpp",
         "unordered_map": "cpp",
         "typeinfo": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "array": "cpp",
+        "strstream": "cpp",
+        "csignal": "cpp",
+        "slist": "cpp",
+        "iomanip": "cpp",
+        "stdexcept": "cpp",
+        "valarray": "cpp",
+        "*.ipp": "cpp"
     }
 }
