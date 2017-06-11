@@ -8,5 +8,5 @@ goto:afterLoop
 goto:loop
 ::afterLoop
 
-::infLoop
-goto:infLoop
+//::infLoop
+//goto:infLoop

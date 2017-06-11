@@ -1,4 +1,5 @@
 #!/bin/bash
+# needs boost and GLFW libraries
 
 g++ -c bareMetal.cpp
 g++ -c logicUnit.cpp
@@ -9,4 +10,6 @@ g++ -c accessManager.cpp
 g++ -c executer.cpp
 g++ -c programManager.cpp 
 
-g++ main.cpp *.o -o rua  -framework OpenGL -lglfw3
+g++ displayUnit.cpp -o displayUnit -framework OpenGL -lglfw3
+
+g++ main.cpp *.o -o rua
