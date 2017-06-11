@@ -23,8 +23,10 @@ typedef boost::interprocess::vector   <float, ShmemAllocator> PixelVector;
         #define visualDisplay_pixelCountX  "pixelCountX" 
 
 int main(void){
-    //collect shared memory data
+    //attempt to collect shared memory data
+    try{
         boost::interprocess::managed_shared_memory segment(boost::interprocess::open_only, visualDisplay_sharedMemorySpaceName);
+
         PixelVector  *pixels       = segment.find<PixelVector> (visualDisplay_pixelMemory ).first;
         unsigned int *control      = segment.find<unsigned int>(visualDisplay_control     ).first;
         float        *pixelHeight  = segment.find<float>       (visualDisplay_pixelHeight ).first;
@@ -34,34 +36,40 @@ int main(void){
         unsigned int *pixelCountY  = segment.find<unsigned int>(visualDisplay_pixelCountY ).first;
         unsigned int *pixelCountX  = segment.find<unsigned int>(visualDisplay_pixelCountX ).first;
 
-    //setup window
-        GLFWwindow* window;
-        glfwInit();
-        window = glfwCreateWindow(*windowHeight, *windowWidth, "Rua - Visual Display", NULL, NULL);
-        glfwMakeContextCurrent(window);
+        //setup window
+            GLFWwindow* window;
+            glfwInit();
+            window = glfwCreateWindow(*windowWidth, *windowHeight, "Rua - Visual Display", NULL, NULL);
+            glfwMakeContextCurrent(window);
+            glfwSwapInterval(1);
 
-    //rendering loop
-        while(!glfwWindowShouldClose(window)){
-            if(*control == 1){break;}
+        //rendering loop
+            unsigned int selectedPixel;
+            while(!glfwWindowShouldClose(window)){
+                if(*control == 1){break;}
 
-            for(unsigned int y = 0; y < (*pixelCountY); y++){
-                for(unsigned int x = 0; x < (*pixelCountX); x++){
-                    glBegin(GL_QUADS);
-                    glColor3f( pixels->at( 3*(x + y*16) +0 ),pixels->at( 3*(x + y*16) +1 ),pixels->at( 3*(x + y*16) +2 )  ); 
-                    glVertex3f(    -1               + (*pixelWidth)*x ,  1                - (*pixelHeight)*y , 0.0f);
-                    glVertex3f(    -1+(*pixelWidth) + (*pixelWidth)*x ,  1                - (*pixelHeight)*y , 0.0f);
-                    glVertex3f(    -1+(*pixelWidth) + (*pixelWidth)*x ,  1-(*pixelHeight) - (*pixelHeight)*y , 0.0f);
-                    glVertex3f(    -1               + (*pixelWidth)*x ,  1-(*pixelHeight) - (*pixelHeight)*y , 0.0f);
-                    glEnd();
+                for(unsigned int y = 0; y < (*pixelCountY); y++){
+                    for(unsigned int x = 0; x < (*pixelCountX); x++){
+                        glBegin(GL_QUADS);
+                        selectedPixel = 3*(x + y*(*pixelCountX));
+                        glColor3f( pixels->at( selectedPixel+0 ),pixels->at( selectedPixel+1 ),pixels->at( selectedPixel+2 )  ); 
+                        glVertex3f(    -1               + (*pixelWidth)*x ,  1                - (*pixelHeight)*y , 0.0f);
+                        glVertex3f(    -1+(*pixelWidth) + (*pixelWidth)*x ,  1                - (*pixelHeight)*y , 0.0f);
+                        glVertex3f(    -1+(*pixelWidth) + (*pixelWidth)*x ,  1-(*pixelHeight) - (*pixelHeight)*y , 0.0f);
+                        glVertex3f(    -1               + (*pixelWidth)*x ,  1-(*pixelHeight) - (*pixelHeight)*y , 0.0f);
+                        glEnd();
+                    }
                 }
+
+                glfwSwapBuffers(window);
+                glfwWaitEvents();
             }
 
-            glfwSwapBuffers(window);
-            glfwPollEvents();
-        }
+        *control = 1;
+        glfwDestroyWindow(window);
+        glfwTerminate();
 
-    *control = 1;
-    glfwDestroyWindow(window);
-    glfwTerminate();
+    }catch(boost::interprocess::interprocess_exception e){ std::cout << "Boost error - could not find shared memory space" << std::endl; return 1;}
+        
     return 0;
 }

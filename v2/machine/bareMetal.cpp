@@ -150,7 +150,7 @@ std::string bareMetal::localSizeHex(std::string HEX){
     }
     else{
         std::string returnHEX;
-        for(unsigned int a = 0; a < bitCount/4; a++){ returnHEX += HEX[ HEX.length()-a-1  ]; }
+        for(unsigned int a = 0; a < bitCount/4; a++){ returnHEX += HEX[ HEX.length()-(bitCount/4) +a  ]; }
         return returnHEX;
     }
 }

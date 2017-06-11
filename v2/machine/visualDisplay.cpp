@@ -46,14 +46,14 @@
         setAddressByte(BINtoHEX(temp)); 
     }
     void visualDisplay::setPixelByte(std::string value){
-        unsigned int pixelNumber = HEXtoUINT(selectedPixel);
-        pixels->at( 3*pixelNumber+0 ) = eightBitColour_extractRed(value);
-        pixels->at( 3*pixelNumber+1 ) = eightBitColour_extractGreen(value);
-        pixels->at( 3*pixelNumber+2 ) = eightBitColour_extractBlue(value);
+        unsigned int pixelNumberByThree = HEXtoUINT(selectedPixel)*3;
+        pixels->at( pixelNumberByThree+0 ) = eightBitColour_extractRed(value);
+        pixels->at( pixelNumberByThree+1 ) = eightBitColour_extractGreen(value);
+        pixels->at( pixelNumberByThree+2 ) = eightBitColour_extractBlue(value);
     }
     void visualDisplay::setPixelBit(unsigned int bit, bool value){
-        unsigned int pixelNumber = HEXtoUINT(selectedPixel);
-        std::string temp = produceEightBitColourBin( pixels->at( pixelNumber+0 ),pixels->at( pixelNumber+1 ),pixels->at( pixelNumber+2 ) );
+        unsigned int pixelNumberByThree = HEXtoUINT(selectedPixel)*3;
+        std::string temp = produceEightBitColourBin( pixels->at( pixelNumberByThree+0 ),pixels->at( pixelNumberByThree+1 ),pixels->at( pixelNumberByThree+2 ) );
         if(value){ temp[bit] = '1'; }else{ temp[bit] = '0'; }
         setPixelByte(BINtoHEX(temp));
     }
@@ -62,42 +62,28 @@
     std::string visualDisplay::getAddressByte(){ return selectedPixel; }
     bool visualDisplay::getAddressBit(unsigned int bit){ if( HEXtoBIN(selectedPixel)[bit] == '1' ){ return true; }else{ return false; } }
     std::string visualDisplay::getPixelByte(){
-        unsigned int pixelNumber = HEXtoUINT(selectedPixel);
-        return BINtoHEX(produceEightBitColourBin( pixels->at( pixelNumber+0 ),pixels->at( pixelNumber+1 ),pixels->at( pixelNumber+2 ) ));
+        unsigned int pixelNumberByThree = HEXtoUINT(selectedPixel)*3;
+        return BINtoHEX(produceEightBitColourBin( pixels->at( pixelNumberByThree+0 ),pixels->at( pixelNumberByThree+1 ),pixels->at( pixelNumberByThree+2 ) ));
     }
     bool visualDisplay::getPixelBit(unsigned int bit){
-        unsigned int pixelNumber = HEXtoUINT(selectedPixel);
-        return produceEightBitColourBin( pixels->at( pixelNumber+0 ),pixels->at( pixelNumber+1 ),pixels->at( pixelNumber+2 ) )[bit];
-
+        unsigned int pixelNumberByThree = HEXtoUINT(selectedPixel)*3;
+        return produceEightBitColourBin( pixels->at( pixelNumberByThree+0 ),pixels->at( pixelNumberByThree+1 ),pixels->at( pixelNumberByThree+2 ) )[bit];
     }
 
 //pixel memory display funcsion
     void visualDisplay::display(){
-        //x axis numbering
-            for(unsigned int b = 0; b < getBitCount()/4; b++){ std::cout << " "; }
-            std::cout << " | ";
-            for(unsigned int a = 0; a < *pixelCountX; a++){
-                std::cout << localSizeHex(UINTtoHEX(a)) << " ";
-            }std::cout << std::endl;
+        //divider
+        for(unsigned int b = 0; b < *pixelCountX; b++){ std::cout << "--"; if( b < *pixelCountX-1 ){ std::cout << "-"; } }std::cout << std::endl;
 
-        //x axis divider
-            for(unsigned int b = 0; b < getBitCount()/4; b++){ std::cout << "-"; }
-            std::cout << "--";
-            for(unsigned int a = 0; a < *pixelCountX; a++){
-                std::cout << "-";
-                for(unsigned int b = 0; b < getBitCount()/4; b++){ std::cout << "-"; }
-            }std::cout << std::endl;
-
-        //y axis numbering, divider and data
-            unsigned int pixelNumber;
-            for(unsigned int a = 0; a < (*pixelCountY)*(*pixelCountX); a+=16){
-                std::cout << localSizeHex(UINTtoHEX(a)) << " | ";
-                for(unsigned int b = 0; b < *pixelCountX; b++){
-                    pixelNumber = 3*(a+b);
-                    std::cout << BINtoHEX(produceEightBitColourBin( pixels->at( pixelNumber+0 ),pixels->at( pixelNumber+1 ),pixels->at( pixelNumber+2 ) )) << " ";
-                }
-                std::cout << std::endl;
+        //print memory
+        unsigned int pixelNumber;
+        for(unsigned int a = 0; a < (*pixelCountY)*(*pixelCountX); a+=(*pixelCountX)){
+            for(unsigned int b = 0; b < *pixelCountX; b++){
+                pixelNumber = 3*(a+b);
+                std::cout << BINtoHEX(produceEightBitColourBin( pixels->at( pixelNumber+0 ),pixels->at( pixelNumber+1 ),pixels->at( pixelNumber+2 ) )) << " ";
             }
+            std::cout << std::endl;
+        }
     }
 
     //display control
@@ -115,16 +101,16 @@
     std::string visualDisplay::produceEightBitColourBin(float R, float G, float B){
         std::string bin = localSizeBIN(HEXtoBIN("0"));
 
-        if( (R - 0.571428571428571) >= 0 ){ bin[0] = '1'; }
-        if( (R - 0.285714285714286) >= 0 ){ bin[1] = '1'; }
-        if( (R - 0.142857142857143) >= 0 ){ bin[2] = '1'; }
+        if( (R - 0.571428571428571) >= 0 ){ R -= 0.571428571428571; bin[0] = '1'; }
+        if( (R - 0.285714285714286) >= 0 ){ R -= 0.285714285714286; bin[1] = '1'; }
+        if( (R - 0.142857142857143) >= 0 ){ R -= 0.142857142857143; bin[2] = '1'; }
 
-        if( (G - 0.571428571428571) >= 0 ){ bin[3] = '1'; }
-        if( (G - 0.285714285714286) >= 0 ){ bin[4] = '1'; }
-        if( (G - 0.142857142857143) >= 0 ){ bin[5] = '1'; }
+        if( (G - 0.571428571428571) >= 0 ){ G -= 0.571428571428571; bin[3] = '1'; }
+        if( (G - 0.285714285714286) >= 0 ){ G -= 0.285714285714286; bin[4] = '1'; }
+        if( (G - 0.142857142857143) >= 0 ){ G -= 0.142857142857143; bin[5] = '1'; }
 
-        if( (G - 0.666666666666667) >= 0 ){ bin[6] = '1'; }
-        if( (G - 0.333333333333333) >= 0 ){ bin[7] = '1'; }
+        if( (B - 0.666666666666667) >= 0 ){ B -= 0.666666666666667; bin[6] = '1'; }
+        if( (B - 0.333333333333333) >= 0 ){ B -= 0.333333333333333; bin[7] = '1'; }
 
         return bin;
     }

@@ -7,6 +7,7 @@ Max Program Size: 65536 commands
     0 - Program Counter High
     1 - Program Counter Low
     2 - Logic Unit Flags
+        7, 6, 5, 4, 3, 2,         1,        0
         0, 0, 0, 0, 0, Underflow, Overflow, Zero
     3 - port (console)
     4 - Visual Port Access
@@ -41,7 +42,12 @@ Max Program Size: 65536 commands
     the console to get an up to 2 digit hex 
     number
 
---- 4 - Visual Port Access
+--- 4 - Visual Port Address
+        This is the byte that determines which
+    pixel the byte visual access port is 
+    connected to
+
+--- 5 - Visual Port Access
         This is the access port to the pixels
     in the visual display. The bits refer to
     the colour as follows:
@@ -56,12 +62,6 @@ Max Program Size: 65536 commands
     - Yellow  : 11111100 : fc
     - Fuchsia : 11100011 : e3
     - Aqua    : 00011111 : 1f
-
-
---- 5 - Visual Port Address
-        This is the byte that determines which
-    pixel the byte visual access port is 
-    connected to
 
 --- 6 -> 255 - regular storage
         These bytes can be used for regular

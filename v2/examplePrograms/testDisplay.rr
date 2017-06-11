@@ -1,12 +1,8 @@
 ::loop
-    copy:10:04
     copy:11:05
-    inc:10  
+    inc:4
     inc:11
 ifBitFlow:02:1
 goto:afterLoop
 goto:loop
 ::afterLoop
-
-//::infLoop
-//goto:infLoop

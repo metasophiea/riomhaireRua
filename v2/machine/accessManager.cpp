@@ -38,8 +38,8 @@ void accessManager::setBit(unsigned int byte, unsigned int bit, bool value){
         case console_port: console.writeBit(value); break;
         case visual_AddressPort: visual.setAddressBit(bit,value); break;
         case visual_PixelPort: visual.setPixelBit(bit,value); break;
-        default: memoryBlock.setBit(byte,bit,value); break;
     }
+    memoryBlock.setBit(byte,bit,value);
 }
 std::string accessManager::getByte(unsigned int byte){
     switch(byte){
@@ -54,14 +54,14 @@ void accessManager::clearByte(unsigned int byte){
         case console_port: console.writeByte(localSizeHex("0")); break;
         case visual_AddressPort: visual.setAddressByte(localSizeHex("0")); break;
         case visual_PixelPort: visual.setPixelByte(localSizeHex("0")); break;
-        default: memoryBlock.clearByte(byte); break;
     }
+    memoryBlock.clearByte(byte);
 }
 void accessManager::setByte(unsigned int byte, std::string value){
     switch(byte){
         case console_port: console.writeByte(value); break;
         case visual_AddressPort: visual.setAddressByte(value); break;
         case visual_PixelPort: visual.setPixelByte(value); break;
-        default: memoryBlock.setByte(byte,value); break;
     }
+    memoryBlock.setByte(byte,value);
 }

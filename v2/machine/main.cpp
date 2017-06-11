@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <unistd.h>
 
 #include "programManager.h"
 
@@ -35,6 +36,7 @@ int main(int argumentCount, char *arguments[]){
         while(getline( inputFile, line )){ machine.appendCommand(line); }
 
     //run, and print memory when all is done
+        usleep(10000); //give display unit time to start and access memory
         machine.run();
         std::cout << std::endl << "program done - printing memory" << std::endl << std::endl;
         machine.printMemory();

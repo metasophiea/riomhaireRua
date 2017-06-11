@@ -1,0 +1,67 @@
+//background
+::loop
+    copy:10:05
+    inc:4
+    inc:10
+    inc:10
+    inc:11
+ifBitFlow:02:1
+goto:afterLoop
+goto:loop
+::afterLoop
+
+//smile
+    set:4:43
+    set:5:ff
+    set:4:44
+    set:5:ff
+    set:4:45
+    set:5:ff
+    set:4:46
+    set:5:ff
+    set:4:49
+    set:5:ff
+    set:4:4a
+    set:5:ff
+    set:4:4b
+    set:5:ff
+    set:4:4c
+    set:5:ff
+    set:4:52
+    set:5:ff
+    set:4:53
+    set:5:ff
+    set:4:5c
+    set:5:ff
+    set:4:5d
+    set:5:ff
+    set:4:9d
+    set:5:ff
+    set:4:9e
+    set:5:ff
+    set:4:ac
+    set:5:ff
+    set:4:ad
+    set:5:ff
+    set:4:b2
+    set:5:ff
+    set:4:b3
+    set:5:ff
+    set:4:ba
+    set:5:ff
+    set:4:bb
+    set:5:ff
+    set:4:c3
+    set:5:ff
+    set:4:c4
+    set:5:ff
+    set:4:c5
+    set:5:ff
+    set:4:c6
+    set:5:ff
+    set:4:c7
+    set:5:ff
+    set:4:c8
+    set:5:ff
+    set:4:c9
+    set:5:ff
