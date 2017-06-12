@@ -1,0 +1,107 @@
+    imagine all the pixels in a display as houses you can call. Each house has a unique phone number. Much like a real phone number; the position of
+the digits is important. Let's pretend that these phone numbers are all 10 digits long: 509-823-7234. These can be refered to by their position, so
+digit 1 is 5, digit 6 is 3, 2 is 0, etc. Using this system; one can select the digit they want to set, set that digit, then when all digits have been
+set; make the call.
+
+This system is very similar, but larger. And in Hex. And kinda silly, but here it is.
+
+port 1 - address dialer port selection port
+port 2 - address dialer port
+port 3 - pixel value access
+
+    With port 1, you select the digit in the phone number you want to set
+
+    With port 2, you set that digit's value
+
+    You use port 3 to communicate with the pixel who's phone number you set with the previous two ports
+
+---- ---- ---- ---- Visual Example 1 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+all ports are 8bit, meaning;
+- 8bit pixel colour
+- a pixel's phone number is 256 bytes long
+- a phone number digit is 8 bits long
+
+        -- a phone number --
+          |x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 xa xb xc xd xe xf
+        --|-----------------------------------------------
+        0x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        1x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        2x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        3x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        4x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        5x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        6x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        7x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        8x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        9x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        ax|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        bx|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        cx|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        dx|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        ex|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        fx|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+
+In this configuration, pixel 0 is selected, and we can work with it's value through port 3. If now we set port 1 to ff and then port 2 to 1; we get:
+
+          |x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 xa xb xc xd xe xf
+        --|-----------------------------------------------
+        0x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        1x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        2x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        3x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        4x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        5x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        6x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        7x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        8x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        9x|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        ax|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        bx|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        cx|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        dx|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        ex|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+        fx|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 
+
+Which is the phone number for pixel 1, and again we can work with it's value through port 3.
+
+In this system; the connected display has 8 bit colour, and a pixel count of 2^( 256*8 ) = 32317006071311007300714876688669951960444102669715484032130345427524655138867890893197201411522913463688717960921898019494119559150490921095088152386448283120630877367300996091750197750389652106796057638384067568276792218642619756161838094338476170470581645852036305042887575891541065808607552399123930385521914333389668342420684974786564569494856176035326322058077805659331026192708460314150258592864177116725943603718461857357598351152301645904403697613233287231227125684710820209725157101
+
+---- ---- ---- ---- Visual Example 2 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+port 1 - 4bit
+port 2 - 4bit
+port 3 - 8bit
+
+- 8bit pixel colour
+- a pixel's phone number is 16 bytes long
+- a phone number digit is 4 bits long
+
+        -- a phone number --
+        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+In this configuration, pixel 0 is selected, and we can work with it's value through port 3. If now we set port 1 to f and then port 2 to 1; we get:
+
+        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+
+Which is the phone number for pixel 1, and again we can work with it's value through port 3.
+
+In this system; the connected display has 8 bit colour, and a pixel count of 2^( 16*4 ) = 18446744073709551616
+
+---- ---- ---- ---- Visual Example 2 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+port 1 - 2bit
+port 2 - 2bit
+port 3 - 8bit
+
+- 8bit pixel colour
+- a pixel's phone number is 4 bytes long
+- a phone number digit is 2 bits long
+
+        -- a phone number --
+        0 0 0 0
+
+In this configuration, pixel 0 is selected, and we can work with it's value through port 3. If now we set port 1 to 3 and then port 2 to 1; we get:
+
+        0 0 0 1
+
+Which is the phone number for pixel 1, and again we can work with it's value through port 3.
+
+In this system; the connected display has 8 bit colour, and a pixel count of 2^( 4*2 ) = 256
