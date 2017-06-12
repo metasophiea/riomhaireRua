@@ -10,11 +10,12 @@ Max Program Size: 65536 commands
         7, 6, 5, 4, 3, 2,         1,        0
         0, 0, 0, 0, 0, Underflow, Overflow, Zero
     3 - port (console)
-    4 - Visual Port Address
-    5 - Visual Port Access
-    6 -> 255 - free use
+    4 - Visual Port Access
+    5 - Visual Port Address High
+    6 - Visual Port Address Low
+    7 -> 255 - free use
 
-    Visual Port: 16x16 - 8bit colour
+    Visual Port: 256x256 - 8bit colour
 
 -- Details -----------------------------------
 --- 0 - Program Counter High
@@ -44,12 +45,7 @@ Max Program Size: 65536 commands
     the console to get an up to 2 digit hex 
     number
 
---- 4 - Visual Port Address
-        This is the byte that determines which
-    pixel byte the visual access port is 
-    connected to
-
---- 5 - Visual Port Access
+--- 4 - Visual Port Access
         This is the access port to the pixels
     in the visual display. The bits refer to
     the colour as follows:
@@ -65,7 +61,13 @@ Max Program Size: 65536 commands
     - Fuchsia : 11100011 : e3
     - Aqua    : 00011111 : 1f
 
---- 6 -> 255 - regular storage
+--- 5 - Visual Port Address High
+--- 6 - Visual Port Address
+        These are the bytes that determines 
+    which pixel byte the visual access port is 
+    connected to
+
+--- 7 -> 255 - regular storage
         These bytes can be used for regular
     storage of values.
     
@@ -77,28 +79,36 @@ Max Program Size: 65536 commands
     // comments
     # included file 
     :: tag
+    > definition
 
 - Language Commands
 |------------------------|-------------------|
 |       Code Name        |   Compiled Code   |
 |------------------------|-------------------|
 | Flow Control --------- |                   |
-|     nop                |       0xxxx       |
-|     goto tag           |       1nnnn       |
-|     ifBitFlow f b      |       2nnxn       |
-|     ifBitSkip f b      |       3nnxn       |
+|     nop                |       00xxxx      |
+|     goto tag           |       01nnnn      |
+|     ifBitFlow f b      |       02nnxn      |
+|     ifBitSkip f b      |       03nnxn      |
+|     wait tt            |       04nnnn      |
 | File Actions --------- |                   |
-|     clear f            |       4nnxx       |
-|     set f n            |       5nnnn       |
-|     flip f             |       6nnxx       |
-|     inc f              |       7nnxx       |
-|     dec f              |       8nnxx       |
-|     lRotate f          |       9nnxx       |
-|     rRotate f          |       annxx       |
+|     clear f            |       05nnxx      |
+|     set f n            |       06nnnn      |
+|     neg f              |       07nnxx      |
+|     flip f             |       08nnxx      |
+|     inc f              |       09nnxx      |
+|     dec f              |       0annxx      |
+|     lRotate f          |       0bnnxx      |
+|     rRotate f          |       0cnnxx      |
 | File on File Actions - |                   |
-|     copy f f           |       bnnnn       |
-|     nand f f           |       cnnnn       |
-|     add f f            |       dnnnn       |
+|     copy f f           |       0dnnnn      |
+|     and f f            |       0ennnn      |
+|     nand f f           |       0fnnnn      |
+|     or f f             |       10nnnn      |
+|     nor f f            |       11nnnn      |
+|     xor f f            |       12nnnn      |
+|     add f f            |       13nnnn      |
+|     sub f f            |       14nnnn      |
 |------------------------|-------------------|
 
 -- Details -----------------------------------
@@ -122,6 +132,14 @@ Max Program Size: 65536 commands
     - usage example:
         goto:myTag
         ::myTag
+
+---- > definition
+        Used to define numbers that will be used
+    elsewhere
+
+    - usage example:    
+        > number:8
+        set:10:number
 
 ---- nop
         No action will be taken
@@ -156,6 +174,13 @@ Max Program Size: 65536 commands
     - usage example:
         ifBitSkip:10:0
 
+---- wait
+        Tells the system to pause execution
+    for the defined number of milliseconds
+
+    - usage example:
+        wait:03E8 //will wait for 1 second
+
 ---- clear
         Sets the value of a byte to zero
 
@@ -168,6 +193,13 @@ Max Program Size: 65536 commands
 
     - usage example:
         set:10:00
+
+---- neg
+        Sets the value in the selected
+    byte to the negitave of that number
+
+    - usage example:
+        neg:10
 
 ---- flip
         Flips the bits in a byte
@@ -206,13 +238,45 @@ Max Program Size: 65536 commands
     - usage example:
         copy:10:20
 
+---- and
+        'And's the bits of a byte with those 
+    of another, placing the result in the 
+    second byte
+
+    - usage example:
+        and:10:20
+
 ---- nand
-        Nands the bits of a byte with those of 
-    another, placing the result in the 
+        'Nand's the bits of a byte with those 
+    of  another, placing the result in the 
     second byte
 
     - usage example:
         nand:10:20
+
+---- or
+        'Or's the bits of a byte with those 
+    of another, placing the result in the 
+    second byte
+
+    - usage example:
+        or:10:20
+
+---- nor
+        'Nor's the bits of a byte with those 
+    of another, placing the result in the 
+    second byte
+
+    - usage example:
+        nor:10:20
+
+---- xor
+        'Xor's the bits of a byte with those 
+    of another, placing the result in the 
+    second byte
+
+    - usage example:
+        xor:10:20
 
 ---- add
         Adds two bytes together, placing the 
@@ -220,6 +284,13 @@ Max Program Size: 65536 commands
 
     - usage example:
         add:10:20
+
+---- sub
+        Subtracts a byte from another, 
+    placing the result in the second byte
+
+    - usage example:
+        sub:10:20
 
 ----------------------------------------------
 
