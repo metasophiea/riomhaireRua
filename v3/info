@@ -1,6 +1,6 @@
 Max Program Size: 65536 commands
 
-               -- Byte Access --
+               -- Byte Access -- 
 -- Address Space -----------------------------
     Size: 256 bytes - 8 Bits each
 
@@ -18,279 +18,279 @@ Max Program Size: 65536 commands
     Visual Port: 256x256 - 8bit colour
 
 -- Details -----------------------------------
---- 0 - Program Counter High
---- 1 - Program Counter Low
-        these bytes contain the number of
-    the next command in the program to be
-    run
+    --- 0 - Program Counter High
+    --- 1 - Program Counter Low
+            these bytes contain the number of
+        the next command in the program to be
+        run
 
---- 2 - Logic Unit Flags
-        Each bit contains information on
-    calculations that have just been done
-    by the logic unit. 
-        - "Underflow" means the number shrunk
-            below zero
-        - "Overflow" means the number grew
-            beyond 8 bits
-        - "Zero" means the number was zero
-    The rest of the bits are unused
+    --- 2 - Logic Unit Flags
+            Each bit contains information on
+        calculations that have just been done
+        by the logic unit. 
+            - "Underflow" means the number shrunk
+                below zero
+            - "Overflow" means the number grew
+                beyond 8 bits
+            - "Zero" means the number was zero
+        The rest of the bits are unused
 
---- 3 - Console Port
-        This is an access port to the console.
-    Writing bits to this will print that bit 
-    to the console. Writing a byte will print
-    the corresponding character (see below)
-        Reading bits will promt the console to
-    get a bit value. Reading bytes will promt 
-    the console to get an up to 2 digit hex 
-    number
+    --- 3 - Console Port
+            This is an access port to the console.
+        Writing bits to this will print that bit 
+        to the console. Writing a byte will print
+        the corresponding character (see below)
+            Reading bits will promt the console to
+        get a bit value. Reading bytes will promt 
+        the console to get an up to 2 digit hex 
+        number
 
---- 4 - Visual Port Access
-        This is the access port to the pixels
-    in the visual display. The bits refer to
-    the colour as follows:
-    - RRRGGGBB
+    --- 4 - Visual Port Access
+            This is the access port to the pixels
+        in the visual display. The bits refer to
+        the colour as follows:
+        - RRRGGGBB
 
-    Example Colours:
-    - Black   : 00000000 : 00
-    - White   : 11111111 : ff
-    - Red     : 11100000 : e0
-    - Green   : 00011100 : 1c
-    - Blue    : 00000011 : 03
-    - Yellow  : 11111100 : fc
-    - Fuchsia : 11100011 : e3
-    - Aqua    : 00011111 : 1f
+        Example Colours:
+        - Black   : 00000000 : 00
+        - White   : 11111111 : ff
+        - Red     : 11100000 : e0
+        - Green   : 00011100 : 1c
+        - Blue    : 00000011 : 03
+        - Yellow  : 11111100 : fc
+        - Fuchsia : 11100011 : e3
+        - Aqua    : 00011111 : 1f
 
---- 5 - Visual Port Address Y
---- 6 - Visual Port Address X
-        These are the bytes that determines 
-    which pixel byte the visual access port is 
-    connected to
+    --- 5 - Visual Port Address Y
+    --- 6 - Visual Port Address X
+            These are the bytes that determines 
+        which pixel byte the visual access port is 
+        connected to
 
---- 7 -> 255 - regular storage
-        These bytes can be used for regular
-    storage of values.
+    --- 7 -> 255 - regular storage
+            These bytes can be used for regular
+        storage of values.
     
 ----------------------------------------------
 
             -- Instruction Set --     
 -- Overview ----------------------------------
-- Compiler Commands
-    // comments
-    # included file 
-    :: tag
-    > definition
+    - Compiler Commands
+        // comments
+        # included file 
+        :: tag
+        > definition
 
-- Language Commands
-|------------------------|-------------------|
-|       Code Name        |   Compiled Code   |
-|------------------------|-------------------|
-| Flow Control --------- |                   |
-|     nop                |       00xxxx      |
-|     goto tag           |       01nnnn      |
-|     ifBitFlow f b      |       02nnxn      |
-|     ifBitSkip f b      |       03nnxn      |
-|     wait tt            |       04nnnn      |
-| File Actions --------- |                   |
-|     clear f            |       05nnxx      |
-|     set f n            |       06nnnn      |
-|     neg f              |       07nnxx      |
-|     flip f             |       08nnxx      |
-|     inc f              |       09nnxx      |
-|     dec f              |       0annxx      |
-|     lRotate f          |       0bnnxx      |
-|     rRotate f          |       0cnnxx      |
-| File on File Actions - |                   |
-|     copy f f           |       0dnnnn      |
-|     and f f            |       0ennnn      |
-|     nand f f           |       0fnnnn      |
-|     or f f             |       10nnnn      |
-|     nor f f            |       11nnnn      |
-|     xor f f            |       12nnnn      |
-|     add f f            |       13nnnn      |
-|     sub f f            |       14nnnn      |
-|------------------------|-------------------|
+    - Language Commands
+        |------------------------|-------------------|
+        |       Code Name        |   Compiled Code   |
+        |------------------------|-------------------|
+        | Flow Control --------- |                   |
+        |     nop                |       00xxxx      |
+        |     goto tag           |       01nnnn      |
+        |     ifBitFlow f b      |       02nnxn      |
+        |     ifBitSkip f b      |       03nnxn      |
+        |     wait tt            |       04nnnn      |
+        | File Actions --------- |                   |
+        |     clear f            |       05nnxx      |
+        |     set f n            |       06nnnn      |
+        |     neg f              |       07nnxx      |
+        |     flip f             |       08nnxx      |
+        |     inc f              |       09nnxx      |
+        |     dec f              |       0annxx      |
+        |     lRotate f          |       0bnnxx      |
+        |     rRotate f          |       0cnnxx      |
+        | File on File Actions - |                   |
+        |     copy f f           |       0dnnnn      |
+        |     and f f            |       0ennnn      |
+        |     nand f f           |       0fnnnn      |
+        |     or f f             |       10nnnn      |
+        |     nor f f            |       11nnnn      |
+        |     xor f f            |       12nnnn      |
+        |     add f f            |       13nnnn      |
+        |     sub f f            |       14nnnn      |
+        |------------------------|-------------------|
 
 -- Details -----------------------------------
----- // comments
-        All text after a double slash, will be 
-    removed during compilation
-    
-    - usage example:
-        //This text will be removed
+    ---- // comments
+            All text after a double slash, will be 
+        removed during compilation
+        
+        - usage example:
+            //This text will be removed
 
----- # included file 
-        A file's contents will replace this code
+    ---- # included file 
+            A file's contents will replace this code
 
-    - usage example:
-        #file.rr
+        - usage example:
+            #file.rr
 
----- :: tag
-        Used with goto commands. tag must have 
-    no spaces in them
+    ---- :: tag
+            Used with goto commands. tag must have 
+        no spaces in them
 
-    - usage example:
-        goto:myTag
-        ::myTag
+        - usage example:
+            goto:myTag
+            ::myTag
 
----- > definition
-        Used to define numbers that will be used
-    elsewhere
+    ---- > definition
+            Used to define numbers that will be used
+        elsewhere
 
-    - usage example:    
-        > number:8
-        set:10:number
+        - usage example:    
+            > number:8
+            set:10:number
 
----- nop
-        No action will be taken
-(useful for timing)
+    ---- nop
+            No action will be taken
+    (useful for timing)
 
-    - usage example:
-        nop
+        - usage example:
+            nop
 
----- goto
-        goes to the commnad following the 
-    named tag
+    ---- goto
+            goes to the commnad following the 
+        named tag
 
-    - usage example:
-        goto:myTag
-        ::myTag
+        - usage example:
+            goto:myTag
+            ::myTag
 
----- ifBitFlow
-        Tests value of a selected bit in the 
-    chosen byte. If this bit is '1' execution 
-    continues as normal. If not, the command 
-    that follows this one is skipped.
+    ---- ifBitFlow
+            Tests value of a selected bit in the 
+        chosen byte. If this bit is '1' execution 
+        continues as normal. If not, the command 
+        that follows this one is skipped.
 
-    - usage example:
-        ifBitFlow:10:0
+        - usage example:
+            ifBitFlow:10:0
 
----- ifBitSkip
-        Tests value of a selected bit in the 
-    chosen byte. If this bit is '0' execution 
-    continues as normal. If not, the command
-    that follows this one is skipped.
+    ---- ifBitSkip
+            Tests value of a selected bit in the 
+        chosen byte. If this bit is '0' execution 
+        continues as normal. If not, the command
+        that follows this one is skipped.
 
-    - usage example:
-        ifBitSkip:10:0
+        - usage example:
+            ifBitSkip:10:0
 
----- wait
-        Tells the system to pause execution
-    for the defined number of milliseconds
+    ---- wait
+            Tells the system to pause execution
+        for the defined number of milliseconds
 
-    - usage example:
-        wait:03E8 //will wait for 1 second
+        - usage example:
+            wait:03E8 //will wait for 1 second
 
----- clear
-        Sets the value of a byte to zero
+    ---- clear
+            Sets the value of a byte to zero
 
-    - usage example:
-        clear:10
+        - usage example:
+            clear:10
 
----- set
-        Sets the value of a byte to the 
-    provided value
+    ---- set
+            Sets the value of a byte to the 
+        provided value
 
-    - usage example:
-        set:10:00
+        - usage example:
+            set:10:00
 
----- neg
-        Sets the value in the selected
-    byte to the negitave of that number
+    ---- neg
+            Sets the value in the selected
+        byte to the negitave of that number
 
-    - usage example:
-        neg:10
+        - usage example:
+            neg:10
 
----- flip
-        Flips the bits in a byte
+    ---- flip
+            Flips the bits in a byte
 
-    - usage example:
-        flip:10
+        - usage example:
+            flip:10
 
----- inc
-        Adds 1 to a byte
+    ---- inc
+            Adds 1 to a byte
 
-    - usage example:
-        inc:10
+        - usage example:
+            inc:10
 
----- dec
-        Subtracts 1 from a byte
+    ---- dec
+            Subtracts 1 from a byte
 
-    - usage example:
-        dec:10
+        - usage example:
+            dec:10
 
----- lRotate
-        Left rotates a byte
+    ---- lRotate
+            Left rotates a byte
 
-    - usage example:
-        lRotate:10
+        - usage example:
+            lRotate:10
 
----- rRotate
-        Right rotates a byte
+    ---- rRotate
+            Right rotates a byte
 
-    - usage example:
-        rRotate:10
+        - usage example:
+            rRotate:10
 
----- copy
-        Copies the value of one byte
-    into another
+    ---- copy
+            Copies the value of one byte
+        into another
 
-    - usage example:
-        copy:10:20
+        - usage example:
+            copy:10:20
 
----- and
-        'And's the bits of a byte with those 
-    of another, placing the result in the 
-    second byte
+    ---- and
+            'And's the bits of a byte with those 
+        of another, placing the result in the 
+        second byte
 
-    - usage example:
-        and:10:20
+        - usage example:
+            and:10:20
 
----- nand
-        'Nand's the bits of a byte with those 
-    of  another, placing the result in the 
-    second byte
+    ---- nand
+            'Nand's the bits of a byte with those 
+        of  another, placing the result in the 
+        second byte
 
-    - usage example:
-        nand:10:20
+        - usage example:
+            nand:10:20
 
----- or
-        'Or's the bits of a byte with those 
-    of another, placing the result in the 
-    second byte
+    ---- or
+            'Or's the bits of a byte with those 
+        of another, placing the result in the 
+        second byte
 
-    - usage example:
-        or:10:20
+        - usage example:
+            or:10:20
 
----- nor
-        'Nor's the bits of a byte with those 
-    of another, placing the result in the 
-    second byte
+    ---- nor
+            'Nor's the bits of a byte with those 
+        of another, placing the result in the 
+        second byte
 
-    - usage example:
-        nor:10:20
+        - usage example:
+            nor:10:20
 
----- xor
-        'Xor's the bits of a byte with those 
-    of another, placing the result in the 
-    second byte
+    ---- xor
+            'Xor's the bits of a byte with those 
+        of another, placing the result in the 
+        second byte
 
-    - usage example:
-        xor:10:20
+        - usage example:
+            xor:10:20
 
----- add
-        Adds two bytes together, placing the 
-    result in the second byte
+    ---- add
+            Adds two bytes together, placing the 
+        result in the second byte
 
-    - usage example:
-        add:10:20
+        - usage example:
+            add:10:20
 
----- sub
-        Subtracts a byte from another, 
-    placing the result in the second byte
+    ---- sub
+            Subtracts a byte from another, 
+        placing the result in the second byte
 
-    - usage example:
-        sub:10:20
+        - usage example:
+            sub:10:20
 
 ----------------------------------------------
 
