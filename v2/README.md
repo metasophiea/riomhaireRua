@@ -43,7 +43,7 @@ The two Visual Display Access Ports (address and access) are used to work with t
 
 ...or you can look at the address byte as two half bytes; with the first half being the Y number, and the second being X. And then you can move through the display vertically by changing the first half of the address, and horizontally by changing the second half.
 
-The display is 16x16 pixels and can show 256 colours. Each pixel is one byte (8 bits / 2 hex numbers)
+The display is 16x16 pixels and can show 256 colours. Each pixel is one 8bit byte, with the colouring RRRGGGBB.
 
 #### The Display's Memory/Pixel Layout
 
