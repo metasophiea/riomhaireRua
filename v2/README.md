@@ -31,6 +31,11 @@ riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This worktop is 8bit; so each byte can have one of 256 states. A 1bit worktop could only have one of 2 states per byte. ( number of states = 2^(number of bits) ) So on this worktop, there can only be 256 colour states, or 256 age states. Bytes are made of bits, hence why we use "8bit" to describe the worktop and what the bytes are like. Bits are like switches, they can be on or off (1 or 0) so each bit only has 2 states. By putting bits together, we can make a byte and get more states.
 
+<p align="center">
+    <img width="360" height="640" src="https://raw.githubusercontent.com/metasophiea/riomhaireRua/master/v2/images/2.png">
+</p>
+
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Most of the time, bytes store a number state (0 1 2 3 4...) or a collection of smaller bytes with their own states. Like if I said "this 8bit byte tells us what food is available ->"
 
     Banana, Pizza, Milk, Carrot, Pasta, Apple, Doughnut, Tomato 
