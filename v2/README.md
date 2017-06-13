@@ -3,7 +3,6 @@
 </p>
  
 ## Contents
-- [Contents](#contents)
 - [The Riomhaire](#the-riomhaire)
     - [Ports](#ports)
         - [0 and 1 - Program Location](#0-and-1---program-location)
