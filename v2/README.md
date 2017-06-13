@@ -23,7 +23,9 @@ Location 2 on the worktop contains the calculation indicators. Whenever the work
     not used, not used, not used, not used, not used, Underflow, Overflow, Zero
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zero - This indicator is set to 1 when the byte was 0 when they were done with it.
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overflow - Means that the byte was being used in a job where it was like a number, and the byte's value grew above the maximum value
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Underflow - Means that like before, it was being used in a job where it was like a number, and that the byte's value shrunk below 0
 
 #### Technical Machine Layout
