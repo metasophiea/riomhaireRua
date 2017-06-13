@@ -12,7 +12,9 @@ riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This worktop is 8bit; so each byte has any one of 256 states. A 1bit worktop could only have one of 2 states per byte. ( number of states = 2^(number of bits) ) So on this worktop, there can only be 256 colour states, or 256 age states. Bytes are made of bits, hence why we use "8bit" to describe the worktop and what the bytes are like. Bits are like switches, they can be on or off (1 or 0) so each bit only has 2 states. By putting bits together, we can make a byte and get more states.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Most of the time, bytes store a number state (0 1 2 3 4...) or a collection of smaller bytes with their own states. Like if I said "this 8bit byte tells us what food is available -> Banana, Pizza, Milk, Carrot, Pasta, Apple, Doughnut, Tomato" then if the byte was 10101001, we would know that Bananas, Milk, Pasta and Tomatoes are available. This binary number (00101001) can be split into groups of four (1010 1001) then changed to regular numbers (10 9) or hexadecimal numbers (a 9). We use hexadecimal all the time because they are smaller to write than regular numbers.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Most of the time, bytes store a number state (0 1 2 3 4...) or a collection of smaller bytes with their own states. Like if I said "this 8bit byte tells us what food is available ->"
+    Banana, Pizza, Milk, Carrot, Pasta, Apple, Doughnut, Tomato 
+So if the byte was 10101001, we would know that Bananas, Milk, Pasta and Tomatoes are available. This binary number (00101001) can be split into groups of four (1010 1001) then changed to regular numbers (10 9) or hexadecimal numbers (a 9). We use hexadecimal all the time because they are smaller to write than regular numbers.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So the worktop is a place where the worker can put bytes. This worktop only has 256 places to put bytes, and some of those places are used for other things.
 
