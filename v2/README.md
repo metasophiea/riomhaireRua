@@ -23,7 +23,6 @@
 
 ## Access Space
 ## Rua.2 Language Reference
-#### Commands
 |Command Name                           |Command    |Description                                                         |Example Usage
 |:-------------------------------------:|:---------:|:------------------------------------------------------------------:|:--------
 | Comment                               | //        | All text after a double slash, will be removed during compilation  | //Hello
@@ -45,6 +44,27 @@
 | Add byte to byte                      | add       | Adds two bytes together, placing the result in the second byte                        | add:50:60
 
 ## Visual Display Guide
+Access ports 4 and 5 are used to work with the display. The display is 16x16 pixels and can show 256 colours.
+Each pixel is one byte (8 bits / 2 hex numbers)
+
+#### The Display's Memory/Pixel Layout
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+
 ## Console Character Codes
 | number | code | symbol
 |:------:|:----:|:-------:
