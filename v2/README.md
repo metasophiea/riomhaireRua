@@ -44,9 +44,9 @@
 | Add byte to byte                      | add       | Adds two bytes together, placing the result in the second byte                        | add:50:60
 
 ## Visual Display Guide
-Access ports 4 and 5 are used to work with the display. The display is 16x16 pixels and can show 256 colours.
+The two Visual Display Access Ports (address and access) are used to work with the display. The pixels are stored sequentially, and one can use the address port to select a pixel to work with. Then, using the access port; one can read or modify the pixel value.
 
-Each pixel is one byte (8 bits / 2 hex numbers)
+The display is 16x16 pixels and can show 256 colours. Each pixel is one byte (8 bits / 2 hex numbers)
 
 #### The Display's Memory/Pixel Layout
      _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
