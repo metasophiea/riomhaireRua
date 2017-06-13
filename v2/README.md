@@ -33,16 +33,16 @@
 | Goto tag                              | goto      | Goes to the command following the named tag                        | goto:loop
 | If bit in byte is set; continue       | ifBitFlow | Tests value of a selected bit in the chosen byte. If this bit is '1' execution continues as normal. If not, the command that follows this one is skipped.| ifBitFlow:10:4
 | If bit in byte is set; skip next line | ifBitSkip | Tests value of a selected bit in the chosen byte. If this bit is '0' execution continues as normal. If not, the command that follows this one is skipped.| ifBitSkip:12:4
-| Clear byte                            | clear     |                                                                    | clear:29
-| Set byte                              | set       |                                                                    | set:20:5f
-| Flip byte's bits                      | flip      |                                                                    | flip:0a
-| Increment byte                        | inc       |                                                                    | inc:f4
-| Decrement byte                        | dec       |                                                                    | dec:11
-| Left rotate byte                      | lRotate   |                                                                    | lRotate:67
-| Right rotate byte                     | rRotate   |                                                                    | rRotate:aa
-| Copy byte into another byte           | copy      |                                                                    | copy:30:40
-| NAND byte with another byte           | nand      |                                                                    | nand:40:50
-| Add byte to byte                      | add       |                                                                    | add:50:60
+| Clear byte                            | clear     | Sets the value of a byte to zero                                                      | clear:29
+| Set byte                              | set       | Sets the value of a byte to the provided value                                        | set:20:5f
+| Flip byte's bits                      | flip      | Flips the bits in a byte                                                              | flip:0a
+| Increment byte                        | inc       | Adds 1 to a byte                                                                      | inc:f4
+| Decrement byte                        | dec       | Subtracts 1 from a byte                                                               | dec:11
+| Left rotate byte                      | lRotate   | Left rotates a byte                                                                   | lRotate:67
+| Right rotate byte                     | rRotate   | Right rotates a byte                                                                  | rRotate:aa
+| Copy byte into another byte           | copy      | Copies the value of one byte into another                                             | copy:30:40
+| NAND byte with another byte           | nand      | Nands the bits of a byte with those of another, placing the result in the second byte | nand:40:50
+| Add byte to byte                      | add       | Adds two bytes together, placing the result in the second byte                        | add:50:60
 
 ## Visual Display Guide
 ## Console Character Codes
