@@ -28,11 +28,11 @@
 |:-------------------------------------:|:---------:|:------------------------------------------------------------------:|:--------
 | Comment                               | //        | All text after a double slash, will be removed during compilation  | //Hello
 | Include file                          | #         | A file's contents will replace this code                           | #otherFile.rr
-| Tag                                   | ::        | Used with goto commands. Tags must have no spaces in them           | ::loop
-| Do nothing                            | nop       |                                                                    | nop
-| Goto tag                              | goto      |                                                                    | goto:loop
-| If bit in byte is set; continue       | ifBitFlow |                                                                    | ifBitFlow:10:4
-| If bit in byte is set; skip next line | ifBitSkip |                                                                    | ifBitSkip:12:4
+| Tag                                   | ::        | Used with goto commands. Tags must have no spaces in them          | ::loop
+| Do nothing                            | nop       | No action will be taken (useful for timing)                        | nop
+| Goto tag                              | goto      | Goes to the command following the named tag                        | goto:loop
+| If bit in byte is set; continue       | ifBitFlow | Tests value of a selected bit in the chosen byte. If this bit is '1' execution continues as normal. If not, the command that follows this one is skipped.| ifBitFlow:10:4
+| If bit in byte is set; skip next line | ifBitSkip | Tests value of a selected bit in the chosen byte. If this bit is '0' execution continues as normal. If not, the command that follows this one is skipped.| ifBitSkip:12:4
 | Clear byte                            | clear     |                                                                    | clear:29
 | Set byte                              | set       |                                                                    | set:20:5f
 | Flip byte's bits                      | flip      |                                                                    | flip:0a
