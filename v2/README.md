@@ -6,7 +6,7 @@
 - [Contents](#contents)
 
 ## The Riomhaire
-riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. The program you write is given to the worker, which goes through each command one after another, following each instruction wherever it may lead; which is sometimes to other parts of the program. 
+riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. The program you write is given to the worker, which goes through each command one after another, following each instruction wherever it may lead; which is sometimes to other parts of the program. Once the worker runs out of instructions, they will stop and the machine will switch off.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The worker uses the worktop to do jobs. The worktop is firstly a place to put bytes down. Bytes are like numbers; but they store a state, which is like a way of being, for example; "oh the sea is blue" = the sea's colour state is blue. "hay, I'm 12 years old" = this persons age state is 12. So if we said that the colour red is state 1, green is 2 and blue is 3; then the sea's colour state is 3, because 3 = blue.
 
