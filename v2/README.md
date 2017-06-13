@@ -44,7 +44,9 @@
 | Add byte to byte                      | add       | Adds two bytes together, placing the result in the second byte                        | add:50:60
 
 ## Visual Display Guide
-The two Visual Display Access Ports (address and access) are used to work with the display. The pixels are stored sequentially, and one can use the address port to select a pixel to work with. Then, using the access port; one can read or modify the pixel value.
+The two Visual Display Access Ports (address and access) are used to work with the display. The pixels are stored sequentially, and one can use the address port to select a pixel to work with. Then, using the access port; one can read or modify the pixel value. The first pixel is in the top left of the screen, the last pixel is in the bottom right.s
+
+...or you can look at the address byte as two half bytes; with the first half being the Y number, and the second being X. And then you can move through the display vertically by changing the first half of the address, and horizontally by changing the second half.
 
 The display is 16x16 pixels and can show 256 colours. Each pixel is one byte (8 bits / 2 hex numbers)
 
