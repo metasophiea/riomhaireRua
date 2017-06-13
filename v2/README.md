@@ -19,7 +19,7 @@ riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. 
 For example, places 0 and 1 on the worktop are used to show which instruction on the program the worker is going to do next. The program can be longer than 256 instructions (it can be 65536 instructions infact) but a byte can only hold 256 states (256 different locations on the program) so the machine puts the two bytes together to make a 16bit byte, which can hold 65536 different states. 
 
 Location 2 on the worktop contains the calculation indicators. Whenever the worker does work with a byte, some information about that job is written here. Only three of the bits are used to indicate things. 
-- not used, not used, not used, not used, not used, Underflow, Overflow, Zero -
+    not used, not used, not used, not used, not used, Underflow, Overflow, Zero
 
 
 #### Technical Machine Layout
