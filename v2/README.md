@@ -24,7 +24,6 @@
 ## Access Space
 ## Rua.2 Language Reference
 #### Commands
-|:----------------------:|:-----------------:|
 |       Code Name        |   Compiled Code   |
 |:----------------------:|:-----------------:|
 | Flow Control --------- |                   |
@@ -44,7 +43,6 @@
 |     copy f f           |       bnnnn       |
 |     nand f f           |       cnnnn       |
 |     add f f            |       dnnnn       |
-|:----------------------:|:-----------------:|
 
 ## Visual Display Guide
 ## Console Character Codes
