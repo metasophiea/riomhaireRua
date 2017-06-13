@@ -6,8 +6,14 @@
 - [Contents](#contents)
 - [The Riomhaire](#the-riomhaire)
     - [Ports](#ports)
-        - [0 and 1 - Program Location](#0-and-1-program-location)
+        - [0 and 1 - Program Location](#0-and-1---program-location)
+        - [2 - Calculation Indicators](#2---calculation-indicators)
+        - [3 - Console](#3---console)
+        - [4 and 5 - Visual Display](#4-and-5---visual-display)
+        - [The Display's Memory/Pixel Layout](#the-display's-memory/pixel-layout)
+    - [Technical Machine Layout](#technical-machine-layout)
 - [Rua.2 Language Reference](#rua.2-language-reference)
+    - [Example Program](#example-program)
 - [Extra Stuff](#extra-stuff)
     - [Console Character Codes](#console-character-codes)
 
@@ -51,7 +57,7 @@ The two Visual Display Access Ports (address and access) are used to work with t
 
 The display is 16x16 pixels and can show 256 colours. Each pixel is one 8bit byte, with the colouring RRRGGGBB.
 
-#### The Display's Memory/Pixel Layout
+##### The Display's Memory/Pixel Layout
 
     00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
     10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f
