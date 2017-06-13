@@ -15,13 +15,16 @@ riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Most of the time, bytes store a number state (0 1 2 3 4...) or a collection of smaller bytes with their own states. Like if I said "this 8bit byte tells us what food is available ->"
 
     Banana, Pizza, Milk, Carrot, Pasta, Apple, Doughnut, Tomato 
-    
+
 So if the byte was 10101001, we would know that Bananas, Milk, Pasta and Tomatoes are available. This binary number (00101001) can be split into groups of four (1010 1001) then changed to regular numbers (10 9) or hexadecimal numbers (a 9). We use hexadecimal all the time because they are smaller to write than regular numbers.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So the worktop is a place where the worker can put bytes. This worktop only has 256 places to put bytes, and some of those places are used for other things.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So the worktop is a place where the worker can put bytes. This worktop only has 256 places to put bytes, and some of those places are used for other things. These are called ports.
 
-For example, places 0 and 1 on the worktop are used to show which instruction on the program the worker is going to do next. The program can be longer than 256 instructions (it can be 65536 instructions infact) but a byte can only hold 256 states (256 different locations on the program) so the machine puts the two bytes together to make a 16bit byte, which can hold 65536 different states. 
+#### Ports
+##### 0 and 1
+Places 0 and 1 on the worktop are used to show which instruction on the program the worker is going to do next. The program can be longer than 256 instructions (it can be 65536 instructions infact) but a byte can only hold 256 states (256 different locations on the program) so the machine puts the two bytes together to make a 16bit byte, which can hold 65536 different states. 
 
+##### 2
 Location 2 on the worktop contains the calculation indicators. Whenever the worker does work with a byte, some information about that job is written here. Only three of the bits are used to indicate things. 
 
     not used, not used, not used, not used, not used, Underflow, Overflow, Zero
