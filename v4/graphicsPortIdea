@@ -86,7 +86,7 @@ Which is the phone number for pixel 1, and again we can work with it's value thr
 
 In this system; the connected display has 8 bit colour, and a pixel count of 2^( 16*4 ) = 18446744073709551616
 
----- ---- ---- ---- Visual Example 2 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+---- ---- ---- ---- Visual Example 3 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 port 1 - 2bit
 port 2 - 2bit
 port 3 - 8bit
