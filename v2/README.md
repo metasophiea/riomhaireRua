@@ -23,9 +23,31 @@
 
 ## Access Space
 ## Rua.2 Language Reference
+#### Commands
+|:----------------------:|:-----------------:|
+|       Code Name        |   Compiled Code   |
+|:----------------------:|:-----------------:|
+| Flow Control --------- |                   |
+|     nop                |       0xxxx       |
+|     goto tag           |       1nnnn       |
+|     ifBitFlow f b      |       2nnxn       |
+|     ifBitSkip f b      |       3nnxn       |
+| File Actions --------- |                   |
+|     clear f            |       4nnxx       |
+|     set f n            |       5nnnn       |
+|     flip f             |       6nnxx       |
+|     inc f              |       7nnxx       |
+|     dec f              |       8nnxx       |
+|     lRotate f          |       9nnxx       |
+|     rRotate f          |       annxx       |
+| File on File Actions - |                   |
+|     copy f f           |       bnnnn       |
+|     nand f f           |       cnnnn       |
+|     add f f            |       dnnnn       |
+|:----------------------:|:-----------------:|
+
 ## Visual Display Guide
 ## Console Character Codes
- 
 | number | code | symbol
 |:------:|:----:|:-------:
 | 1      |  01  | NUL (null)
