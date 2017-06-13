@@ -10,7 +10,7 @@
         - [2 - Calculation Indicators](#2---calculation-indicators)
         - [3 - Console](#3---console)
         - [4 and 5 - Visual Display](#4-and-5---visual-display)
-        - [The Display's Memory/Pixel Layout](#the-display's-memory/pixel-layout)
+        - [The Display's Memory/Pixel Layout](#the-displays-memorypixel-layout)
     - [Technical Machine Layout](#technical-machine-layout)
 - [Rua.2 Language Reference](#rua.2-language-reference)
     - [Example Program](#example-program)
