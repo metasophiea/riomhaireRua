@@ -26,7 +26,7 @@ riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The worker uses the worktop to do jobs. The worktop is firstly a place to put bytes down. Bytes are like numbers; but they store a state, which is like a way of being, for example; "oh the sea is blue" = the sea's colour state is blue. "hay, I'm 12 years old" = this persons age state is 12. So if we said that the colour red is state 1, green is 2 and blue is 3; then the sea's colour state is 3, because 3 = blue.
 
 <p align="center">
-    <img width="640" height="360" src="https://raw.githubusercontent.com/metasophiea/riomhaireRua/master/v2/images/1.png">
+    <img width="360" height="360" src="https://raw.githubusercontent.com/metasophiea/riomhaireRua/master/v2/images/1.png">
 </p>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This worktop is 8bit; so each byte can have one of 256 states. A 1bit worktop could only have one of 2 states per byte. ( number of states = 2^(number of bits) ) So on this worktop, there can only be 256 colour states, or 256 age states. Bytes are made of bits, hence why we use "8bit" to describe the worktop and what the bytes are like. Bits are like switches, they can be on or off (1 or 0) so each bit only has 2 states. By putting bits together, we can make a byte and get more states.
