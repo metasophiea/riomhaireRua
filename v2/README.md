@@ -24,22 +24,22 @@
 ## Access Space
 ## Rua.2 Language Reference
 #### Commands
-|       Command          |
-|:----------------------:|
-|     nop                |
-|     goto               |
-|     ifBitFlow          |
-|     ifBitSkip          |
-|     clear              |
-|     set                |
-|     flip               |
-|     inc                |
-|     dec                |
-|     lRotate            |
-|     rRotate            |
-|     copy               |
-|     nand               |
-|     add                |
+|Command Name                 |Command    |
+|:---------------------------:|:---------:|
+| No operation                | nop       |
+| Goto tag                    | goto      |
+| If bit is set, continue     | ifBitFlow |
+| If bit is set, skip next    | ifBitSkip |
+| Clear byte                  | clear     |
+| Set byte                    | set       |
+| Flip byte                   | flip      |
+| Increment byte              | inc       |
+| Decrement byte              | dec       |
+| Left rotate byte            | lRotate   |
+| Right rotate byte           | rRotate   |
+| Copy byte into another byte | copy      |
+| NAND byte with another byte | nand      |
+| Add byte to byte            | add       |
 
 ## Visual Display Guide
 ## Console Character Codes
