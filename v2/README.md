@@ -21,10 +21,10 @@ So if the byte was 10101001, we would know that Bananas, Milk, Pasta and Tomatoe
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So the worktop is a place where the worker can put bytes. This worktop only has 256 places to put bytes, and some of those places are used for other things. These are called ports.
 
 #### Ports
-##### 0 and 1
+##### 0 and 1 - Program Location
 Places 0 and 1 on the worktop are used to show which instruction on the program the worker is going to do next. The program can be longer than 256 instructions (it can be 65536 instructions infact) but a byte can only hold 256 states (256 different locations on the program) so the machine puts the two bytes together to make a 16bit byte, which can hold 65536 different states. 
 
-##### 2
+##### 2 - Calculation Indicators
 Location 2 on the worktop contains the calculation indicators. Whenever the worker does work with a byte, some information about that job is written here. Only three of the bits are used to indicate things. 
 
     not used, not used, not used, not used, not used, Underflow, Overflow, Zero
@@ -32,6 +32,13 @@ Location 2 on the worktop contains the calculation indicators. Whenever the work
 - Zero - This indicator is set to 1 when the byte was 0 when they were done with it.
 - Overflow - Means that the byte was being used in a job where it was like a number, and the byte's value grew above the maximum value
 - Underflow - Means that like before, it was being used in a job where it was like a number, and that the byte's value shrunk below 0
+
+##### 3 - Console
+The console can be used to print messages to the user, or take in values. When you attempt to read a byte or bit from the console port, the worker's progress will stop and the console will ask the user to enter a byte (in hex) or bit (as a 1 or 0). Writing a bit to the port prints a 1 or 0 to the console. Writing a byte is more complicated.
+
+When you write a byte, the corresponding ASCII character is printed to the console. All the available symbols are shown below in the [Console Character Codes](#console-character-codes) section
+
+##### 4 and 5 - Visual Display
 
 #### Technical Machine Layout
     |----programManager-------------------------------------------------------------------| |-displayUnit---|
@@ -93,11 +100,6 @@ The display is 16x16 pixels and can show 256 colours. Each pixel is one byte (8 
     e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef
     f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff
     
-## Console Guide
-The console can be used to print messages to the user, or take in values. When you attempt to read a byte or bit from the console port, execution will stop and the console will ask the user to enter a byte (in hex) or bit (as a 1 or 0). Writing a bit to the port prints a 1 or 0 to the console. Writing a byte is more complicated.
-
-When you write a byte, the corresponding ASCII character is printed to the console. All the available symbols are shown below.
-
 #### Console Character Codes
 | number | code | symbol
 |:------:|:----:|:-------:
