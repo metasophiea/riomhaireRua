@@ -4,6 +4,12 @@
  
 ## Contents
 - [Contents](#contents)
+- [The Riomhaire](#the-riomhaire)
+    - [Ports](#ports)
+        - [0 and 1 - Program Location](#0-and-1-program-location)
+- [Rua.2 Language Reference](#rua.2-language-reference)
+- [Extra Stuff](#extra-stuff)
+    - [Console Character Codes](#console-character-codes)
 
 ## The Riomhaire
 riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. The program you write is given to the worker, which goes through each command one after another, following each instruction wherever it may lead; which is sometimes to other parts of the program. Once the worker runs out of instructions, they will stop and the machine will switch off.
@@ -112,6 +118,7 @@ This program fills the visual display with colours
     goto:loop
     ::afterLoop
 
+## Extra Stuff
 #### Console Character Codes
 | number | code | symbol
 |:------:|:----:|:-------:
