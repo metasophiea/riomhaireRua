@@ -72,7 +72,7 @@ port 2 - 4bit
 port 3 - 8bit
 
 - 8bit pixel colour
-- a pixel's phone number is 16 bytes long
+- a pixel's phone number is 16 nibbles (8 bytes) long
 - a phone number digit is 4 bits long
 
         -- a phone number --
