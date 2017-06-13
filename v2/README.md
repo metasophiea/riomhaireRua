@@ -39,7 +39,7 @@ riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. 
 
     Banana, Pizza, Milk, Carrot, Pasta, Apple, Doughnut, Tomato 
 
-So if the byte was 10101001, we would know that Bananas, Milk, Pasta and Tomatoes are available. This binary number (00101001) can be split into groups of four (1010 1001) then changed to regular numbers (10 9) or hexadecimal numbers (a 9). We use hexadecimal all the time because they are smaller to write than regular numbers.
+So if the byte was 10101001, we would know that Bananas, Milk, Pasta and Tomatoes are available. This binary number (10101001) can be split into groups of four (1010 1001) then changed to regular numbers (10 9) or hexadecimal numbers (a 9). We use hexadecimal all the time because they are smaller to write than regular numbers.
 
 <p align="center">
     <img width=500" height="376" src="https://raw.githubusercontent.com/metasophiea/riomhaireRua/master/v2/images/3.png">
