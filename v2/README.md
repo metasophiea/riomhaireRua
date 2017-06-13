@@ -98,6 +98,20 @@ The display is 16x16 pixels and can show 256 colours. Each pixel is one 8bit byt
 | NAND byte with another byte           | nand      | Nands the bits of a byte with those of another, placing the result in the second byte | nand:40:50
 | Add byte to byte                      | add       | Adds two bytes together, placing the result in the second byte                        | add:50:60
     
+#### Example Program
+This program fills the visual display with colours
+
+    ::loop
+        copy:10:05
+        inc:4
+        inc:10
+        inc:10
+        inc:11
+    ifBitFlow:02:1
+    goto:afterLoop
+    goto:loop
+    ::afterLoop
+
 #### Console Character Codes
 | number | code | symbol
 |:------:|:----:|:-------:
