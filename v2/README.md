@@ -45,6 +45,7 @@
 
 ## Visual Display Guide
 Access ports 4 and 5 are used to work with the display. The display is 16x16 pixels and can show 256 colours.
+
 Each pixel is one byte (8 bits / 2 hex numbers)
 
 #### The Display's Memory/Pixel Layout
