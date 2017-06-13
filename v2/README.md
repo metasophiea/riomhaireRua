@@ -24,22 +24,22 @@
 ## Access Space
 ## Rua.2 Language Reference
 #### Commands
-|       Code Name        |   Compiled Code   |
-|:----------------------:|:-----------------:|
-|     nop                |       0xxxx       |
-|     goto tag           |       1nnnn       |
-|     ifBitFlow f b      |       2nnxn       |
-|     ifBitSkip f b      |       3nnxn       |
-|     clear f            |       4nnxx       |
-|     set f n            |       5nnnn       |
-|     flip f             |       6nnxx       |
-|     inc f              |       7nnxx       |
-|     dec f              |       8nnxx       |
-|     lRotate f          |       9nnxx       |
-|     rRotate f          |       annxx       |
-|     copy f f           |       bnnnn       |
-|     nand f f           |       cnnnn       |
-|     add f f            |       dnnnn       |
+|       Command          |
+|:----------------------:|
+|     nop                |
+|     goto               |
+|     ifBitFlow          |
+|     ifBitSkip          |
+|     clear              |
+|     set                |
+|     flip               |
+|     inc                |
+|     dec                |
+|     lRotate            |
+|     rRotate            |
+|     copy               |
+|     nand               |
+|     add                |
 
 ## Visual Display Guide
 ## Console Character Codes
