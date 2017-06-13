@@ -24,25 +24,25 @@
 ## Access Space
 ## Rua.2 Language Reference
 #### Commands
-|Command Name                           |Command    |Example Usage
-|:-------------------------------------:|:---------:|:--------
-| Comment                               | //        | //Hello
-| Include file                          | #         | #otherFile.rr
-| Tag                                   | ::        | ::loop
-| Do nothing                            | nop       | nop
-| Goto tag                              | goto      | goto:loop
-| If bit in byte is set; continue       | ifBitFlow | ifBitFlow:10:4
-| If bit in byte is set; skip next line | ifBitSkip | ifBitSkip:12:4
-| Clear byte                            | clear     | clear:29
-| Set byte                              | set       | set:20:5f
-| Flip byte's bits                      | flip      | flip:0a
-| Increment byte                        | inc       | inc:f4
-| Decrement byte                        | dec       | dec:11
-| Left rotate byte                      | lRotate   | lRotate:67
-| Right rotate byte                     | rRotate   | rRotate:aa
-| Copy byte into another byte           | copy      | copy:30:40
-| NAND byte with another byte           | nand      | nand:40:50
-| Add byte to byte                      | add       | add:50:60
+|Command Name                           |Command    |Description                                                         |Example Usage
+|:-------------------------------------:|:---------:|:------------------------------------------------------------------:|:--------
+| Comment                               | //        | All text after a double slash, will be removed during compilation  | //Hello
+| Include file                          | #         | A file's contents will replace this code                           | #otherFile.rr
+| Tag                                   | ::        | Used with goto commands. Tags must have no spaces in them           | ::loop
+| Do nothing                            | nop       |                                                                    | nop
+| Goto tag                              | goto      |                                                                    | goto:loop
+| If bit in byte is set; continue       | ifBitFlow |                                                                    | ifBitFlow:10:4
+| If bit in byte is set; skip next line | ifBitSkip |                                                                    | ifBitSkip:12:4
+| Clear byte                            | clear     |                                                                    | clear:29
+| Set byte                              | set       |                                                                    | set:20:5f
+| Flip byte's bits                      | flip      |                                                                    | flip:0a
+| Increment byte                        | inc       |                                                                    | inc:f4
+| Decrement byte                        | dec       |                                                                    | dec:11
+| Left rotate byte                      | lRotate   |                                                                    | lRotate:67
+| Right rotate byte                     | rRotate   |                                                                    | rRotate:aa
+| Copy byte into another byte           | copy      |                                                                    | copy:30:40
+| NAND byte with another byte           | nand      |                                                                    | nand:40:50
+| Add byte to byte                      | add       |                                                                    | add:50:60
 
 ## Visual Display Guide
 ## Console Character Codes
