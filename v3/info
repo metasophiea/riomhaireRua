@@ -11,8 +11,8 @@ Max Program Size: 65536 commands
         0, 0, 0, 0, 0, Underflow, Overflow, Zero
     3 - port (console)
     4 - Visual Port Access
-    5 - Visual Port Address High
-    6 - Visual Port Address Low
+    5 - Visual Port Address Y
+    6 - Visual Port Address X
     7 -> 255 - free use
 
     Visual Port: 256x256 - 8bit colour
@@ -61,8 +61,8 @@ Max Program Size: 65536 commands
     - Fuchsia : 11100011 : e3
     - Aqua    : 00011111 : 1f
 
---- 5 - Visual Port Address High
---- 6 - Visual Port Address
+--- 5 - Visual Port Address Y
+--- 6 - Visual Port Address X
         These are the bytes that determines 
     which pixel byte the visual access port is 
     connected to
