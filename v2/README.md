@@ -5,7 +5,24 @@
 ## Contents
 - [Contents](#contents)
 
-## Machine Layout
+## The Riomhaire
+riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. The program you write is given to the worker, which goes through each command one after another, following each instruction wherever it may lead; which is sometimes to other parts of the program. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The worker uses the worktop to do jobs. The worktop is firstly a place to put bytes down. Bytes are like numbers; but they store a state, which is like a way of being, for example; "oh the sea is blue" = the sea's colour state is blue. "hay, I'm 12 years old" = this persons age state is 12. So if we said that the colour red is state 1, green is 2 and blue is 3; then the sea's colour state is 3, because 3 = blue.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This worktop is 8bit; so each byte has any one of 256 states. A 1bit worktop could only have one of 2 states per byte. ( number of states = 2^(number of bits) ) So on this worktop, there can only be 256 colour states, or 256 age states. Bytes are made of bits, hence why we use "8bit" to describe the worktop and what the bytes are like. Bits are like switches, they can be on or off (1 or 0) so each bit only has 2 states. By putting bits together, we can make a byte and get more states.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Most of the time, bytes store a number state (0 1 2 3 4...) or a collection of smaller bytes with their own states. Like if I said "this 8bit byte tells us what food is available -> Banana, Pizza, Milk, Carrot, Pasta, Apple, Doughnut, Tomato" then if the byte was 10101001, we would know that Bananas, Milk, Pasta and Tomatoes are available. This binary number (00101001) can be split into groups of four (1010 1001) then changed to regular numbers (10 9) or hexadecimal numbers (a 9). We use hexadecimal all the time because they are smaller to write than regular numbers.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So the worktop is a place where the worker can put bytes. This worktop only has 256 places to put bytes, and some of those places are used for other things.
+
+For example, places 0 and 1 on the worktop are used to show which instruction on the program the worker is going to do next. The program can be longer than 256 instructions (it can be 65536 instructions infact) but a byte can only hold 256 states (256 different locations on the program) so the machine puts the two bytes together to make a 16bit byte, which can hold 65536 different states. 
+
+Location 2 on the worktop contains the calculation indicators. Whenever the worker does work with a byte, some information about that job is written here. Only three of the bits are used to indicate things. 
+- not used, not used, not used, not used, not used, Underflow, Overflow, Zero -
+
+
+#### Technical Machine Layout
     |----programManager-------------------------------------------------------------------| |-displayUnit---|
     | program  |----executer------------------------------------------------------------| | |               |
     |    -     | |--logicUnit--| |--accessManager-------------------------------------| | | |               |
@@ -18,10 +35,6 @@
     |    -     |------------------------------------------------------------------------| |
     |-------------------------------------------------------------------------------------|
 
-## Usage Layout
-
-
-## Access Space
 ## Rua.2 Language Reference
 |Command Name                           |Command    |Description                                                         |Example Usage
 |:-------------------------------------:|:---------:|:------------------------------------------------------------------:|:--------
@@ -44,32 +57,37 @@
 | Add byte to byte                      | add       | Adds two bytes together, placing the result in the second byte                        | add:50:60
 
 ## Visual Display Guide
-The two Visual Display Access Ports (address and access) are used to work with the display. The pixels are stored sequentially, and one can use the address port to select a pixel to work with. Then, using the access port; one can read or modify the pixel value. The first pixel is in the top left of the screen, the last pixel is in the bottom right.s
+The two Visual Display Access Ports (address and access) are used to work with the display. The pixels are stored sequentially, and one can use the address port to select a pixel to work with. Then using the access port; one can read or modify the pixel value. The first pixel is in the top left of the screen, the last pixel is in the bottom right.
 
 ...or you can look at the address byte as two half bytes; with the first half being the Y number, and the second being X. And then you can move through the display vertically by changing the first half of the address, and horizontally by changing the second half.
 
 The display is 16x16 pixels and can show 256 colours. Each pixel is one byte (8 bits / 2 hex numbers)
 
 #### The Display's Memory/Pixel Layout
-     _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-    |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
 
-## Console Character Codes
+    00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
+    10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f
+    20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f
+    30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f
+    40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f
+    50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f
+    60 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f
+    70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f
+    80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f
+    90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f
+    a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 aa ab ac ad ae af
+    b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf
+    c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb cc cd ce cf
+    d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df
+    e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef
+    f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff
+    
+## Console Guide
+The console can be used to print messages to the user, or take in values. When you attempt to read a byte or bit from the console port, execution will stop and the console will ask the user to enter a byte (in hex) or bit (as a 1 or 0). Writing a bit to the port prints a 1 or 0 to the console. Writing a byte is more complicated.
+
+When you write a byte, the corresponding ASCII character is printed to the console. All the available symbols are shown below.
+
+#### Console Character Codes
 | number | code | symbol
 |:------:|:----:|:-------:
 | 1      |  01  | NUL (null)
