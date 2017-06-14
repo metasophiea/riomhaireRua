@@ -3,7 +3,7 @@
 </p>
 
 ## The Riomhaire
-riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. The program you write is given to the worker, which goes through each command one after another, following each instruction wherever it may lead; which is sometimes to other parts of the program. Once the worker runs out of instructions, they will stop and the machine will switch off.
+riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. The program you write is given to the worker, which goes through each command one after another, following each instruction wherever it may lead. Once the worker runs out of instructions, they will stop and the machine will switch off.
 
 <p align="center">
     <img width="640" height="360" src="https://raw.githubusercontent.com/metasophiea/riomhaireRua/master/images/0.png">
