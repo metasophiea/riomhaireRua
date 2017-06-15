@@ -167,8 +167,6 @@ std::string bareMetal::localSizeBIN(std::string BIN){
     }
 }
 
-int bareMetal::checkForComplyingLength(std::string HEX){
-	return HEX.length() - bitCount/4;
-}
-
+int bareMetal::checkForComplyingLength(std::string HEX){ return HEX.length() - bitCount/4; }
+bool bareMetal::isUINTbeyondBitCount(unsigned int UINT){ return UINT > pow(2,bitCount); }
 unsigned int bareMetal::getBitCount(){return bitCount;}

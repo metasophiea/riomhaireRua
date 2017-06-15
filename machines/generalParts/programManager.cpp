@@ -3,8 +3,8 @@
 #include "programManager.h"
 
 programManager::programManager(unsigned int bitCount, unsigned int memorySize, unsigned int maxProgramLength):
-executer(bitCount,memorySize),maxProgramLength(maxProgramLength)
-{ program = new std::string[maxProgramLength]; }
+    executer(bitCount,memorySize),maxProgramLength(maxProgramLength)
+    { program = new std::string[maxProgramLength]; }
 programManager::~programManager(){}
 
 void programManager::load(std::string newProgram[], unsigned int newProgramLength){ 
