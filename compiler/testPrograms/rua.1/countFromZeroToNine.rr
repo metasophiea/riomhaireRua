@@ -1,0 +1,62 @@
+//This program counts from 0 to 9
+//printing each number to the console
+
+//prints the machine name
+inc:10
+lRotate:10
+lRotate:10
+lRotate:10
+lRotate:10
+lRotate:10
+lRotate:10
+lRotate:10
+copy:10:2
+
+clear:10
+
+//print a "newline" twice
+inc:10
+lRotate:10
+lRotate:10
+inc:10
+lRotate:10
+copy:10:02
+copy:10:02
+//put this value in byte 20 for later
+copy:10:20
+
+clear:10
+
+//add 48 to file byte 10
+inc:10
+lRotate:10
+inc:10
+lRotate:10
+lRotate:10
+lRotate:10
+lRotate:10
+
+//main loop
+::loop
+    //copy the value to the console
+    copy:10:02
+    //copy the nextline value to the console (10)
+    copy:20:02
+
+    //increment both values to move onto the next symbol, and to keep track of how many symbols we've printed so far (respectively) 
+    inc:10
+    inc:11
+
+        //subtract the value stored in byte 11 from the value stored in byte 20 (which is 10)
+        //to see if they are equal
+        copy:11:21
+        flip:21
+        inc:21
+        add:20:21
+
+    //if the result was zero, jump out of this loop; otherwise loop
+    ifBitFlow:01:0
+    goto:afterLoop
+    goto:loop
+::afterLoop
+nop

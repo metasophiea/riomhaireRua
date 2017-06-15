@@ -4,7 +4,9 @@
 #include <vector>
 #include <unordered_map>
 
+#include "languageDescripion.cpp"
 #include "errorHandler.h"
+#include "utilities.cpp"
 
 #include "importHandler.cpp"
 #include "commentHandler.cpp"
@@ -12,15 +14,17 @@
 #include "conversionHandler.cpp"
 #include "compiler.cpp"
 
-int main(int argumentCount, char *arguments[]){    
+int main(int argumentCount, char *arguments[]){std::cout << "-" << std::endl << std::endl;
     std::string inputFileName, outputFileName, inputFileFolder;
 
-    //input checking and collection
-        switch(argumentCount){
-            case 0: case 1:  std::cout << "compiler failed to start - elements missing from argument" << std::endl; return 1; break;
-            case 2: inputFileName = arguments[1]; inputFileFolder = importHandler_extractFolderAddress(arguments[1]); break;
-            case 3: default: inputFileName = arguments[1]; outputFileName = arguments[2]; inputFileFolder = importHandler_extractFolderAddress(arguments[1]); break;
-        }
+    //check that inputs are present
+        //input arguments: exe, language description file, code file, output file name
+        if( argumentCount != 3 ){ std::cout << "compiler failed to start - elements missing from argument" << std::endl; return 1; }
+        inputFileName = arguments[1]; inputFileFolder = importHandler_extractFolderAddress(arguments[1]);
+        outputFileName = arguments[2]; 
+        
+    //load in description
+        languageDescription rua = loadDescription();
 
     //load in program
         std::vector<std::string> program;
@@ -28,12 +32,7 @@ int main(int argumentCount, char *arguments[]){
         while(getline( inputFile, line )){ program.push_back(line); }
 
     //compile
-        // globals: maxProgramLength, memorySize, byteSize
-        unsigned int maxProgramLength = 65536;
-        unsigned int memorySize = 256;
-        unsigned int byteSize = 8;
-
-        program = compiler(program,maxProgramLength,memorySize,byteSize,inputFileFolder); if(program.empty()){ return 0; }
+        program = compiler(program,rua,inputFileFolder); if(program.empty()){ return 0; }
 
     //print program
         //look to see if output file name has been provided; if so; use that name and place it back in the folder

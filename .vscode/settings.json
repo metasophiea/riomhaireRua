@@ -29,6 +29,8 @@
         "iomanip": "cpp",
         "stdexcept": "cpp",
         "valarray": "cpp",
-        "*.ipp": "cpp"
+        "*.ipp": "cpp",
+        "fstream": "cpp",
+        "sstream": "cpp"
     }
 }
