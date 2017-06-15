@@ -13,7 +13,7 @@
             *this->windowWidth  = windowWidth; 
             *this->pixelHeight  = 2*(((float)windowHeight/(float)pixelCountY)/(float)windowHeight);
             *this->pixelWidth   = 2*(((float)windowWidth/(float)pixelCountX)/(float)windowWidth);
-            this->selectedPixel = localSizeHex("0");
+            this->selectedPixel = "0";
 
             start();
         }
@@ -39,28 +39,58 @@
         unsigned int *visualDisplay::pixelCountX  = segment.construct<unsigned int>(visualDisplay_pixelCountX )(0);
 
 //setters
-    void visualDisplay::setAddressByte(std::string value){ selectedPixel = value; }
-    void visualDisplay::setAddressBit(unsigned int bit, bool value){
-        std::string temp = HEXtoBIN(selectedPixel);
-        if(value){ temp[bit] = '1'; }else{ temp[bit] = '0'; }
+    void visualDisplay::setAddressByte(std::string value, unsigned int byteNumber){ 
+        std::string output = "";
+        for(unsigned int a = 0; a <= selectedPixel.length(); a++){
+            if( a/(getBitCount()/4) == byteNumber ){
+                for(unsigned int b = 0; b < value.length(); b++){ output = value[ value.length()-1-b ] + output; }
+                a += (getBitCount()/4) -1;
+            }
+            else if( a == selectedPixel.length() ){}
+            else{ output = selectedPixel[ selectedPixel.length()-1-a ] + output; }
+        }
+
+        selectedPixel = output;
+    }
+    void visualDisplay::setAddressBit(unsigned int bit, bool value, unsigned int byteNumber){
+        std::string temp = HEXtoBIN(getAddressByte(byteNumber));
+        if(value){ temp[ temp.length()-1-bit ] = '1'; }else{ temp[ temp.length()-1-bit ] = '0'; }
         setAddressByte(BINtoHEX(temp)); 
     }
     void visualDisplay::setPixelByte(std::string value){
         unsigned int pixelNumberByThree = HEXtoUINT(selectedPixel)*3;
-        pixels->at( pixelNumberByThree+0 ) = eightBitColour_extractRed(value);
-        pixels->at( pixelNumberByThree+1 ) = eightBitColour_extractGreen(value);
-        pixels->at( pixelNumberByThree+2 ) = eightBitColour_extractBlue(value);
+        try{
+            pixels->at( pixelNumberByThree+0 ) = eightBitColour_extractRed(value);
+            pixels->at( pixelNumberByThree+1 ) = eightBitColour_extractGreen(value);
+            pixels->at( pixelNumberByThree+2 ) = eightBitColour_extractBlue(value);
+        }catch(std::out_of_range e){ std::cout << "visual display error - attempting to reach non-existant pixel: " << selectedPixel << std::endl; }
     }
     void visualDisplay::setPixelBit(unsigned int bit, bool value){
         unsigned int pixelNumberByThree = HEXtoUINT(selectedPixel)*3;
         std::string temp = produceEightBitColourBin( pixels->at( pixelNumberByThree+0 ),pixels->at( pixelNumberByThree+1 ),pixels->at( pixelNumberByThree+2 ) );
-        if(value){ temp[bit] = '1'; }else{ temp[bit] = '0'; }
+        if(value){ temp[ temp.length()-1-bit ] = '1'; }else{ temp[ temp.length()-1-bit ] = '0'; }
         setPixelByte(BINtoHEX(temp));
     }
 
 //getters
-    std::string visualDisplay::getAddressByte(){ return selectedPixel; }
-    bool visualDisplay::getAddressBit(unsigned int bit){ if( HEXtoBIN(selectedPixel)[bit] == '1' ){ return true; }else{ return false; } }
+    std::string visualDisplay::getAddressByte(unsigned int byteNumber){ 
+        unsigned int count = 0; std::string temp = "";
+        
+        for(int a = selectedPixel.length()-1; a >= 0; a--){
+            temp = selectedPixel[a] + temp;
+            if(temp.length() == (getBitCount()/4)){
+                if(count == byteNumber){break;}
+                temp = ""; count++;
+            }
+        }
+
+        for(unsigned int a = temp.length(); a < (getBitCount()/4); a++){ temp = "0" + temp; }
+        return temp;
+    }
+    bool visualDisplay::getAddressBit(unsigned int bit, unsigned int byteNumber){ 
+        std::string temp = HEXtoBIN(getAddressByte(byteNumber));
+        if( temp[ temp.length()-1-bit ] == '1' ){ return true; }else{ return false; } 
+    }
     std::string visualDisplay::getPixelByte(){
         unsigned int pixelNumberByThree = HEXtoUINT(selectedPixel)*3;
         return BINtoHEX(produceEightBitColourBin( pixels->at( pixelNumberByThree+0 ),pixels->at( pixelNumberByThree+1 ),pixels->at( pixelNumberByThree+2 ) ));

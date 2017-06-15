@@ -14,7 +14,7 @@
 #include "conversionHandler.cpp"
 #include "compiler.cpp"
 
-int main(int argumentCount, char *arguments[]){std::cout << "-" << std::endl << std::endl;
+int main(int argumentCount, char *arguments[]){
     std::string inputFileName, outputFileName, inputFileFolder;
 
     //check that inputs are present

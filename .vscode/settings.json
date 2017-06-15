@@ -27,6 +27,7 @@
         "unordered_map": "cpp",
         "utility": "cpp",
         "typeinfo": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "*.ipp": "cpp"
     }
 }

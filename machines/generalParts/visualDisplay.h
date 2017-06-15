@@ -44,13 +44,13 @@ class visualDisplay: public bareMetal
         visualDisplay(unsigned int bitCount, unsigned int pixelCountX, unsigned int pixelCountY, unsigned int windowWidth, unsigned int windowHeight);
         virtual ~visualDisplay();
 
-        virtual void setAddressByte(std::string value);
-        virtual void setAddressBit(unsigned int bit, bool value);
+        virtual void setAddressByte(std::string value, unsigned int byteNumber = 0);
+        virtual void setAddressBit(unsigned int bit, bool value, unsigned int byteNumber = 0);
         virtual void setPixelByte(std::string value);
         virtual void setPixelBit(unsigned int bit,  bool value);
 
-        virtual std::string getAddressByte();
-        virtual bool getAddressBit(unsigned int bit);
+        virtual std::string getAddressByte(unsigned int byteNumber = 0);
+        virtual bool getAddressBit(unsigned int bit, unsigned int byteNumber = 0);
         virtual std::string getPixelByte();    
         virtual bool getPixelBit(unsigned int bit);    
 
