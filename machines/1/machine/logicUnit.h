@@ -21,7 +21,7 @@ class logicUnit: public bareMetal
 
         virtual std::string flip( std::string value );
         virtual std::string inc( std::string value );
-        virtual std::string lShift( std::string value );
+        virtual std::string lRotate( std::string value );
 
         virtual std::string nand( std::string value_1, std::string value_2 );
         virtual std::string add( std::string value_1, std::string value_2 );

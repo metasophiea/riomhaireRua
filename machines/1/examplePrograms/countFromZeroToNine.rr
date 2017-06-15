@@ -3,23 +3,23 @@
 
 //prints the machine name
 inc:10
-lShift:10
-lShift:10
-lShift:10
-lShift:10
-lShift:10
-lShift:10
-lShift:10
+lRotate:10
+lRotate:10
+lRotate:10
+lRotate:10
+lRotate:10
+lRotate:10
+lRotate:10
 copy:10:2
 
 clear:10
 
 //print a "newline" twice
 inc:10
-lShift:10
-lShift:10
+lRotate:10
+lRotate:10
 inc:10
-lShift:10
+lRotate:10
 copy:10:02
 copy:10:02
 //put this value in byte 20 for later
@@ -29,12 +29,12 @@ clear:10
 
 //add 48 to file byte 10
 inc:10
-lShift:10
+lRotate:10
 inc:10
-lShift:10
-lShift:10
-lShift:10
-lShift:10
+lRotate:10
+lRotate:10
+lRotate:10
+lRotate:10
 
 //main loop
 ::loop

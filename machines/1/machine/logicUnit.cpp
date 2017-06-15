@@ -35,7 +35,7 @@ std::string logicUnit::flip( std::string value ){
 
 std::string logicUnit::inc( std::string value ){ return analyseAndReturn(UINTtoHEX(HEXtoUINT(value) + 1)); }
 
-std::string logicUnit::lShift( std::string value ){
+std::string logicUnit::lRotate( std::string value ){
     std::string b = HEXtoBIN(value);
 
     char temp = b[0];
