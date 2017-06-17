@@ -23,28 +23,34 @@ void executer::incrementProgramCounter(){
 }
 
 unsigned int executer::nextCommandNumber(){return programCounter;}
-void executer::runCommand(std::string command){
+void executer::runCommand(std::string instruction){
     incrementProgramCounter();
 
-    std::string arg_1 = std::string(1,command[1]) + std::string(1,command[2]);
-    std::string arg_2 = std::string(1,command[3]) + std::string(1,command[4]);
+    std::string command = std::string(1,instruction[0]) + std::string(1,instruction[1]);
+    std::string arg_1   = std::string(1,instruction[2]) + std::string(1,instruction[3]);
+    std::string arg_2   = std::string(1,instruction[4]) + std::string(1,instruction[5]);
 
-    switch(command[0]){
-        /* nop           */ case '0': break;
-        /* goto l        */ case '1': memory.setByte(0,arg_1); memory.setByte(1,arg_2); break;
-        /* ifBitFlow f b */ case '2': if( !memory.getBit(arg_1, HEXtoUINT(arg_2)) ){ incrementProgramCounter(); } break;
-        /* ifBitSkip f b */ case '3': if( memory.getBit(arg_1, HEXtoUINT(arg_2)) ){ incrementProgramCounter(); } break;
-        /* clear f       */ case '4': memory.clearByte(arg_1); break;
-        /* set f         */ case '5': memory.setByte(arg_1,arg_2); break;
-        /* flip f        */ case '6': memory.setByte( arg_1 , logicUnit.flip    ( memory.getByte(arg_1) ) ); break;
-        /* inc f         */ case '7': memory.setByte( arg_1 , logicUnit.inc     ( memory.getByte(arg_1) ) ); break;
-        /* dec f         */ case '8': memory.setByte( arg_1 , logicUnit.dec     ( memory.getByte(arg_1) ) ); break;
-        /* lRotate f     */ case '9': memory.setByte( arg_1 , logicUnit.lRotate ( memory.getByte(arg_1) ) ); break;
-        /* rRotate f     */ case 'a': memory.setByte( arg_1 , logicUnit.lRotate ( memory.getByte(arg_1) ) ); break;
-        /* copy f f      */ case 'b': memory.setByte( arg_2 , logicUnit.pass    ( memory.getByte(arg_1) ) ); break;
-        /* nand f f      */ case 'c': memory.setByte( arg_2 , logicUnit.nand    ( memory.getByte(arg_1),memory.getByte(arg_2)) ); break;
-        /* add f f       */ case 'd': memory.setByte( arg_2 , logicUnit.add     ( memory.getByte(arg_1),memory.getByte(arg_2)) ); break;
-    }
+    /* nop           */ if      ( command.compare("00") == 0 ){  }
+    /* goto l        */ else if ( command.compare("01") == 0 ){ memory.setByte(0,arg_1); memory.setByte(1,arg_2);}
+    /* ifBitFlow f b */ else if ( command.compare("02") == 0 ){ if( !memory.getBit(arg_1, HEXtoUINT(arg_2)) ){ incrementProgramCounter(); } }
+    /* ifBitSkip f b */ else if ( command.compare("03") == 0 ){ if( memory.getBit(arg_1, HEXtoUINT(arg_2)) ){ incrementProgramCounter(); } }
+    /* wait t        */ else if ( command.compare("04") == 0 ){ usleep(1000*HEXtoUINT(arg_1+arg_2)); }
+    /* clear f       */ else if ( command.compare("05") == 0 ){ memory.clearByte(arg_1); }
+    /* set f         */ else if ( command.compare("06") == 0 ){ memory.setByte(arg_1,arg_2); }
+    /* neg f         */ else if ( command.compare("07") == 0 ){ memory.setByte( arg_1 , logicUnit.neg     ( memory.getByte(arg_1) ) ); }
+    /* flip f        */ else if ( command.compare("08") == 0 ){ memory.setByte( arg_1 , logicUnit.flip    ( memory.getByte(arg_1) ) ); }
+    /* inc f         */ else if ( command.compare("09") == 0 ){ memory.setByte( arg_1 , logicUnit.inc     ( memory.getByte(arg_1) ) ); }
+    /* dec f         */ else if ( command.compare("0a") == 0 ){ memory.setByte( arg_1 , logicUnit.dec     ( memory.getByte(arg_1) ) ); }
+    /* lRotate f     */ else if ( command.compare("0b") == 0 ){ memory.setByte( arg_1 , logicUnit.lRotate ( memory.getByte(arg_1) ) ); }
+    /* rRotate f     */ else if ( command.compare("0c") == 0 ){ memory.setByte( arg_1 , logicUnit.lRotate ( memory.getByte(arg_1) ) ); }
+    /* copy f f      */ else if ( command.compare("0d") == 0 ){ memory.setByte( arg_2 , logicUnit.pass    ( memory.getByte(arg_1) ) ); }
+    /* and f f       */ else if ( command.compare("0e") == 0 ){ memory.setByte( arg_2 , logicUnit.And     ( memory.getByte(arg_1),memory.getByte(arg_2)) ); }
+    /* nand f f      */ else if ( command.compare("0f") == 0 ){ memory.setByte( arg_2 , logicUnit.nand    ( memory.getByte(arg_1),memory.getByte(arg_2)) ); }
+    /* or f f        */ else if ( command.compare("10") == 0 ){ memory.setByte( arg_2 , logicUnit.Or      ( memory.getByte(arg_1),memory.getByte(arg_2)) ); }
+    /* nor f f       */ else if ( command.compare("11") == 0 ){ memory.setByte( arg_2 , logicUnit.nor     ( memory.getByte(arg_1),memory.getByte(arg_2)) ); }
+    /* xor f f       */ else if ( command.compare("12") == 0 ){ memory.setByte( arg_2 , logicUnit.Xor     ( memory.getByte(arg_1),memory.getByte(arg_2)) ); }
+    /* add f f       */ else if ( command.compare("13") == 0 ){ memory.setByte( arg_2 , logicUnit.add     ( memory.getByte(arg_1),memory.getByte(arg_2)) ); }
+    /* sub f f       */ else if ( command.compare("14") == 0 ){ memory.setByte( arg_2 , logicUnit.sub     ( memory.getByte(arg_1),memory.getByte(arg_2)) ); }
 
     programCounter = HEXtoUINT(memory.getByte(0))*256 + HEXtoUINT(memory.getByte(1));
     update();

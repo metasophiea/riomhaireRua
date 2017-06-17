@@ -2,36 +2,32 @@
 //printing each number to the console
 
 //print the machine name
-set:10:80
-copy:10:3
+set:3:80
 
-//print a "newline" twice
-set:10:a
-copy:10:03
-copy:10:03
-//put this value in byte 20 for later
-copy:10:20
+//print a nextLine twice
+set:3:a
+set:3:a
 
-//add 48 to file byte 10
+//put 10 in byte 20. This is the counter limit
+set:20:a
+
+//set byte 10 to 48. This is the ASCII code for where '0' is
 set:10:30
 
 //main loop
 ::loop
-    //copy the value to the console
+    //copy the current ASCII value to the console
     copy:10:03
-    //copy the nextline value to the console (10)
-    copy:20:03
+    //print a nextLine
+    set:3:a
 
     //increment both values to move onto the next symbol, and to keep track of how many symbols we've printed so far (respectively) 
     inc:10
     inc:11
 
-        //subtract the value stored in byte 11 from the value stored in byte 20 (which is 10)
-        //to see if they are equal
+        //subtract the value stored in byte 11 from the counter limit value stored in byte 20 (which is 10) to see if they are equal
         copy:11:21
-        flip:21
-        inc:21
-        add:20:21
+        sub:20:21
 
     //if the result was zero, jump out of this loop; otherwise loop
     ifBitFlow:02:0

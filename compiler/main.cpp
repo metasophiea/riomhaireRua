@@ -4,9 +4,9 @@
 #include <vector>
 #include <unordered_map>
 
+#include "utilities.cpp"
 #include "languageDescripion.cpp"
 #include "errorHandler.h"
-#include "utilities.cpp"
 
 #include "importHandler.cpp"
 #include "commentHandler.cpp"
@@ -24,7 +24,7 @@ int main(int argumentCount, char *arguments[]){
         outputFileName = arguments[2]; 
         
     //load in description
-        languageDescription rua = loadDescription();
+        languageDescription rua = loadDescription(3);
 
     //load in program
         std::vector<std::string> program;

@@ -9,7 +9,6 @@ typedef boost::interprocess::allocator<float, boost::interprocess::managed_share
 typedef boost::interprocess::vector   <float, ShmemAllocator> PixelVector;
 
 //pixel memory:
-    #define pixelMemorySize 65535
     #define visualDisplay_sharedMemorySpaceName "visualDisplay_memorySpace"
     //object names
         #define visualDisplay_windowTitle  "windowTitle"
@@ -43,10 +42,13 @@ int main(void){
             glfwMakeContextCurrent(window);
             glfwSwapInterval(1);
 
+        //tell visualDisplay that all is good
+            *control = 1; 
+
         //rendering loop
             unsigned int selectedPixel;
             while(!glfwWindowShouldClose(window)){
-                if(*control == 1){break;}
+                if(*control == 2){break;}
 
                 for(unsigned int y = 0; y < (*pixelCountY); y++){
                     for(unsigned int x = 0; x < (*pixelCountX); x++){
@@ -62,7 +64,7 @@ int main(void){
                 }
 
                 glfwSwapBuffers(window);
-                glfwWaitEvents();
+                glfwPollEvents();
             }
 
         *control = 1;

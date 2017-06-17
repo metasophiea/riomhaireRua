@@ -8,6 +8,7 @@ ifBitFlow:02:1
 
     ::inc5
     inc:5
+    wait:0010
 ifBitFlow:02:1
     goto:afterLoop
     goto:loop

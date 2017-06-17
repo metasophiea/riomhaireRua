@@ -17,7 +17,7 @@ bareMetal::bareMetal(unsigned int bitCount){
 bareMetal::~bareMetal(){}
 
 std::string bareMetal::UINTtoHEX(unsigned int UINT){
-	if(UINT == 0){ return "0";}
+	if(UINT == 0){ return "0"; }
 
 	std::string hexArray[] = {"0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"};
     std::string HEX = "";
@@ -170,3 +170,4 @@ std::string bareMetal::localSizeBIN(std::string BIN){
 int bareMetal::checkForComplyingLength(std::string HEX){ return HEX.length() - bitCount/4; }
 bool bareMetal::isUINTbeyondBitCount(unsigned int UINT){ return UINT > pow(2,bitCount); }
 unsigned int bareMetal::getBitCount(){return bitCount;}
+unsigned int bareMetal::getMaximumNumber(){ return pow(2,bitCount)-1; }

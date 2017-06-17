@@ -6,13 +6,14 @@
 #include <boost/interprocess/allocators/allocator.hpp>
 
 #include <iostream>
+#include <vector>
 #include "bareMetal.h"
 
 typedef boost::interprocess::allocator<float, boost::interprocess::managed_shared_memory::segment_manager>  ShmemAllocator;
 typedef boost::interprocess::vector   <float, ShmemAllocator> PixelVector;
 
 //pixel memory:
-    #define pixelMemorySize 65535
+    #define pixelMemorySize 1048575
     #define visualDisplay_sharedMemorySpaceName "visualDisplay_memorySpace"
     //object names
         #define visualDisplay_pixelMemory  "pixels"
@@ -33,8 +34,9 @@ class visualDisplay: public bareMetal
             //each pixel; RGBRGBRGBRGBRGB, etc.
         static unsigned int *control; //shared control memory
             //unsigned int for communicating status and commands
-            // 0 : all is good
-            // 1 : shut down your side of the system
+            // 0 : waiting on displayUnit to say all is good
+            // 1 : all is good
+            // 2 : shut down your side of the system
         static float *pixelHeight, *pixelWidth;
         static unsigned int *windowHeight, *windowWidth;
         static unsigned int *pixelCountY, *pixelCountX;

@@ -26,7 +26,7 @@
         shm_remove() { boost::interprocess::shared_memory_object::remove(visualDisplay_sharedMemorySpaceName); }
         ~shm_remove(){ boost::interprocess::shared_memory_object::remove(visualDisplay_sharedMemorySpaceName); }
     } remover;
-    boost::interprocess::managed_shared_memory segment(boost::interprocess::create_only, visualDisplay_sharedMemorySpaceName, 65536);
+    boost::interprocess::managed_shared_memory segment(boost::interprocess::create_only, visualDisplay_sharedMemorySpaceName, pixelMemorySize);
     ShmemAllocator alloc_inst(segment.get_segment_manager());
     //now the objects
         PixelVector  *visualDisplay::pixels       = segment.construct<PixelVector> (visualDisplay_pixelMemory )(alloc_inst);
@@ -63,7 +63,7 @@
             pixels->at( pixelNumberByThree+0 ) = eightBitColour_extractRed(value);
             pixels->at( pixelNumberByThree+1 ) = eightBitColour_extractGreen(value);
             pixels->at( pixelNumberByThree+2 ) = eightBitColour_extractBlue(value);
-        }catch(std::out_of_range e){ std::cout << "visual display error - attempting to reach non-existant pixel: " << selectedPixel << std::endl; }
+        }catch(std::out_of_range e){ /*std::cout << "visual display error - attempting to reach non-existant pixel: " << selectedPixel << std::endl;*/ }
     }
     void visualDisplay::setPixelBit(unsigned int bit, bool value){
         unsigned int pixelNumberByThree = HEXtoUINT(selectedPixel)*3;
@@ -119,12 +119,14 @@
     //display control
         void visualDisplay::start(){
             pid_t pid = fork();
-            if(pid == 0){ execl("displayUnit", "", 0, 0); }
-            else if(pid != 0){ /* all is well */ }
-            else{ std::cout << "display unit forking failure" << std::endl; }
+            if(pid == 0){ /* new process to be replaced */ execl("displayUnit", "", 0, 0); }
+            else if(pid != 0){ /* this is the original process */ }
+            else{ std::cout << "display unit forking failure" << std::endl; *control = 2;}
+
+            while( *control == 0 ){/*waiting on display unit to start*/}
         }
         void visualDisplay::stop(){
-            //*control = 1;
+            *control = 2;
         }
 
 //conversion functions

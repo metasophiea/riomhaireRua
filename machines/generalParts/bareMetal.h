@@ -19,6 +19,7 @@ class bareMetal{
         virtual bool isUINTbeyondBitCount(unsigned int UINT);
 
         virtual unsigned int getBitCount();
+        virtual unsigned int getMaximumNumber();
 
     public:
         bareMetal(unsigned int bitCount);

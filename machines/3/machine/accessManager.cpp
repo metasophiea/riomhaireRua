@@ -6,7 +6,7 @@ accessManager::accessManager(unsigned int bitCount, unsigned int memorySize):
     bareMetal(bitCount),
     memoryBlock(bitCount, memorySize),
     console(bitCount),
-    visual(bitCount,65,65,500,500)
+    visual(bitCount,256,256,500,500)
     {}
 accessManager::~accessManager(){}
 
@@ -14,8 +14,8 @@ unsigned int accessManager::size()                                          { re
 void accessManager::display(){ 
     std::cout << "Internal Memory" << std::endl;
     memoryBlock.display(); 
-    std::cout << std::endl << "Visual Display Memory" << std::endl;
-    visual.display();
+    //std::cout << std::endl << "Visual Display Memory" << std::endl;
+    //visual.display();
 }
 
 bool accessManager::getBit(std::string byte, unsigned int bit)              { return getBit(HEXtoUINT(byte),bit); }
