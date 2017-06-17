@@ -1,0 +1,43 @@
+all decimal
+
+//flow control
+    //misc
+        nop                             ->          0
+        goto:location
+        wait:decTime
+    //if statements 
+        ifBitFlow:byte:bit              ->          3:16:2
+        ifBitSkip:byte:bit
+        ifByteZeroFlow:byte
+        ifByteZeroSkip:byte
+        ifClippingFlow
+        ifClippingSkip
+        ifSAMmodeOnFlow
+        ifSAMmodeOffSkip
+
+//logical instructions
+    //lone byte
+        clear:byte
+        flip:byte
+        lRotate:byte
+        rRotate:byte
+        copy:byte:destinationByte
+    //multi byte
+        and:byte:byte:destinationByte
+        nand:byte:byte:destinationByte
+        or:byte:byte:destinationByte
+        nor:byte:byte:destinationByte
+        xor:byte:byte:destinationByte
+
+//math instructions
+    //controls
+        SAMmode:boolean
+    //lone byte
+        convert:boolean:byte
+        set:byte:value
+        int:byte
+        dec:byte
+        neg:byte
+    //multi byte
+        add:byte:byte:destinationByte
+        sub:byte:byte:destinationByte

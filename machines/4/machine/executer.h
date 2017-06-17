@@ -1,0 +1,33 @@
+#ifndef _INCL_GUARD_HEX_UINT_executer
+#define _INCL_GUARD_HEX_UINT_executer
+
+#include "metal.h"
+#include "accessManager.h"
+
+class executer: public metal
+{
+    private:
+        bool debugMode;
+        unsigned int programCounter;
+        unsigned int programCounterByteCount;
+        //logicUnit logicUnit;
+        accessManager accessManager;
+
+    //construction/destruction
+        public: executer(unsigned int bitSize, unsigned int worktopSize, unsigned int programCounterByteCount);
+        public: virtual ~executer();
+
+    //process controls
+        public: virtual void runInstruction(std::string instruction);
+        public: virtual unsigned int nextInstructionNumber();
+        private: virtual void update();
+
+    //utilities
+        private: virtual std::vector<std::string> splitString(std::string string, char splitChar);
+
+    //printers and debug
+        public: virtual void printMemory();
+        public: virtual void debug(bool onOff);
+};
+
+#endif
