@@ -33,6 +33,7 @@ int main(int argumentCount, char *arguments[]){
         machine.debug(true);
 
     //load in program
+        machine.appendInstruction("11:10:1:1");
         // std::ifstream inputFile(arguments[1]); 
         // if( !inputFile.good() ){ std::cout << "machine failed to start - provided file does not exist" << std::endl; return 3;}
         // std::string line;

@@ -8,16 +8,18 @@
 //construction/destruction
     executer::executer(unsigned int bitSize, unsigned int worktopSize, unsigned int programCounterByteCount):
         metal(bitSize),
+        programCounter(0),
+        debugMode(false),
+        SAMmode(false),
         programCounterByteCount(programCounterByteCount),
-        //logicUnit(bitSize),
+        logicUnit(bitSize),
         accessManager(bitSize,worktopSize)
-        {
-            programCounter = 0;
-        }
+        {}
     executer::~executer(){}
 
 //process controls
     void executer::runInstruction(std::string instruction){
+        if(debugMode){ std::cout << "executer - performing instruction: " << instruction << std::endl; } 
         programCounter++;
 
         std::vector<std::string> instructionSegments = splitString(instruction,':');
@@ -33,41 +35,49 @@
             /* ifclippingskip  */ case  8: break;
             /* ifsammodeonflow */ case  9: break;
             /* ifsammodeonskip */ case 10: break;
-            /* clear           */ case 11: break;
-            /* flip            */ case 12: break;
-            /* lrotate         */ case 13: break;
-            /* rrotate         */ case 14: break;
-            /* copy            */ case 15: break;
-            /* and             */ case 16: break;
-            /* nand            */ case 17: break;
-            /* or              */ case 18: break;
-            /* nor             */ case 19: break;
-            /* xor             */ case 20: break;
-            /* sammode         */ case 21: break;
-            /* convert         */ case 22: break;
-            /* set             */ case 23: break;
-            /* int             */ case 24: break;
-            /* dec             */ case 25: break;
-            /* neg             */ case 26: break;
-            /* add             */ case 27: break;
-            /* sub             */ case 28: break;
+            /* setBit          */ case 11: 
+                accessManager.setBit(
+                    std::atoi(instructionSegments[1].c_str()),
+                    std::atoi(instructionSegments[2].c_str()),
+                    (std::atoi(instructionSegments[3].c_str()) != 0)
+                ); 
+            break;
+            /* clear           */ case 12: accessManager.setByte(std::atoi(instructionSegments[1].c_str()),0); break;
+            /* flip            */ case 13: break;
+            /* lrotate         */ case 14: break;
+            /* rrotate         */ case 15: break;
+            /* copy            */ case 16: break;
+            /* and             */ case 17: break;
+            /* nand            */ case 18: break;
+            /* or              */ case 19: break;
+            /* nor             */ case 20: break;
+            /* xor             */ case 21: break;
+            /* sammode         */ case 22: if(std::atoi(instructionSegments[1].c_str()) != 0){SAMmode = true;}else{SAMmode = false;} break;
+            /* convert         */ case 23: break;
+            /* set             */ case 24: break;
+            /* int             */ case 25: break;
+            /* dec             */ case 26: break;
+            /* neg             */ case 27: break;
+            /* add             */ case 28: break;
+            /* sub             */ case 29: break;
         }
 
         update();
     }
     unsigned int executer::nextInstructionNumber(){ return programCounter; }
-    void executer::update(){
+    void executer::update(){if(debugMode){ std::cout << "executer - updating program counter" << std::endl; } 
         //updating program counter bytes
-            std::string fullLengthHex = resizeHex(UINTtoHEX(programCounter), programCounterByteCount*getBitSize()/4 ); std::string temp;
+            std::string fullLengthHex = resize(UINTtoHEX(programCounter), programCounterByteCount*getBitSize()/4 ); std::string temp; if(debugMode){ std::cout << "executer - new program location number: " << fullLengthHex << std::endl; } 
             for(unsigned int a = 0; a < fullLengthHex.length(); a+=(getBitSize()/4)){ temp = "";
                 for(unsigned int b = 0; b < (getBitSize()/4); b++){ temp = fullLengthHex[ fullLengthHex.length()-1-a-b ] + temp; }
                 accessManager.setByte( programCounterByteCount-1-( a/(getBitSize()/4) ) , HEXtoUINT(temp) );
+                if(debugMode){ std::cout << "executer - setting byte: " << programCounterByteCount-1-( a/(getBitSize()/4) ) << " to " << temp << std::endl; } 
             }
     }
 
 //utilities
     std::vector<std::string> executer::splitString(std::string string, char splitChar){
-        std::vector<std::string> output; std::string temp = "empty";
+        std::vector<std::string> output; std::string temp = "";
 
         for(unsigned int a = 0; a < string.length(); a++){
             if(string[a] == splitChar){ output.push_back(temp); temp = ""; }
@@ -79,5 +89,10 @@
     }
 
 //printers and debug
-    void executer::printMemory(){}
-    void executer::debug(bool onOff){ debugMode = onOff; }
+    void executer::printMemory(){if(debugMode){ std::cout << "executer - printing memory" << std::endl; } 
+        accessManager.printMemory();
+    }
+    void executer::debug(bool onOff){ 
+        debugMode = onOff; 
+        accessManager.debug(onOff);
+    }

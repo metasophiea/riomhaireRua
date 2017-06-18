@@ -2,15 +2,17 @@
 #define _INCL_GUARD_HEX_UINT_executer
 
 #include "metal.h"
+#include "logicUnit.h"
 #include "accessManager.h"
 
 class executer: public metal
 {
     private:
         bool debugMode;
+        bool SAMmode;
         unsigned int programCounter;
         unsigned int programCounterByteCount;
-        //logicUnit logicUnit;
+        logicUnit logicUnit;
         accessManager accessManager;
 
     //construction/destruction
