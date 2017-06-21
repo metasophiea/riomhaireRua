@@ -18,13 +18,13 @@ int main(int argumentCount, char *arguments[]){
     std::string inputFileName, outputFileName, inputFileFolder;
 
     //check that inputs are present
-        //input arguments: exe, language description file, code file, output file name
+        //input arguments: exe, code file, output file name
         if( argumentCount != 3 ){ std::cout << "compiler failed to start - elements missing from argument" << std::endl; return 1; }
         inputFileName = arguments[1]; inputFileFolder = importHandler_extractFolderAddress(arguments[1]);
         outputFileName = arguments[2]; 
         
     //load in description
-        languageDescription rua = loadDescription(3);
+        languageDescription rua = loadDescription(4);
 
     //load in program
         std::vector<std::string> program;

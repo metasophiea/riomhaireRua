@@ -2,29 +2,28 @@
 # needs boost and GLFW libraries
 
 # import files and compile in correct order
-    cp ../../generalParts/bareMetal.h .; cp ../../generalParts/bareMetal.cpp .;
+    cp ../../1/machine/bareMetal.h .; cp ../../1/machine/bareMetal.cpp .;
     g++ -c bareMetal.cpp
 
-    cp ../../generalParts/logicUnit.h .; cp ../../generalParts/logicUnit.cpp .;
+    cp ../../1/machine/logicUnit.h .; cp ../../1/machine/logicUnit.cpp .;
     g++ -c logicUnit.cpp
 
-    cp ../../generalParts/memoryBlock.h .; cp ../../generalParts/memoryBlock.cpp .;
+    cp ../../1/machine/memoryBlock.h .; cp ../../1/machine/memoryBlock.cpp .;
     g++ -c memoryBlock.cpp
 
-    cp ../../generalParts/consoleAccess.h .; cp ../../generalParts/consoleAccess.cpp .;
+    cp ../../1/machine/consoleAccess.h .; cp ../../1/machine/consoleAccess.cpp .;
     g++ -c consoleAccess.cpp
 
-    cp ../../generalParts/visualDisplay.h .; cp ../../generalParts/visualDisplay.cpp .; cp ../../generalParts/displayUnit.cpp .;
     g++ -c visualDisplay.cpp
     g++ displayUnit.cpp -o displayUnit -framework OpenGL -lglfw3
 
     g++ -c accessManager.cpp
     g++ -c executer.cpp
 
-    cp ../../generalParts/programManager.h .; cp ../../generalParts/programManager.cpp .;
+    cp ../../1/machine/programManager.h .; cp ../../1/machine/programManager.cpp .;
     g++ -c programManager.cpp 
 
-    cp ../../generalParts/main.cpp .;
+    cp ../../1/machine/main.cpp .;
     g++ main.cpp *.o -o rua
 
 # delete imported files
@@ -32,7 +31,6 @@
     rm logicUnit.h; rm logicUnit.cpp;
     rm memoryBlock.h; rm memoryBlock.cpp;
     rm consoleAccess.h; rm consoleAccess.cpp;
-    rm visualDisplay.h; rm visualDisplay.cpp; rm displayUnit.cpp;
     rm programManager.h; rm programManager.cpp;
     rm main.cpp;
 

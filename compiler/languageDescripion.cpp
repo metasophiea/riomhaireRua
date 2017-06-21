@@ -2,247 +2,309 @@ struct languageDescription{
     int commandLength;
     int maxProgramLength;
     int worktopSize;
-    int byteSize;
+    int byteSize;   //hex digit count
+    int numberMode; //0 - dec, 1 - hex
 
     std::vector<std::string> commands;
+    std::vector<std::string> tagableCommands;
     std::vector< std::vector<std::string> > commandDetails;
     // tag, bit, byte, long
 };
 
 languageDescription loadDescription(unsigned int languageNumber){
     languageDescription rua;
-    std::vector<std::string> temp;
+    std::vector<std::string> commandDetails_tempVector;
+    std::vector<std::string> commandDetails_splitVector;
 
     switch(languageNumber){
         case 1: //rua.1
             rua.commandLength    = 5;
             rua.maxProgramLength = 256;
             rua.worktopSize      = 256;
-            rua.byteSize         = 2; //hex digit count
+            rua.byteSize         = 2;
+            rua.numberMode       = 1;
 
             rua.commands.push_back("nop");
-                temp = std::vector<std::string>();
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("goto");
-                temp = std::vector<std::string>();
-                temp.push_back("tag");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("tag");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("ifbitflow");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("bit");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("bit");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("clear");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("flip");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("inc");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("lrotate");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("copy");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("nand");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("add");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
         break;
         case 2: //rua.2
             rua.commandLength    = 5;
             rua.maxProgramLength = 65536;
             rua.worktopSize      = 256;
-            rua.byteSize         = 2; //hex digit count
+            rua.byteSize         = 2;
+            rua.numberMode       = 1;
             
             rua.commands.push_back("nop");
-                temp = std::vector<std::string>();
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("goto");
-                temp = std::vector<std::string>();
-                temp.push_back("tag");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("tag");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("ifbitflow");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("bit");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("bit");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("ifbitskip");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("bit");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("bit");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("clear");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("set");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("flip");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("inc");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("dec");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("lrotate");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("rrotate");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("copy");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("nand");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("add");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
         break;
         case 3: //rua.3
             rua.commandLength    = 6;
             rua.maxProgramLength = 65536;
             rua.worktopSize      = 256;
-            rua.byteSize         = 2; //hex digit count
+            rua.byteSize         = 2;
+            rua.numberMode       = 1;
 
             rua.commands.push_back("nop");
-                temp = std::vector<std::string>();
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("goto");
-                temp = std::vector<std::string>();
-                temp.push_back("tag");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("tag");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("ifbitflow");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("bit");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("bit");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("ifbitskip");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("bit");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("bit");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("wait");
-                temp = std::vector<std::string>();
-                temp.push_back("long");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("long");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("clear");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("set");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("neg");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("flip");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("inc");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("dec");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("lrotate");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("rrotate");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("copy");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("and");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("nand");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("or");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("nor");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("xor");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("add");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
             rua.commands.push_back("sub");
-                temp = std::vector<std::string>();
-                temp.push_back("byte");
-                temp.push_back("byte");
-                rua.commandDetails.push_back(temp);
+                commandDetails_tempVector = std::vector<std::string>();
+                commandDetails_tempVector.push_back("byte");
+                commandDetails_tempVector.push_back("byte");
+                rua.commandDetails.push_back(commandDetails_tempVector);
+        break;
+        case 4: //rua.4
+            rua.maxProgramLength = 65536;
+            rua.worktopSize      = 256;
+            rua.numberMode       = 0;
+
+            std::string desc[] = {
+                "nop",
+                "goto:location",
+                "wait:time",
+                "ifBitSet:byte:bit:location",
+                "ifResultZero:location",
+                "ifResultOverflow:location",
+                "ifResultUnderflow:location",
+                "ifResultNegative:location",
+                "ifSAMmode:location",
+                "setBit:byte:bit:value",
+                "clear:byte",
+                "flip:byte",
+                "lRotate:byte",
+                "rRotate:byte",
+                "copy:byte:destinationByte",
+                "and:byte:byte:destinationByte",
+                "nand:byte:byte:destinationByte",
+                "or:byte:byte:destinationByte",
+                "nor:byte:byte:destinationByte",
+                "xor:byte:byte:destinationByte",
+                "mode:value",
+                "convert:byte:inputMode:outputMode",
+                "set:byte:value",
+                "inc:byte",
+                "dec:byte",
+                "neg:byte",
+                "add:byte:byte:destinationByte",
+                "sub:byte:byte:destinationByte"
+            };
+
+            for(unsigned int a = 0; a < sizeof(desc)/sizeof(*desc); a++){
+                //split up line
+                    commandDetails_splitVector = splitString(desc[a],':');
+                //add lead command to commands list
+                    rua.commands.push_back(commandDetails_splitVector[0]);
+                //add command details to commandDetails
+                    commandDetails_tempVector = std::vector<std::string>();
+                    for(unsigned int b = 1; b < commandDetails_splitVector.size(); b++){ 
+                        commandDetails_tempVector.push_back( commandDetails_splitVector[b] );
+                    }
+                    rua.commandDetails.push_back(commandDetails_tempVector);
+
+                //determine if command is tagAble, and add to the tagableCommands list if it is
+                    if( std::find( commandDetails_tempVector.begin(), commandDetails_tempVector.end(), "location" ) != commandDetails_tempVector.end() ){
+                        tagableCommands.push_back( commandDetails_splitVector[0] );
+                    }
+
+            }
+
         break;
     }
 
     // std::cout << "language selected: " << languageNumber << std::endl;
     // std::cout << "- instructions -" << std::endl;
     // for(unsigned int a = 0; a < rua.commands.size(); a++){
-    //     std::cout << UINTtoHEX(a) << " | " << rua.commands[a] << std::endl;
+    //     if( languageNumber < 4){ std::cout << UINTtoHEX(a) << " | " << rua.commands[a] << std::endl; }
+    //     else{ std::cout << a << " | " << rua.commands[a] << std::endl; }
     //     std::cout << "\t";
-    //     for(unsigned int b = 0; b < rua.commandDetails[a].size(); b++){
-    //         std::cout << rua.commandDetails[a][b] << " ";
-    //     }std::cout << std::endl;
+    //     for(unsigned int b = 0; b < rua.commandDetails[a].size(); b++){ std::cout << rua.commandDetails[a][b] << " "; }
+    //     std::cout << std::endl;
     // }
 
     return rua;

@@ -39,8 +39,6 @@
             if(debugMode){ std::cout << "programManager - next command number: " << nextCommand << " | " << program[nextCommand] << std::endl; }
             executer.runInstruction(program[nextCommand]); 
         }
-
-        executer.runInstruction("");
     }
 
 //printers and debug

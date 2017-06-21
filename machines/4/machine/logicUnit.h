@@ -6,19 +6,31 @@
 class logicUnit: public metal
 {
     private:
+        bool debugMode;
         bool resultIsZero;
         bool resultSign;
         bool resultOverflowed;
         bool resultUnderflowed;
+        unsigned int calculationMode;
+        unsigned int calculationModeCount;
 
     //construction/destruction
     public: 
         logicUnit(unsigned int bitSize);
         virtual ~logicUnit();
 
-    //logical functions
+    //indicators
+    public:
+        virtual bool getIsZero();
+        virtual bool getSign();
+        virtual bool getOverflowed();
+        virtual bool getUnderflowed();
+        virtual bool SAMmode();
+
+    //functions
     public: 
-        virtual unsigned int check( int value );
+        virtual unsigned int logicCheck( int value );
+        virtual unsigned int mathCheck( int value,unsigned int calculationMode );
 
         //logical
             //lone byte
@@ -33,7 +45,10 @@ class logicUnit: public metal
             virtual unsigned int XOR( unsigned int value_a, unsigned int value_1 );
 
         //math
+            //control
+            virtual void setCalculationMode(unsigned int mode);
             //lone byte
+            virtual unsigned int convert( unsigned int value,unsigned int inputMode,unsigned int outputMode );
             virtual unsigned int inc( unsigned int value );
             virtual unsigned int dec( unsigned int value );
             virtual unsigned int neg( unsigned int value );

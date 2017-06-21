@@ -1,0 +1,12 @@
+set:30:0
+
+::loop
+    //print byte 30
+    //print new line
+    //inc byte 30
+        inc:30
+
+    //test to see if byte 30 is equal to 9
+        set:31:9
+        sub:30:31:31
+        ifResultZero:loop

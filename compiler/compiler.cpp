@@ -26,7 +26,11 @@ std::vector<std::string> compiler(std::vector<std::string> program, languageDesc
         //remove tag
         //if line number is larger than maxProgramLength -> stop
         //go through code again, replace goto:X tags with line numbers (in HEX) from tag list
-    program = tagHandler(program,errorHandler); if(program.empty()){
+    switch(rua.numberMode){
+        case 0: program = tagHandler_dec(program,rua,errorHandler); break;
+        case 1: program = tagHandler_hex(program,rua,errorHandler); break;
+    }
+    if(program.empty()){
         std::cout << "compilation failed - tagging issue" << std::endl;
         return std::vector<std::string>();
     }  
@@ -42,7 +46,11 @@ std::vector<std::string> compiler(std::vector<std::string> program, languageDesc
         //unknown command -> stop
         //adjust hex number to suit architecture
         //command references byte beyond memorySize -> stop
-    program = conversionHandler(program,rua,errorHandler); if(program.empty()){
+    switch(rua.numberMode){
+        case 0: program = conversionHandler_dec(program,rua,errorHandler); break;
+        case 1: program = conversionHandler_hex(program,rua,errorHandler); break;
+    }
+    if(program.empty()){
         std::cout << "compilation failed - conversion issue" << std::endl;
         return std::vector<std::string>();
     }

@@ -9,7 +9,6 @@ class executer: public metal
 {
     private:
         bool debugMode;
-        bool SAMmode;
         unsigned int programCounter;
         unsigned int programCounterByteCount;
         logicUnit logicUnit;

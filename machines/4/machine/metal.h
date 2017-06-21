@@ -4,7 +4,8 @@
 class metal{
     private:
         unsigned int bitSize;
-        unsigned int maxPossibleValue;
+        unsigned int maxPossibleValue_abs;
+        unsigned int maxPossibleValue_sam;
 
     public:
         //construction/destruction
@@ -13,7 +14,7 @@ class metal{
 
         //getters
             virtual unsigned int getBitSize();
-            virtual unsigned int getMaxPossibleValue();
+            virtual unsigned int getMaxPossibleValue(int mode);
 
         //converters
             virtual std::string UINTtoHEX(unsigned int UINT);
@@ -22,7 +23,6 @@ class metal{
             virtual std::string UINTtoBIN(unsigned int UINT);
             virtual std::string UINTtoBIN_systemSize(unsigned int UINT);
             virtual unsigned int BINtoUINT(std::string BIN);
-            virtual unsigned int BINtoUINT(bool BIN[]);
 
         //adjusters/getters
             virtual bool getBitFromUINT(unsigned int UINT, unsigned int bit);

@@ -5,7 +5,6 @@ byteSize 8
 comment //
 import #
 tag ::
-definition >
 
 nop
 goto

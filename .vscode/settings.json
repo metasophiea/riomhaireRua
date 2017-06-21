@@ -32,6 +32,7 @@
         "string": "cpp",
         "iostream": "cpp",
         "streambuf": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "algorithm": "cpp"
     }
 }

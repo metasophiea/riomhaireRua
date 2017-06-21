@@ -5,12 +5,17 @@
 //construction/destruction
     metal::metal(unsigned int bitSize):
         bitSize(bitSize),
-        maxPossibleValue( pow(2,bitSize) )
+        maxPossibleValue_abs( pow(2,bitSize) ),
+        maxPossibleValue_sam( pow(2,bitSize-1) )
         {}
     metal::~metal(){}
 
     unsigned int metal::getBitSize(){return bitSize;}
-    unsigned int metal::getMaxPossibleValue(){return maxPossibleValue;}
+    unsigned int metal::getMaxPossibleValue(int mode){
+        if(mode == 0){      return maxPossibleValue_abs; }
+        else if(mode == 1){ return maxPossibleValue_sam; }
+        else{ return 0; }
+    }
 
 //converters
     std::string metal::UINTtoHEX(unsigned int UINT){
@@ -108,7 +113,7 @@
     }
     std::string metal::adjustBIN(std::string BIN, unsigned int bit, bool value){
         if( BIN.length() > bit ){ value ? BIN[bit] = '1' : BIN[bit] = '0'; }
-        else{ for(unsigned int a = BIN.length()-1; a < bit-1; a++){ BIN = '0' + BIN; } BIN = '1' + BIN; }
+        else{ for(unsigned int a = BIN.length()-1; a < bit-1; a++){ BIN = '0' + BIN; } BIN = ( value ? '1' : '0') + BIN; }
         return BIN;
     }
 

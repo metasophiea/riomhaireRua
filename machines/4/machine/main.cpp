@@ -22,8 +22,8 @@
 
 int main(int argumentCount, char *arguments[]){    
     //input checking
-        // if(argumentCount < 2){ std::cout << "machine failed to start - elements missing from arguments" << std::endl; return 1;}
-        // if(argumentCount > 2){ std::cout << "machine failed to start - more arguments than allowed" << std::endl; return 2;}
+        if(argumentCount < 2){ std::cout << "machine failed to start - elements missing from arguments" << std::endl; return 1;}
+        if(argumentCount > 2){ std::cout << "machine failed to start - more arguments than allowed" << std::endl; return 2;}
 
     //create machine
         unsigned int bitSize = 8;
@@ -33,11 +33,10 @@ int main(int argumentCount, char *arguments[]){
         machine.debug(true);
 
     //load in program
-        machine.appendInstruction("11:10:1:1");
-        // std::ifstream inputFile(arguments[1]); 
-        // if( !inputFile.good() ){ std::cout << "machine failed to start - provided file does not exist" << std::endl; return 3;}
-        // std::string line;
-        // while(getline( inputFile, line )){ machine.appendInstruction(line); }
+        std::ifstream inputFile(arguments[1]); 
+        if( !inputFile.good() ){ std::cout << "machine failed to start - provided file does not exist" << std::endl; return 3;}
+        std::string line;
+        while(getline( inputFile, line )){ machine.appendInstruction(line); }
 
     //run, and print memory when all is done
         machine.run();
