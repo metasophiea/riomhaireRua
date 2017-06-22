@@ -15,7 +15,7 @@ riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. 
     <img width="640" height="376" src="https://raw.githubusercontent.com/metasophiea/riomhaireRua/master/images/1.png">
 </p>
 
-Not all the machines have all the tools, and tools can have varying complexity for different machines, depending on the machine number. Here is a list of all tools, with a general description
+Not all the machines have all the tools, and tools can have varying complexity for different machines, depending on the machine number (so 3 is more complicated than 2 for example). Here is a list of all tools, with a general description
 
 ## Tools
 ### Program Position Locator
