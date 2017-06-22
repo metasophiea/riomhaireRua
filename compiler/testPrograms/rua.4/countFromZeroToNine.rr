@@ -1,12 +1,19 @@
 set:30:0
+set:31:48
+mode:1
 
 ::loop
-    //print byte 30
+    //print byte 31
+        copy:31:2
     //print new line
-    //inc byte 30
+        set:2:10
+    //inc byte 30 and 31
         inc:30
+        inc:31
 
-    //test to see if byte 30 is equal to 9
-        set:31:9
-        sub:30:31:31
-        ifResultZero:loop
+    //test to see if byte 30 is equal to 10
+        set:32:10
+        sub:30:32:32
+        ifResultZero:endLoop
+        goto:loop
+::endLoop

@@ -30,31 +30,49 @@
         if(debugMode){ std::cout << "executer - instruction number: " << instructionSegments[0] << std::endl; } 
         switch( instructionSegments[0] ){
             /* nop               */ case  0: break;
-            /* goto              */ case  1: programCounter = instructionSegments[1]; break;
-            /* wait              */ case  2: usleep(1000*instructionSegments[1]); break;
+            /* goto              */ case  1: if(debugMode){ std::cout << std::endl << "executer - goto - going to instruction number " << instructionSegments[1] << " milliseconds" << std::endl; } programCounter = instructionSegments[1]; break;
+            /* wait              */ case  2: if(debugMode){ std::cout << std::endl << "executer - wait - waiting for " << instructionSegments[1] << " milliseconds" << std::endl; } usleep(1000*instructionSegments[1]); break;
             /* ifBitSet          */ case  3: 
                 if(debugMode){ std::cout << std::endl << "executer - ifBitSet - testing bit " << instructionSegments[2] << " in byte " << instructionSegments[1] << std::endl; }  
-                if( accessManager.getBit(instructionSegments[1],instructionSegments[2]) ){ programCounter = instructionSegments[3]; std::cout << "executer - ifBitSet - going to location: " << programCounter << std::endl; }else{ std::cout << "executer - ifBitSet - bit not set" << std::endl; }
+                if( accessManager.getBit(instructionSegments[1],instructionSegments[2]) ){ 
+                    programCounter = instructionSegments[3];
+                    if(debugMode){ std::cout << "executer - ifBitSet - bit set; going to location: " << programCounter << std::endl; }
+                }else{ if(debugMode){ std::cout << "executer - ifBitSet - bit not set" << std::endl; } }
             break;
             /* ifResultZero      */ case  4: 
                 if(debugMode){ std::cout << std::endl << "executer - ifResultZero - testing if result is zero" << std::endl; }  
-                if( logicUnit.getIsZero() ){ programCounter = instructionSegments[1]; std::cout << "executer - ifResultZero - going to location: " << programCounter << std::endl; }else{ std::cout << "executer - ifResultZero - continuing as normal" << std::endl; }
+                if( logicUnit.getIsZero() ){ 
+                    programCounter = instructionSegments[1]; 
+                    if(debugMode){ std::cout << "executer - ifResultZero - result is zero; going to location: " << programCounter << std::endl; }
+                }else{ if(debugMode){ std::cout << "executer - ifResultZero - continuing as normal" << std::endl; } }
             break;
             /* ifResultOverflow  */ case  5: 
                 if(debugMode){ std::cout << std::endl << "executer - ifResultOverflow - testing if result more than the maximum value" << std::endl; }  
-                if( logicUnit.getOverflowed() ){ programCounter = instructionSegments[1]; std::cout << "executer - ifResultOverflow - going to location: " << programCounter << std::endl; }else{ std::cout << "executer - ifResultOverflow - continuing as normal" << std::endl; }
+                if( logicUnit.getOverflowed() ){ 
+                    programCounter = instructionSegments[1]; 
+                    if(debugMode){ std::cout << "executer - ifResultOverflow - result overflowed; going to location: " << programCounter << std::endl; }
+                }else{ if(debugMode){ std::cout << "executer - ifResultOverflow - continuing as normal" << std::endl; } }
             break;
             /* ifResultUnderflow */ case  6: 
                 if(debugMode){ std::cout << std::endl << "executer - ifResultUnderflow - testing if result less than the minumum value" << std::endl; }  
-                if( logicUnit.getUnderflowed() ){ programCounter = instructionSegments[1]; std::cout << "executer - ifResultUnderflow - going to location: " << programCounter << std::endl; }else{ std::cout << "executer - ifResultUnderflow - continuing as normal" << std::endl; }
+                if( logicUnit.getUnderflowed() ){ 
+                    programCounter = instructionSegments[1]; 
+                    if(debugMode){ std::cout << "executer - ifResultUnderflow - result underflowed; going to location: " << programCounter << std::endl; }
+                }else{ if(debugMode){ std::cout << "executer - ifResultUnderflow - continuing as normal" << std::endl; } }
             break;
             /* ifResultNegative  */ case  7: 
                 if(debugMode){ std::cout << std::endl << "executer - ifResultNegative - testing if result is negative" << std::endl; }  
-                if( logicUnit.getSign() ){ programCounter = instructionSegments[1]; std::cout << "executer - ifResultNegative - going to location: " << programCounter << std::endl;}else{ std::cout << "executer - ifResultNegative - continuing as normal" << std::endl; }
+                if( logicUnit.getSign() ){ 
+                    programCounter = instructionSegments[1]; 
+                    if(debugMode){ std::cout << "executer - ifResultNegative - result is negative; going to location: " << programCounter << std::endl;}
+                }else{ if(debugMode){ std::cout << "executer - ifResultNegative - continuing as normal" << std::endl; } }
             break;
             /* ifSAMmode         */ case  8: 
                 if(debugMode){ std::cout << std::endl << "executer - ifSAMmode - testing if SAM mode is active " << std::endl; }  
-                if( logicUnit.SAMmode() ){ programCounter = instructionSegments[1]; std::cout << "executer - ifSAMmode - going to location: " << programCounter << std::endl;}else{ std::cout << "executer - ifSAMmode - continuing as normal" << std::endl; }
+                if( logicUnit.SAMmode() ){ 
+                    programCounter = instructionSegments[1]; 
+                    if(debugMode){ std::cout << "executer - ifSAMmode - SAM mode active; going to location: " << programCounter << std::endl;}
+                }else{ if(debugMode){ std::cout << "executer - ifSAMmode - continuing as normal" << std::endl; } }
             break;
             /* setBit            */ case  9: 
                 if(debugMode){ std::cout << std::endl << "executer - setBit - setting the bit: " << instructionSegments[2] << " of the byte " << instructionSegments[1] << " to the value " << instructionSegments[3] << std::endl; }  

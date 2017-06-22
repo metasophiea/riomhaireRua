@@ -1,0 +1,29 @@
+//write input message and prompt
+    set:2:128 //print machine name
+    set:2:10  //next line
+    set:2:45  //-
+    set:2:62  //>
+    set:2:32  //(space)
+    set:2:0 //prompt input
+
+//write output message
+    set:2:10  //next line
+    set:2:121 //y
+    set:2:111 //o
+    set:2:117 //u
+    set:2:32  //(space)
+    set:2:119 //w
+    set:2:114 //r
+    set:2:111 //o
+    set:2:116 //t
+    set:2:101 //e
+    set:2:58  //:
+    set:2:32  //(space)
+
+//read buffer and print
+    ::loop
+        copy:2:30
+        ifResultZero:endLoop
+        copy:30:2
+        goto:loop
+    ::endLoop

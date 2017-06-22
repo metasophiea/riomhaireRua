@@ -25,9 +25,10 @@
 //logical functions
     unsigned int logicUnit::logicCheck( int value ){
         if(debugMode){ std::cout << "logicUnit - logicCheck" << std::endl; } 
-        //check if value is zero
+        //check if value is zero, if so, you can just return now
             if(debugMode){ std::cout << "logicUnit - checking if value: " << value << " is zero: " << ((value == 0)?"yes":"no") << std::endl; } 
             resultIsZero = (value == 0);
+            if(resultIsZero){ return value; }
 
         //correct value size to suit system bit size, and return
         if(debugMode){ std::cout << "logicUnit - correcting value size to suit system bit size - value: " << value << " result: " << HEXtoUINT( UINTtoHEX_systemSize(value) ) << std::endl; } 
@@ -271,8 +272,8 @@
         }
         unsigned int logicUnit::sub( unsigned int value_a, unsigned int value_1 ){
             if(debugMode){ std::cout << "logicUnit - sub - subtracting the value:" << value_1 << " from " << value_a << std::endl; } 
-            if(debugMode){ std::cout << "logicUnit - sub - result:" << (value_a-value_1) << std::endl; } 
-            return mathCheck(value_a-value_1,calculationMode);
+            if(debugMode){ std::cout << "logicUnit - sub - result:" << ((int)value_a-(int)value_1) << std::endl; } 
+            return mathCheck((int)value_a-(int)value_1,calculationMode);
         }
 
 //printers and debug

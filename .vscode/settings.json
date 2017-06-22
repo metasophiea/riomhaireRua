@@ -33,6 +33,7 @@
         "iostream": "cpp",
         "streambuf": "cpp",
         "istream": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "iosfwd": "cpp"
     }
 }

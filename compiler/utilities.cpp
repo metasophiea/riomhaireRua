@@ -51,3 +51,14 @@ std::vector<std::string> splitString(std::string line, char split){
     output.push_back(temp);
     return output;
 }
+
+std::string combineVector(std::vector<std::string> vector, std::string intervalString){
+    std::string output;
+
+    for(unsigned int a = 0; a < vector.size(); a++){
+        output += vector[a];
+        if( a+1 < vector.size() ){ output += intervalString; }
+    }
+
+    return output;
+}

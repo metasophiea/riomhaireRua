@@ -3,6 +3,7 @@
 
 #include "metal.h"
 #include "memoryBlock.h"
+#include "console.h"
 
 class accessManager: public metal
 {
@@ -10,7 +11,7 @@ class accessManager: public metal
     private:
         bool debugMode;
         memoryBlock worktopBase;
-        //consoleAccess console;
+        console console;
         //pixelDisplay_8bit pixelDisplay_8bit;
 
     //ports

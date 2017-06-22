@@ -1,6 +1,7 @@
 g++ -c metal.cpp
 
 g++ -c memoryBlock.cpp
+g++ -c console.cpp
 g++ -c accessManager.cpp
 
 g++ -c logicUnit.cpp

@@ -7,6 +7,7 @@ struct languageDescription{
 
     std::vector<std::string> commands;
     std::vector<std::string> tagableCommands;
+    std::vector<unsigned int> tagableCommandArgumentPosition;
     std::vector< std::vector<std::string> > commandDetails;
     // tag, bit, byte, long
 };
@@ -288,8 +289,11 @@ languageDescription loadDescription(unsigned int languageNumber){
                     rua.commandDetails.push_back(commandDetails_tempVector);
 
                 //determine if command is tagAble, and add to the tagableCommands list if it is
-                    if( std::find( commandDetails_tempVector.begin(), commandDetails_tempVector.end(), "location" ) != commandDetails_tempVector.end() ){
-                        tagableCommands.push_back( commandDetails_splitVector[0] );
+                    for(unsigned int b = 0; b < commandDetails_tempVector.size(); b++){
+                        if( commandDetails_tempVector[b].compare("location") == 0 ){
+                            rua.tagableCommands.push_back( commandDetails_splitVector[0] );
+                            rua.tagableCommandArgumentPosition.push_back( b );
+                        }
                     }
 
             }
