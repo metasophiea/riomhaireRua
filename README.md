@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="100%" src="https://raw.githubusercontent.com/metasophiea/riomhaireRua/master/banner.png">
+    <img width="100%" src="https://raw.githubusercontent.com/metasophiea/riomhaireRua/master/images/banner.png">
 </p>
 
 ## The Riomhaire
