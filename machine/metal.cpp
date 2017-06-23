@@ -18,91 +18,60 @@
     }
 
 //converters
-    std::string metal::UINTtoHEX(unsigned int UINT){
-        if(UINT == 0){ return "0";}
-
-        std::string hexArray[] = {"0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"};
-        std::string HEX = "";
+    std::string metal::UINTtoANYTHING(unsigned int UINT, char outputChars[], unsigned int numerationLength){
+        std::string output = "";
+        if(UINT == 0){ output += outputChars[0]; return output; }
 
         //find biggest pow
             unsigned int biggestPow = 0;
-            while( biggestPow < 100 ){
-                if( (unsigned int)(UINT/pow(16,(biggestPow))) == 0 ){break;} 
+            while( (unsigned int)(UINT/pow(numerationLength,(biggestPow))) != 0 ){
                 biggestPow++;
             }
-            
+
         //do conversion
             do{
                 biggestPow--;
-                HEX += hexArray[ (unsigned int)(UINT/pow(16,biggestPow)) ]; 
-                UINT = UINT - (unsigned int)(UINT/pow(16,biggestPow)) * pow(16,biggestPow);
+                output += outputChars[ (unsigned int)(UINT/pow(numerationLength,biggestPow)) ]; 
+                UINT = UINT - (unsigned int)(UINT/pow(numerationLength,biggestPow)) * pow(numerationLength,biggestPow);
             }while( biggestPow != 0 && UINT > 0 );
 
         //add in remaining zeros
-            while(biggestPow > 0){ biggestPow--; HEX += "0"; }
+            while(biggestPow > 0){ biggestPow--; output += outputChars[0]; }
 
-        return HEX;
+        return output;
     }
-
-    std::string metal::UINTtoHEX_systemSize(unsigned int UINT){ return resize(UINTtoHEX(UINT),bitSize/4); }
-
-    unsigned int metal::HEXtoUINT(std::string HEX){
+    unsigned int metal::ANYTHINGtoUINT(std::string ANYTHING, char outputChars[], unsigned int numerationLength){
         unsigned int UINT = 0;
-            
-        for(unsigned int a = 0; a < HEX.length(); a++){
-            switch(HEX[a]){
-                case '0': 			 UINT += pow(16, (HEX.length()-a-1) ) * 0 ; break;
-                case '1': 			 UINT += pow(16, (HEX.length()-a-1) ) * 1 ; break;
-                case '2': 			 UINT += pow(16, (HEX.length()-a-1) ) * 2 ; break;
-                case '3': 			 UINT += pow(16, (HEX.length()-a-1) ) * 3 ; break;
-                case '4': 			 UINT += pow(16, (HEX.length()-a-1) ) * 4 ; break;
-                case '5': 			 UINT += pow(16, (HEX.length()-a-1) ) * 5 ; break;
-                case '6': 			 UINT += pow(16, (HEX.length()-a-1) ) * 6 ; break;
-                case '7': 			 UINT += pow(16, (HEX.length()-a-1) ) * 7 ; break;
-                case '8': 			 UINT += pow(16, (HEX.length()-a-1) ) * 8 ; break;
-                case '9': 			 UINT += pow(16, (HEX.length()-a-1) ) * 9 ; break;
-                case 'a': case 'A':  UINT += pow(16, (HEX.length()-a-1) ) * 10; break;
-                case 'b': case 'B':  UINT += pow(16, (HEX.length()-a-1) ) * 11; break;
-                case 'c': case 'C':  UINT += pow(16, (HEX.length()-a-1) ) * 12; break;
-                case 'd': case 'D':  UINT += pow(16, (HEX.length()-a-1) ) * 13; break;
-                case 'e': case 'E':  UINT += pow(16, (HEX.length()-a-1) ) * 14; break;
-                case 'f': case 'F':  UINT += pow(16, (HEX.length()-a-1) ) * 15; break;
+
+        for(unsigned int a = 0; a < ANYTHING.length(); a++){
+            for(unsigned int b = 0; b < numerationLength; b++){
+                if( ANYTHING[a] == outputChars[b] ){ UINT += pow(numerationLength, (ANYTHING.length()-a-1) ) * b ; }
             }
         }
 
         return UINT;
     }
 
+    std::string metal::UINTtoHEX(unsigned int UINT){
+        char charArray[] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+        return UINTtoANYTHING(UINT,charArray,16);
+    }
+    std::string metal::UINTtoHEX_systemSize(unsigned int UINT){ return resize(UINTtoHEX(UINT),bitSize/4); }
+    
+    unsigned int metal::HEXtoUINT(std::string HEX){
+        char charArray[] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+        return ANYTHINGtoUINT(HEX,charArray,16);
+    }
+
+    std::string metal::UINTtoBIN(unsigned int UINT){
+        char charArray[] = {'0','1'};
+        return UINTtoANYTHING(UINT,charArray,2);
+    }
     std::string metal::UINTtoBIN_systemSize(unsigned int UINT){ return resize(UINTtoBIN(UINT),bitSize); }
 
     unsigned int metal::BINtoUINT(std::string BIN){
-        unsigned int output = 0;
-        for(unsigned int a = 0; a < BIN.length(); a++){ if( BIN[ BIN.length()-1-a ] == '1' ){ output += pow(2,a); } }
-        return output;
-    }
-    std::string metal::UINTtoBIN(unsigned int UINT){
-	    if(UINT == 0){ return "0"; }
-        std::string binArray[] = {"0","1"};
-        std::string outputBin = "";
-
-        //find biggest pow
-            unsigned int biggestPow = 0;
-            while( biggestPow < 100 ){
-                if( (unsigned int)(UINT/pow(2,(biggestPow))) == 0 ){break;} 
-                biggestPow++;
-            }
-            
-        //do conversion
-            do{
-                biggestPow--;
-                outputBin += binArray[ (unsigned int)(UINT/pow(2,biggestPow)) ]; 
-                UINT = UINT - (unsigned int)(UINT/pow(2,biggestPow)) * pow(2,biggestPow);
-            }while( biggestPow != 0 && UINT > 0 );
-
-        //add in remaining zeros
-            while(biggestPow > 0){ biggestPow--; outputBin += "0"; }
-
-        return outputBin;
+        char charArray[] = {'0','1'};
+        return ANYTHINGtoUINT(BIN,charArray,2);
     }
 
 //adjusters

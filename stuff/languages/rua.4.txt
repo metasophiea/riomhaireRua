@@ -1,3 +1,7 @@
+maxProgramLength 65536
+worktopSize 256
+byteSize 8
+
 //all values in decimal
 
 comment //

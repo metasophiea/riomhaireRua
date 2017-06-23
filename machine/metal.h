@@ -17,6 +17,9 @@ class metal{
             virtual unsigned int getMaxPossibleValue(int mode);
 
         //converters
+            virtual std::string UINTtoANYTHING(unsigned int UINT, char outputChars[], unsigned int outputCharsLength);
+            virtual unsigned int ANYTHINGtoUINT(std::string ANYTHING, char outputChars[], unsigned int outputCharsLength);
+
             virtual std::string UINTtoHEX(unsigned int UINT);
             virtual std::string UINTtoHEX_systemSize(unsigned int UINT);
             virtual unsigned int HEXtoUINT(std::string HEX);

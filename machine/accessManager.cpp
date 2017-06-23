@@ -56,12 +56,15 @@
     void accessManager::printMemory(){if(debugMode){ std::cout << "accessManager - printing memory" << std::endl; } 
         std::cout << "Worktop" << std::endl;
             worktopBase.printMemory();
+            std::cout << std::endl;
 
         std::cout << "Console" << std::endl;
             console.printMemory();
+            std::cout << std::endl;
 
         std::cout << "Pixel Display" << std::endl;
             //pixelDisplay_8bit.printMemory();
+            std::cout << std::endl;
     }
     void accessManager::debug(bool onOff){ 
         debugMode = onOff;

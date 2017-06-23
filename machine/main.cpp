@@ -30,7 +30,7 @@ int main(int argumentCount, char *arguments[]){
         unsigned int worktopSize = 256;
         unsigned int programCounterByteCount = 2;
         programManager machine = programManager(bitSize,worktopSize,programCounterByteCount);
-        machine.debug(true);
+        //machine.debug(true);
 
     //load in program
         std::ifstream inputFile(arguments[1]); 
