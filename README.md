@@ -15,8 +15,6 @@ riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. 
     <img width="640" height="376" src="https://raw.githubusercontent.com/metasophiea/riomhaireRua/master/images/1.png">
 </p>
 
-Not all the machines have all the tools, and tools can have varying complexity for different machines, depending on the machine number (so 3 is more complicated than 2 for example). Here is a list of all tools, with a general description
-
 ## Tools
 ### Program Position Locator
 These ports are used to show which instruction on the program the worker is going to do next. The number of ports used depends on how long the instruction program is allowed to be.
