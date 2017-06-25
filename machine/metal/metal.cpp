@@ -5,8 +5,8 @@
 //construction/destruction
     metal::metal(unsigned int bitSize):
         bitSize(bitSize),
-        maxPossibleValue_abs( pow(2,bitSize) ),
-        maxPossibleValue_sam( pow(2,bitSize-1) )
+        maxPossibleValue_abs( pow(2,bitSize) -1 ),
+        maxPossibleValue_sam( pow(2,bitSize-1) -1 )
         {}
     metal::~metal(){}
 
@@ -94,7 +94,7 @@ std::string metal::resize(std::string val, unsigned int byteSize){
     }
     else{
         std::string returnVal;
-        for(unsigned int a = 0; a < byteSize; a++){ returnVal += val[ val.length()-a-1  ]; }
+        for(unsigned int a = 0; a < byteSize; a++){ returnVal = val[ val.length()-a-1  ] + returnVal; }
         return returnVal;
     }
 }

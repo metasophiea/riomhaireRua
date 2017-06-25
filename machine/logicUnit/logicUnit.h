@@ -29,8 +29,9 @@ class logicUnit: public metal
 
     //functions
     public: 
-        virtual unsigned int logicCheck( int value );
-        virtual unsigned int mathCheck( int value,unsigned int calculationMode );
+        //checks
+            virtual unsigned int logicCheck( int value );
+            virtual unsigned int mathCheck( int value,unsigned int calculationMode );
 
         //logical
             //lone byte

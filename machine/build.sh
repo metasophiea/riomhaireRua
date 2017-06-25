@@ -1,12 +1,34 @@
-g++ -c metal.cpp
+# copy files in
+    cp metal/metal.* .
 
-g++ -c memoryBlock.cpp
-g++ -c console.cpp
-g++ -c accessManager.cpp
+    cp console/console.* .
+    cp memoryBlock/memoryBlock.* .
+    cp accessManager/accessManager.* .
 
-g++ -c logicUnit.cpp
+    cp logicUnit/logicUnit.* .
+    cp executer/executer.* .
+    cp programManager/programManager.* .
 
-g++ -c executer.cpp
-g++ -c programManager.cpp
+# compile
+    g++ -c metal.cpp
 
-g++ main.cpp *.o -o rua
+    g++ -c console.cpp
+    g++ -c memoryBlock.cpp
+    g++ -c accessManager.cpp
+
+    g++ -c logicUnit.cpp
+    g++ -c executer.cpp
+    g++ -c programManager.cpp
+
+    g++ main.cpp *.o -o rua
+
+# delete undeeded files
+    rm metal.*
+
+    rm console.*
+    rm memoryBlock.*
+    rm accessManager.*
+
+    rm logicUnit.*
+    rm executer.*
+    rm programManager.*

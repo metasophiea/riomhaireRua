@@ -5,7 +5,8 @@
 //construction/destruction
     memoryBlock::memoryBlock(unsigned int bitSize, unsigned int memorySize):
         metal(bitSize),
-        memorySize(memorySize)
+        memorySize(memorySize),
+        debugMode(false)
         {
             memory = new unsigned int[memorySize];
             for(unsigned int a = 0; a < memorySize; a++){ memory[a] = 0; }

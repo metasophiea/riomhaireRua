@@ -51,30 +51,32 @@
             if(debugMode){ std::cout << "logicUnit - mathCheck - calculation mode: " << calculationMode << std::endl; } 
             if( calculationMode == 0 ){
                 //check if value overflowed
-                if(debugMode){ std::cout << "logicUnit - mathCheck - checking for overflow: " << ((value >= (int)getMaxPossibleValue(calculationMode))?"yes":"no") << std::endl; } 
-                resultOverflowed = value >= (int)getMaxPossibleValue(calculationMode);
+                    if(debugMode){ std::cout << "logicUnit - mathCheck - checking for overflow: " << ((value >= (int)getMaxPossibleValue(calculationMode))?"yes":"no") << std::endl; } 
+                    resultOverflowed = value > (int)getMaxPossibleValue(calculationMode);
 
-                //check if value underflowed, if so set it to zero
-                if(debugMode){ std::cout << "logicUnit - mathCheck - checking for underflow: " << ((value < 0)?"yes - set value to zero":"no") << std::endl; } 
-                resultUnderflowed = value < 0; if(resultUnderflowed){ value = 0; }
+                //check if value underflowed, if so wrap around
+                    if(debugMode){ std::cout << "logicUnit - mathCheck - checking for underflow: " << ((value < 0)?"yes - wrap":"no") << std::endl; } 
+                    resultUnderflowed = value < 0; 
+                    if(resultUnderflowed){ value = value + (unsigned int)getMaxPossibleValue(calculationMode)+1; }
+
                 //correct value size to suit system bit size, and return
-                return HEXtoUINT( UINTtoHEX_systemSize(value) );
+                    return HEXtoUINT( UINTtoHEX_systemSize(value) );
             }
             else if( calculationMode == 1 ){ 
                 //check if value overflowed
                     if(debugMode){ std::cout << "logicUnit - mathCheck - checking for overflow: " << ((value >= (int)getMaxPossibleValue(calculationMode))?"yes - set to maximum value":"no") << std::endl; } 
-                    resultOverflowed = value >= (int)getMaxPossibleValue(calculationMode);
-                    if(resultOverflowed){ value = getMaxPossibleValue(calculationMode)-1; }
+                    resultOverflowed = value > (int)getMaxPossibleValue(calculationMode);
+                    if(resultOverflowed){ value = getMaxPossibleValue(calculationMode); }
                     if(debugMode){ std::cout << "logicUnit - mathCheck - after overflow correction: " << value << std::endl; } 
                 
                 //check if value underflowed (if so, switch the value to a positive number)
                     if(debugMode){ std::cout << "logicUnit - mathCheck - checking for underflow: " << ((value < -(int)getMaxPossibleValue(calculationMode))?"yes - set to minimum value":"no") << std::endl; } 
-                    if( value < -(int)getMaxPossibleValue(calculationMode) ){ resultUnderflowed = true; value = getMaxPossibleValue(calculationMode)-1; }
+                    if( value < -(int)getMaxPossibleValue(calculationMode) ){ resultUnderflowed = true; value = getMaxPossibleValue(calculationMode); }
                     else{ resultUnderflowed = false; }
                     if(debugMode){ std::cout << "logicUnit - mathCheck - after underflow correction: " << value << std::endl; } 
 
                 //get absolute value, correct value size to suit system bit size, set sign bit and return
-                    if(resultSign){value = -value;}
+                    if(value < 0){value = -value;}
                     std::string temp = UINTtoBIN_systemSize(value);
                     resultSign ? temp[0] = '1' : temp[0] = '0';
                     if(debugMode){ std::cout << "logicUnit - mathCheck - conversion to binary: " << temp << std::endl; } 
@@ -87,7 +89,7 @@
         unsigned int logicUnit::convert( unsigned int value,unsigned int inputMode,unsigned int outputMode ){
             if(debugMode){ std::cout << "logicUnit - convert: " << value << " | from mode: " << inputMode << " to mode: " << outputMode << std::endl; } 
             //detect pointless job
-                if( inputMode == outputMode ){ std::cout << "logicUnit - convert - input and output mode are the same" << std::endl; return value; }
+                if( inputMode == outputMode ){ if(debugMode){ std::cout << "logicUnit - convert - input and output mode are the same" << std::endl; return value; } }
             //detect invalid calculationModes
                 if( inputMode >= calculationModeCount ){ std::cout << "logicUnit error - convert - unknown inputMode: " << inputMode << " setting to 0" << std::endl; inputMode = 0; }
                 if( outputMode >= calculationModeCount ){ std::cout << "logicUnit error - convert - unknown outputMode: " << outputMode << " setting to 0" << std::endl; outputMode = 0; }
@@ -250,30 +252,75 @@
         //lone byte
         unsigned int logicUnit::inc( unsigned int value ){
             if(debugMode){ std::cout << "logicUnit - inc - incrementing value: " << value << std::endl; }
-            if(debugMode){ std::cout << "logicUnit - neg - result:" << (value+1) << std::endl; } 
-            return mathCheck(value + 1,calculationMode);
+            if(debugMode){ std::cout << "logicUnit - inc - calculationMode: " << calculationMode << std::endl; }
+
+            //split into modes
+                if( calculationMode == 0 ){ return mathCheck(value + 1,calculationMode); }
+                else if( calculationMode == 1 ){
+                    if(debugMode){ std::cout << "logicUnit - inc - sign = " << getBitFromUINT(value,getBitSize()-1) << std::endl; }
+                    if( getBitFromUINT(value,getBitSize()-1) ){ return mathCheck(getMaxPossibleValue(1)-value+2,calculationMode); }
+                    else{ return mathCheck(value + 1,calculationMode); }
+                }
+                
+            std::cout << "logicUnit - inc - calculation error - calculationMode = " << calculationMode << std::endl;
+            return 0;
         }
         unsigned int logicUnit::dec( unsigned int value ){
             if(debugMode){ std::cout << "logicUnit - dec - decrementing value: " << value << std::endl; }
-            if(debugMode){ std::cout << "logicUnit - neg - result:" << (value-1) << std::endl; } 
-            return mathCheck(value - 1,calculationMode);
+            if(debugMode){ std::cout << "logicUnit - dec - calculationMode: " << calculationMode << std::endl; }
+
+            //split into modes
+                if( calculationMode == 0 ){ return mathCheck(value - 1,calculationMode); }
+                else if( calculationMode == 1 ){
+                    if(debugMode){ std::cout << "logicUnit - dec - sign = " << getBitFromUINT(value,getBitSize()-1) << std::endl; }
+                    if( getBitFromUINT(value,getBitSize()-1) ){ return mathCheck(getMaxPossibleValue(1)-value,calculationMode); }
+                    else{ return mathCheck(value - 1,calculationMode); }
+                }
+                
+            std::cout << "logicUnit - dec - calculation error - calculationMode = " << calculationMode << std::endl;
+            return 0;
         }
         unsigned int logicUnit::neg( unsigned int value ){
             if(debugMode){ std::cout << "logicUnit - neg - flipping value:" << value << std::endl; }
-            if(debugMode){ std::cout << "logicUnit - neg - result:" << (-value) << std::endl; } 
             return mathCheck(-value,calculationMode);
         }
 
         //multi byte
         unsigned int logicUnit::add( unsigned int value_a, unsigned int value_1 ){
             if(debugMode){ std::cout << "logicUnit - add - adding the value:" << value_a << " to " << value_1 << std::endl; } 
-            if(debugMode){ std::cout << "logicUnit - add - result:" << (value_a+value_1) << std::endl; } 
-            return mathCheck(value_a+value_1,calculationMode);
+            if(debugMode){ std::cout << "logicUnit - add - calculationMode: " << calculationMode << std::endl; }
+
+            //split into modes
+                if( calculationMode == 0 ){ return mathCheck(value_a+value_1,calculationMode); }
+                else{
+                    if(debugMode){ std::cout << "logicUnit - add - sign = " << getBitFromUINT(value_a,getBitSize()-1) << " | sign = " << getBitFromUINT(value_1,getBitSize()-1) << std::endl; }
+                    int newValue_a = value_a; int newValue_1 = value_1;
+                    if( getBitFromUINT(value_a,getBitSize()-1) ){ newValue_a = getMaxPossibleValue(1) - newValue_a +1; }
+                    if( getBitFromUINT(value_1,getBitSize()-1) ){ newValue_1 = getMaxPossibleValue(1) - newValue_1 +1; }
+                    if(debugMode){ std::cout << "logicUnit - add - newValue_a: " << newValue_a << " | newValue_1: " << newValue_1 << std::endl; }
+                    return mathCheck(newValue_a+newValue_1,calculationMode);
+                }
+                
+            std::cout << "logicUnit - add - calculation error - calculationMode = " << calculationMode << std::endl;
+            return 0;
         }
         unsigned int logicUnit::sub( unsigned int value_a, unsigned int value_1 ){
             if(debugMode){ std::cout << "logicUnit - sub - subtracting the value:" << value_1 << " from " << value_a << std::endl; } 
-            if(debugMode){ std::cout << "logicUnit - sub - result:" << ((int)value_a-(int)value_1) << std::endl; } 
-            return mathCheck((int)value_a-(int)value_1,calculationMode);
+            if(debugMode){ std::cout << "logicUnit - sub - calculationMode: " << calculationMode << std::endl; }
+
+            //split into modes
+                if( calculationMode == 0 ){ return mathCheck(value_a-value_1,calculationMode); }
+                else{
+                    if(debugMode){ std::cout << "logicUnit - sub - sign = " << getBitFromUINT(value_a,getBitSize()-1) << " | sign = " << getBitFromUINT(value_1,getBitSize()-1) << std::endl; }
+                    int newValue_a = value_a; int newValue_1 = value_1;
+                    if( getBitFromUINT(value_a,getBitSize()-1) ){ newValue_a = getMaxPossibleValue(1) - newValue_a +1; }
+                    if( getBitFromUINT(value_1,getBitSize()-1) ){ newValue_1 = getMaxPossibleValue(1) - newValue_1 +1; }
+                    if(debugMode){ std::cout << "logicUnit - sub - newValue_a: " << newValue_a << " | newValue_1: " << newValue_1 << std::endl; std::cout << "logicUnit - sub: " << newValue_a << " - " << newValue_1 << " = " << (newValue_a-newValue_1) << std::endl; }
+                    return mathCheck(newValue_a-newValue_1,calculationMode);
+                }
+
+            std::cout << "logicUnit - add - calculation error - calculationMode = " << calculationMode << std::endl;
+            return 0;
         }
 
 //printers and debug

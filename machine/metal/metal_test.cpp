@@ -14,7 +14,18 @@ int main(){
     char tempCharArray_bin[] = {'0','1'};
     unsigned int tempCharArray_bin_length = 2;
 
+    //get bit size
+        std::cout << "getBitSize()" << std::endl;
+        std::cout << m.getBitSize() << std::endl;
+        std::cout << std::endl << std::endl;
 
+    //get maximum possible value
+        std::cout << "getMaxPossibleValue(0)" << std::endl;
+        std::cout << m.getMaxPossibleValue(0) << std::endl;
+        std::cout << std::endl;
+        std::cout << "getMaxPossibleValue(1)" << std::endl;
+        std::cout << m.getMaxPossibleValue(1) << std::endl;
+        std::cout << std::endl;
 
     //testing UINTtoANYTHINGto do hex stuff
     tempUINT = 0;     std::cout << "m.UINTtoANYTHING("<<tempUINT<<",tempCharArray_hex,tempCharArray_hex_length) -> " << m.UINTtoANYTHING(tempUINT,tempCharArray_hex,tempCharArray_hex_length) << std::endl;
@@ -58,6 +69,17 @@ int main(){
     tempUINT = 16;    std::cout << "m.UINTtoHEX("<<tempUINT<<") -> " << m.UINTtoHEX(tempUINT) << std::endl;
     tempUINT = 100;   std::cout << "m.UINTtoHEX("<<tempUINT<<") -> " << m.UINTtoHEX(tempUINT) << std::endl;
     tempUINT = 255;   std::cout << "m.UINTtoHEX("<<tempUINT<<") -> " << m.UINTtoHEX(tempUINT) << std::endl;
+    tempUINT = 300;   std::cout << "m.UINTtoHEX("<<tempUINT<<") -> " << m.UINTtoHEX(tempUINT) << std::endl;
+    std::cout << std::endl;
+
+    //testing UINTtoHEX_systemSize
+    tempUINT = 0;     std::cout << "m.UINTtoHEX_systemSize("<<tempUINT<<") -> " << m.UINTtoHEX_systemSize(tempUINT) << std::endl;
+    tempUINT = 10;    std::cout << "m.UINTtoHEX_systemSize("<<tempUINT<<") -> " << m.UINTtoHEX_systemSize(tempUINT) << std::endl;
+    tempUINT = 15;    std::cout << "m.UINTtoHEX_systemSize("<<tempUINT<<") -> " << m.UINTtoHEX_systemSize(tempUINT) << std::endl;
+    tempUINT = 16;    std::cout << "m.UINTtoHEX_systemSize("<<tempUINT<<") -> " << m.UINTtoHEX_systemSize(tempUINT) << std::endl;
+    tempUINT = 100;   std::cout << "m.UINTtoHEX_systemSize("<<tempUINT<<") -> " << m.UINTtoHEX_systemSize(tempUINT) << std::endl;
+    tempUINT = 255;   std::cout << "m.UINTtoHEX_systemSize("<<tempUINT<<") -> " << m.UINTtoHEX_systemSize(tempUINT) << std::endl;
+    tempUINT = 300;   std::cout << "m.UINTtoHEX_systemSize("<<tempUINT<<") -> " << m.UINTtoHEX_systemSize(tempUINT) << std::endl;
     std::cout << std::endl;
 
     //testing HEXtoUINT
@@ -75,6 +97,7 @@ int main(){
     tempUINT = 16;    std::cout << "m.UINTtoBIN("<<tempUINT<<") -> " << m.UINTtoBIN(tempUINT) << std::endl;
     tempUINT = 100;   std::cout << "m.UINTtoBIN("<<tempUINT<<") -> " << m.UINTtoBIN(tempUINT) << std::endl;
     tempUINT = 255;   std::cout << "m.UINTtoBIN("<<tempUINT<<") -> " << m.UINTtoBIN(tempUINT) << std::endl;
+    tempUINT = 300;   std::cout << "m.UINTtoBIN("<<tempUINT<<") -> " << m.UINTtoBIN(tempUINT) << std::endl;
     std::cout << std::endl;
 
     //testing BINtoUINT
@@ -85,6 +108,18 @@ int main(){
     tempString = "1100100";  std::cout << "m.BINtoUINT("<<tempString<<") -> " << m.BINtoUINT(tempString) << std::endl;
     tempString = "11111111"; std::cout << "m.BINtoUINT("<<tempString<<") -> " << m.BINtoUINT(tempString) << std::endl;
     std::cout << std::endl;
+
+    //testing BINtoUINT_systemSize
+    tempUINT = 0;     std::cout << "m.UINTtoBIN_systemSize("<<tempUINT<<") -> " << m.UINTtoBIN_systemSize(tempUINT) << std::endl;
+    tempUINT = 10;    std::cout << "m.UINTtoBIN_systemSize("<<tempUINT<<") -> " << m.UINTtoBIN_systemSize(tempUINT) << std::endl;
+    tempUINT = 15;    std::cout << "m.UINTtoBIN_systemSize("<<tempUINT<<") -> " << m.UINTtoBIN_systemSize(tempUINT) << std::endl;
+    tempUINT = 16;    std::cout << "m.UINTtoBIN_systemSize("<<tempUINT<<") -> " << m.UINTtoBIN_systemSize(tempUINT) << std::endl;
+    tempUINT = 100;   std::cout << "m.UINTtoBIN_systemSize("<<tempUINT<<") -> " << m.UINTtoBIN_systemSize(tempUINT) << std::endl;
+    tempUINT = 255;   std::cout << "m.UINTtoBIN_systemSize("<<tempUINT<<") -> " << m.UINTtoBIN_systemSize(tempUINT) << std::endl;
+    tempUINT = 300;   std::cout << "m.UINTtoBIN_systemSize("<<tempUINT<<") -> " << m.UINTtoBIN_systemSize(tempUINT) << std::endl;
+    std::cout << std::endl;
+
+
         
     return 0;
 }
