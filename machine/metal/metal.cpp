@@ -4,6 +4,7 @@
 #include "metal.h"
 //construction/destruction
     metal::metal(unsigned int bitSize):
+        debugMode(false),
         bitSize(bitSize),
         maxPossibleValue_abs( pow(2,bitSize) -1 ),
         maxPossibleValue_sam( pow(2,bitSize-1) -1 )
@@ -82,7 +83,7 @@
     }
     std::string metal::adjustBIN(std::string BIN, unsigned int bit, bool value){
         if( BIN.length() > bit ){ value ? BIN[bit] = '1' : BIN[bit] = '0'; }
-        else{ for(unsigned int a = BIN.length()-1; a < bit-1; a++){ BIN = '0' + BIN; } BIN = ( value ? '1' : '0') + BIN; }
+        else{ for(unsigned int a = BIN.length()-1; a < bit-1; a++){ BIN = BIN + '0'; } BIN = BIN + ( value ? '1' : '0'); }
         return BIN;
     }
 
@@ -98,3 +99,7 @@ std::string metal::resize(std::string val, unsigned int byteSize){
         return returnVal;
     }
 }
+
+//printers and debug
+    void metal::printMemory(){}
+    void metal::debug(bool onOff){ debugMode = onOff; }

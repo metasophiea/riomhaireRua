@@ -4,6 +4,7 @@
 #include "metal.h"
 #include "memoryBlock.h"
 #include "console.h"
+#include "pixelDisplay.h"
 
 class accessManager: public metal
 {
@@ -12,15 +13,15 @@ class accessManager: public metal
         bool debugMode;
         memoryBlock worktopBase;
         console console;
-        //pixelDisplay_8bit pixelDisplay_8bit;
+        pixelDisplay pixelDisplay;
 
     //ports
         /* 0: program counter high byte           */
         /* 1: program counter low byte            */
         /* 2: console                             */ private: static const unsigned int console_port = 2;
-        /* 3: pixelDisplay_8bit pixel byte access */ private: static const unsigned int pixelDisplay_8bit_AccessPort = 3;
-        /* 4: pixelDisplay_8bit address Y         */ private: static const unsigned int pixelDisplay_8bit_AddressPort_y = 4;
-        /* 5: pixelDisplay_8bit address X         */ private: static const unsigned int pixelDisplay_8bit_AddressPort_x = 5;
+        /* 3: pixelDisplay pixel byte access      */ private: static const unsigned int pixelDisplay_AccessPort = 3;
+        /* 4: pixelDisplay address Y              */ private: static const unsigned int pixelDisplay_AddressPort_y = 4;
+        /* 5: pixelDisplay address X              */ private: static const unsigned int pixelDisplay_AddressPort_x = 5;
 
     //construction/destruction
         public: accessManager(unsigned int bitSize, unsigned int worktopSize);

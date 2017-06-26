@@ -3,6 +3,7 @@
 
 class metal{
     private:
+        bool debugMode;
         unsigned int bitSize;
         unsigned int maxPossibleValue_abs;
         unsigned int maxPossibleValue_sam;
@@ -31,6 +32,10 @@ class metal{
             virtual bool getBitFromUINT(unsigned int UINT, unsigned int bit);
             virtual std::string adjustBIN(std::string BIN, unsigned int bit, bool value);
             virtual std::string resize(std::string val, unsigned int byteSize);
+
+        //printers and debug
+            virtual void printMemory();
+            virtual void debug(bool onOff);
 };
 
 #endif

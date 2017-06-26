@@ -98,8 +98,8 @@
             /* inc               */ case 23: accessManager.setByte(instructionSegments[1], logicUnit.inc( accessManager.getByte(instructionSegments[1]) )); break;
             /* dec               */ case 24: accessManager.setByte(instructionSegments[1], logicUnit.dec( accessManager.getByte(instructionSegments[1]) )); break;
             /* neg               */ case 25: accessManager.setByte(instructionSegments[1], logicUnit.neg( accessManager.getByte(instructionSegments[1]) ));break;
-            /* add               */ case 26: accessManager.setByte(instructionSegments[2], logicUnit.add( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
-            /* sub               */ case 27: accessManager.setByte(instructionSegments[2], logicUnit.sub( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
+            /* add               */ case 26: accessManager.setByte(instructionSegments[3], logicUnit.add( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
+            /* sub               */ case 27: accessManager.setByte(instructionSegments[3], logicUnit.sub( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
             default: std::cout << "executer error - unknown instruction: " << instructionSegments[0] << std::endl; break;
         }
 

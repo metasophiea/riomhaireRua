@@ -40,8 +40,8 @@ int main(int argumentCount, char *arguments[]){
 
     //run, and print memory when all is done
         machine.run();
-        std::cout << std::endl << std::endl << "program done - printing memory" << std::endl << std::endl;
-        machine.printMemory();
+        //std::cout << std::endl << std::endl << "program done - printing memory" << std::endl << std::endl;
+        //machine.printMemory();
         
     return 0;
 }

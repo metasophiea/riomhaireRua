@@ -48,3 +48,11 @@ tag ::
     //multi byte
         add:byte:byte:destinationByte       ->          26
         sub:byte:byte:destinationByte       ->          27
+
+//workspace ports
+    0 - program counter (high)
+    1 - program counter (low)
+    2 - console
+    3 - pixel display access
+    4 - pixel display address y
+    5 - pixel display address x

@@ -8,9 +8,9 @@
 
 # write test file
     # Decalare tests
-        #methodName, argumentLength, calculationMode, result, arg_1, arg_2, arg_3...
         declare lengthOfMeta=3;
-        declare -a tests=(
+        declare className=logicUnit;
+        declare -a tests=( #methodName, argumentLength, calculationMode, result, arg_1, arg_2, arg_3...    
             #checks
                 logicCheck  1 0  10   10
                 mathCheck   2 0  10   10    0
@@ -94,23 +94,29 @@
                 > test.cpp
                 echo '#include <iostream>' >> test.cpp
                 echo '' >> test.cpp
-                echo '#include "logicUnit.h"' >> test.cpp
+                echo '#include "'${className}'.h"' >> test.cpp
                 echo '' >> test.cpp
                 echo 'int main(){' >> test.cpp
-                echo '    logicUnit lu = logicUnit(8);' >> test.cpp
-                echo '    lu.debug(false);' >> test.cpp
-                echo '    lu.setCalculationMode('${calculationMode}');' >> test.cpp  
+                echo '    '${className}' obj = '${className}'(8);' >> test.cpp
+                echo '    obj.debug(false);' >> test.cpp
+                echo '    obj.setCalculationMode('${calculationMode}');' >> test.cpp  
                 echo '' >> test.cpp
                 echo '    std::cout << "- '${methodName}' test -" << std::endl;' >> test.cpp
-                echo '    std::cout << "Test: u.'${methodName}'('${args}') = '${expectedResult}' " << std::endl;' >> test.cpp
-                echo '    if( lu.'${methodName}'('${args}') == '${expectedResult}' ){ std::cout << "- all good" << std::endl; }' >> test.cpp
-                echo '    else{' >> test.cpp
-                echo '        lu.debug(true);' >> test.cpp
-                echo '        std::cout << "lu.'${methodName}'('${args}')" << std::endl;' >> test.cpp
-                echo '        std::cout << lu.'${methodName}'('${args}') << std::endl;' >> test.cpp
-                echo '        lu.debug(false);' >> test.cpp
-                echo '        std::cout << "- failure" << std::endl;' >> test.cpp
-                echo '        return 1;' >> test.cpp
+
+                if [ $expectedResult == 'null' ]
+                then echo 'obj.'${methodName}'('${displayArgs}');' >> test.cpp
+                else
+                    echo '    std::cout << "Test: obj.'${methodName}'('${args}') = '${expectedResult}' " << std::endl;' >> test.cpp
+                    echo '    if( obj.'${methodName}'('${args}') == '${expectedResult}' ){ std::cout << "- all good" << std::endl; }' >> test.cpp
+                    echo '    else{' >> test.cpp
+                    echo '        obj.debug(true);' >> test.cpp
+                    echo '        std::cout << "obj.'${methodName}'('${args}')" << std::endl;' >> test.cpp
+                    echo '        std::cout << obj.'${methodName}'('${args}') << std::endl;' >> test.cpp
+                    echo '        obj.debug(false);' >> test.cpp
+                    echo '        std::cout << "- failure" << std::endl;' >> test.cpp
+                    echo '        return 1;' >> test.cpp
+                fi
+
                 echo '    }' >> test.cpp
                 echo '' >> test.cpp
                 echo '    return 0;' >> test.cpp

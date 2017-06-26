@@ -1,0 +1,22 @@
+//This program fills the visual display with all available colours
+
+//counter bytes
+   set:10:0
+   set:11:0
+
+::loop
+    copy:11:4
+    copy:10:5
+    copy:10:3
+
+    inc:10
+    ifResultOverflow:incHighCounter
+        goto:loop
+    ::incHighCounter
+        inc:11
+        ifResultOverflow:endProgram
+        goto:loop
+ 
+::endProgram
+
+wait:5000
