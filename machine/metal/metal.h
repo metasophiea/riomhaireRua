@@ -31,6 +31,7 @@ class metal{
         //adjusters/getters
             virtual bool getBitFromUINT(unsigned int UINT, unsigned int bit);
             virtual std::string adjustBIN(std::string BIN, unsigned int bit, bool value);
+            virtual unsigned int bitAdjustUINT_systemSize(unsigned int UINT, unsigned int bit, bool value);
             virtual std::string resize(std::string val, unsigned int byteSize);
 
         //printers and debug

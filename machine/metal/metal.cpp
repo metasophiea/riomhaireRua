@@ -75,7 +75,7 @@
         return ANYTHINGtoUINT(BIN,charArray,2);
     }
 
-//adjusters
+//adjusters/getters
     bool metal::getBitFromUINT(unsigned int UINT, unsigned int bit){
         std::string bin = UINTtoBIN(UINT);
         if(bin.length() <= bit){return false;}
@@ -85,6 +85,9 @@
         if( BIN.length() > bit ){ value ? BIN[bit] = '1' : BIN[bit] = '0'; }
         else{ for(unsigned int a = BIN.length()-1; a < bit-1; a++){ BIN = BIN + '0'; } BIN = BIN + ( value ? '1' : '0'); }
         return BIN;
+    }
+    unsigned int metal::bitAdjustUINT_systemSize(unsigned int UINT, unsigned int bit, bool value){
+        return BINtoUINT(adjustBIN(UINTtoBIN_systemSize(UINT),bit,value));
     }
 
 std::string metal::resize(std::string val, unsigned int byteSize){

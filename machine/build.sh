@@ -3,6 +3,7 @@
 
     cp console/console.* .
     cp pixelDisplay/pixelDisplay.* .; cp pixelDisplay/externalPixelDisplayModule.* .
+    cp vectorDisplay/vectorDisplay.* .; cp vectorDisplay/externalVectorDisplayModule.* .
     cp memoryBlock/memoryBlock.* .
     cp accessManager/accessManager.* .
 
@@ -16,6 +17,7 @@
     g++ -c console.cpp
     g++ -c memoryBlock.cpp
     g++ -c pixelDisplay.cpp; g++ externalPixelDisplayModule.cpp -o externalPixelDisplayModule -framework OpenGL -lglfw3
+    g++ -c vectorDisplay.cpp; g++ externalVectorDisplayModule.cpp -o externalVectorDisplayModule -framework OpenGL -lglfw3
     g++ -c accessManager.cpp
 
     g++ -c logicUnit.cpp
@@ -30,6 +32,7 @@
     rm console.*
     rm memoryBlock.*
     rm pixelDisplay.*; rm externalPixelDisplayModule.*;
+    rm vectorDisplay.*; rm externalVectorDisplayModule.*;
     rm accessManager.*
 
     rm logicUnit.*

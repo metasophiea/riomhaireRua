@@ -46,7 +46,6 @@ class pixelDisplay: public metal
         unsigned int selectedPixel;
         std::vector<unsigned int> selectedPixel_vector;
 
-
     //construction/destruction
     public:
         pixelDisplay(unsigned int bitSize, unsigned int selectedPixel_byteCount, unsigned int pixelCountX, unsigned int pixelCountY, unsigned int windowWidth, unsigned int windowHeight);
@@ -65,7 +64,7 @@ class pixelDisplay: public metal
             virtual void         setPixelBit(unsigned int bit, bool value);
             virtual bool         getPixelBit(unsigned int bit);
 
-    //graphical functions
+    //display unit functions
     public:
         virtual void start();
         virtual void stop();

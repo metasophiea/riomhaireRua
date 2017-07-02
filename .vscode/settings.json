@@ -35,6 +35,15 @@
         "istream": "cpp",
         "algorithm": "cpp",
         "iosfwd": "cpp",
-        "memory": "cpp"
+        "memory": "cpp",
+        "clocale": "cpp",
+        "cstdarg": "cpp",
+        "cstddef": "cpp",
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "fstream": "cpp",
+        "limits": "cpp",
+        "ostream": "cpp",
+        "sstream": "cpp"
     }
 }

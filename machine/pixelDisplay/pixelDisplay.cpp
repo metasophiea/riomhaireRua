@@ -48,11 +48,10 @@
         void pixelDisplay::setAddressByte(unsigned int byte, unsigned int value){
             if(debugMode){ std::cout << "pixelDisplay::setAddressByte("<<byte<<","<<value<<")"<< std::endl; }
             //input checking
-                if( byte > selectedPixel_vector.size() ){ std::cout << "pixelDisplay::setAddressByte - error: selected address byte out of range: " << byte << std::endl; }
-                if( value > getMaxPossibleValue(0) ){ std::cout << "pixelDisplay::setAddressByte - error: value out of range: " << value << std::endl; }
+                if( byte > selectedPixel_vector.size() ){ std::cout << "pixelDisplay::setAddressByte - error: selected address byte out of range: " << byte << std::endl; return;}
+                if( value > getMaxPossibleValue(0) ){ std::cout << "pixelDisplay::setAddressByte - error: value out of range: " << value << std::endl; return;}
 
-            //add value to selectedPixel_vector (in a reverse way, so the 'lowest' value bytes are lower in the index)
-                //selectedPixel_vector[ selectedPixel_vector.size()-byte-1 ] = value;
+            //add value to selectedPixel_vector
                 selectedPixel_vector[ byte ] = value;
             //consolidate vector into the selectedPixel unsigned int
                 selectedPixel = 0; for(unsigned int a = 0; a < selectedPixel_vector.size(); a++){ selectedPixel += pow(2,getBitSize()*a)*selectedPixel_vector[a]; }
@@ -70,8 +69,8 @@
                 for(unsigned int a = 0; a < selectedPixel_vector.size(); a++){ std::cout << a << " | " << selectedPixel_vector[a] << std::endl; }
             }
             //input checking
-                if( byte > selectedPixel_vector.size() ){ std::cout << "pixelDisplay::getAddressByte - error: selected address byte out of range: " << byte << std::endl; }
-                if(debugMode){ std::cout << "pixelDisplay::getAddressByte - gathered value: " << selectedPixel_vector[ selectedPixel_vector.size()-byte-1 ] << std::endl; }
+                if( byte > selectedPixel_vector.size() ){ std::cout << "pixelDisplay::getAddressByte - error: selected address byte out of range: " << byte << std::endl; return 0;}
+                if(debugMode){ std::cout << "pixelDisplay::getAddressByte - gathered value: " << selectedPixel_vector[ byte ] << std::endl; }
 
             //reverse gather this value
             return selectedPixel_vector[ byte ];
@@ -79,16 +78,16 @@
         void pixelDisplay::setAddressBit(unsigned int byte, unsigned int bit, bool value){
             if(debugMode){ std::cout << "pixelDisplay::setAddressBit("<<byte<<","<<bit<<","<<value<<")"<< std::endl; }
             //input checking
-                if( bit >= getBitSize() ){ std::cout << "pixelDisplay::setAddressBit - error: selected bit out of range: " << bit << std::endl; }
+                if( bit >= getBitSize() ){ std::cout << "pixelDisplay::setAddressBit - error: selected bit out of range: " << bit << std::endl; return;}
 
             //get byte, convert to bin, set the bit, convert back and set that byte to this new value
-                setAddressByte(byte,BINtoUINT(adjustBIN(UINTtoBIN(getAddressByte(byte)),bit,value)));
+                setAddressByte(byte,bitAdjustUINT_systemSize(getAddressByte(byte),bit,value));
         }
 
         bool pixelDisplay::getAddressBit(unsigned int byte, unsigned int bit){
             if(debugMode){ std::cout << "pixelDisplay::getAddressBit("<<byte<<","<<bit<<")"<< std::endl; }
             //input checking
-                if( bit > getBitSize() ){ std::cout << "pixelDisplay::setAddressBit - error: selected bit out of range: " << bit << std::endl; }
+                if( bit > getBitSize() ){ std::cout << "pixelDisplay::setAddressBit - error: selected bit out of range: " << bit << std::endl; return false;}
 
             //get address byte, then extract the bit and return it
             return UINTtoBIN_systemSize(getAddressByte(byte))[bit] == '1' ? true : false;
@@ -107,7 +106,7 @@
                     pixels->at( pixelNumberByThree+0 ) = eightBitColour_extractRed(value);   if(debugMode){ std::cout << "pixelDisplay::setPixelByte - eightBitColour_extractRed: "   << eightBitColour_extractRed(value) << std::endl; }
                     pixels->at( pixelNumberByThree+1 ) = eightBitColour_extractGreen(value); if(debugMode){ std::cout << "pixelDisplay::setPixelByte - eightBitColour_extractGreen: " << eightBitColour_extractGreen(value) << std::endl; }
                     pixels->at( pixelNumberByThree+2 ) = eightBitColour_extractBlue(value);  if(debugMode){ std::cout << "pixelDisplay::setPixelByte - eightBitColour_extractBlue: "  << eightBitColour_extractBlue(value) << std::endl; }
-                }catch(std::out_of_range e){ std::cout << "pixelDisplay::setPixelByte - error - attempting to reach non-existant pixel: " << selectedPixel << std::endl; }
+                }catch(std::out_of_range e){ std::cout << "pixelDisplay::setPixelByte - error - attempting to reach non-existant pixel: " << selectedPixel << std::endl; return;}
         }
         unsigned int pixelDisplay::getPixelByte(){
             if(debugMode){ std::cout << "pixelDisplay::getPixelByte()"<< std::endl; }
@@ -124,21 +123,21 @@
         void pixelDisplay::setPixelBit(unsigned int bit, bool value){
             if(debugMode){ std::cout << "pixelDisplay::setPixelBit("<<bit<<","<<value<<")"<< std::endl; }
             //input checking
-                if( bit > getBitSize() ){ std::cout << "pixelDisplay::setPixelBit - error: selected bit out of range: " << bit << std::endl; }
+                if( bit > getBitSize() ){ std::cout << "pixelDisplay::setPixelBit - error: selected bit out of range: " << bit << std::endl; return;}
 
             //get byte, convert to bin, set the bit, convert back and set the byte to this new value
-                setPixelByte(BINtoUINT(adjustBIN(UINTtoBIN(getPixelByte()),bit,value)));
+                setPixelByte(bitAdjustUINT_systemSize(getPixelByte(),bit,value));
         }
         bool pixelDisplay::getPixelBit(unsigned int bit){
             if(debugMode){ std::cout << "pixelDisplay::getPixelBit("<<bit<<")"<< std::endl; }
             //input checking
-                if( bit > getBitSize() ){ std::cout << "pixelDisplay::getPixelBit - error: selected bit out of range: " << bit << std::endl; }
+                if( bit > getBitSize() ){ std::cout << "pixelDisplay::getPixelBit - error: selected bit out of range: " << bit << std::endl; return false;}
 
             //get address byte, then extract the bit and return it
                 return UINTtoBIN_systemSize(getPixelByte())[bit] == '1' ? true : false;
         }
 
-//graphical functions
+//display unit functions
     void pixelDisplay::start(){
         if(debugMode){ std::cout << "pixelDisplay::start - starting external pixel display module"<< std::endl; }
 
@@ -150,7 +149,6 @@
 
         //wait for external pixel display module to respond
             if(debugMode){ std::cout << "pixelDisplay::start - waiting on external pixel display module to start"<< std::endl; }
-            unsigned int timeoutCounter = 0;
             while( *control == 0 ){}
             if(debugMode){ std::cout << "pixelDisplay::start - external pixel display module has started and responded"<< std::endl; }
     }

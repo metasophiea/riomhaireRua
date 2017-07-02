@@ -8,93 +8,102 @@
         declare lengthOfMeta=2;
         declare className=metal;
         declare -a tests=( #methodName, argumentLength, result, arg_1, arg_2, arg_3...    
-            # get bit size
-                getBitSize          0 8
-            # get maximum possible value
-                getMaxPossibleValue 1 255 0
-                getMaxPossibleValue 1 127 1
-            # UINTtoANYTHINGto do hex stuff
-                UINTtoANYTHING 3 '"0"'  0   tempCharArray_hex 16
-                UINTtoANYTHING 3 '"a"'  10  tempCharArray_hex 16
-                UINTtoANYTHING 3 '"f"'  15  tempCharArray_hex 16
-                UINTtoANYTHING 3 '"10"' 16  tempCharArray_hex 16
-                UINTtoANYTHING 3 '"64"' 100 tempCharArray_hex 16
-                UINTtoANYTHING 3 '"ff"' 255 tempCharArray_hex 16
-            # ANYTHINGtoUINT do hex stuff
-                ANYTHINGtoUINT 3 0   '"0"'  tempCharArray_hex 16
-                ANYTHINGtoUINT 3 10  '"a"'  tempCharArray_hex 16
-                ANYTHINGtoUINT 3 15  '"f"'  tempCharArray_hex 16
-                ANYTHINGtoUINT 3 16  '"10"' tempCharArray_hex 16
-                ANYTHINGtoUINT 3 100 '"64"' tempCharArray_hex 16
-                ANYTHINGtoUINT 3 255 '"ff"' tempCharArray_hex 16
+            # # get bit size
+            #     getBitSize          0 8
+            # # get maximum possible value
+            #     getMaxPossibleValue 1 255 0
+            #     getMaxPossibleValue 1 127 1
+            # # UINTtoANYTHINGto do hex stuff
+            #     UINTtoANYTHING 3 '"0"'  0   tempCharArray_hex 16
+            #     UINTtoANYTHING 3 '"a"'  10  tempCharArray_hex 16
+            #     UINTtoANYTHING 3 '"f"'  15  tempCharArray_hex 16
+            #     UINTtoANYTHING 3 '"10"' 16  tempCharArray_hex 16
+            #     UINTtoANYTHING 3 '"64"' 100 tempCharArray_hex 16
+            #     UINTtoANYTHING 3 '"ff"' 255 tempCharArray_hex 16
+            # # ANYTHINGtoUINT do hex stuff
+            #     ANYTHINGtoUINT 3 0   '"0"'  tempCharArray_hex 16
+            #     ANYTHINGtoUINT 3 10  '"a"'  tempCharArray_hex 16
+            #     ANYTHINGtoUINT 3 15  '"f"'  tempCharArray_hex 16
+            #     ANYTHINGtoUINT 3 16  '"10"' tempCharArray_hex 16
+            #     ANYTHINGtoUINT 3 100 '"64"' tempCharArray_hex 16
+            #     ANYTHINGtoUINT 3 255 '"ff"' tempCharArray_hex 16
 
-            # UINTtoANYTHING to do binary stuff
-                UINTtoANYTHING 3 '"0"'        0   tempCharArray_bin 2
-                UINTtoANYTHING 3 '"1010"'     10  tempCharArray_bin 2
-                UINTtoANYTHING 3 '"1111"'     15  tempCharArray_bin 2
-                UINTtoANYTHING 3 '"10000"'    16  tempCharArray_bin 2
-                UINTtoANYTHING 3 '"1100100"'  100 tempCharArray_bin 2
-                UINTtoANYTHING 3 '"11111111"' 255 tempCharArray_bin 2
-            # ANYTHINGtoUINT do binary stuff
-                ANYTHINGtoUINT 3 0   '"0"'        tempCharArray_bin 2
-                ANYTHINGtoUINT 3 10  '"1010"'     tempCharArray_bin 2
-                ANYTHINGtoUINT 3 15  '"1111"'     tempCharArray_bin 2
-                ANYTHINGtoUINT 3 16  '"10000"'    tempCharArray_bin 2
-                ANYTHINGtoUINT 3 100 '"1100100"'  tempCharArray_bin 2
-                ANYTHINGtoUINT 3 255 '"11111111"' tempCharArray_bin 2
+            # # UINTtoANYTHING to do binary stuff
+            #     UINTtoANYTHING 3 '"0"'        0   tempCharArray_bin 2
+            #     UINTtoANYTHING 3 '"1010"'     10  tempCharArray_bin 2
+            #     UINTtoANYTHING 3 '"1111"'     15  tempCharArray_bin 2
+            #     UINTtoANYTHING 3 '"10000"'    16  tempCharArray_bin 2
+            #     UINTtoANYTHING 3 '"1100100"'  100 tempCharArray_bin 2
+            #     UINTtoANYTHING 3 '"11111111"' 255 tempCharArray_bin 2
+            # # ANYTHINGtoUINT do binary stuff
+            #     ANYTHINGtoUINT 3 0   '"0"'        tempCharArray_bin 2
+            #     ANYTHINGtoUINT 3 10  '"1010"'     tempCharArray_bin 2
+            #     ANYTHINGtoUINT 3 15  '"1111"'     tempCharArray_bin 2
+            #     ANYTHINGtoUINT 3 16  '"10000"'    tempCharArray_bin 2
+            #     ANYTHINGtoUINT 3 100 '"1100100"'  tempCharArray_bin 2
+            #     ANYTHINGtoUINT 3 255 '"11111111"' tempCharArray_bin 2
 
-            # UINTtoHEX
-                UINTtoHEX  1 '"0"'   0  
-                UINTtoHEX  1 '"a"'   10 
-                UINTtoHEX  1 '"f"'   15 
-                UINTtoHEX  1 '"10"'  16 
-                UINTtoHEX  1 '"64"'  100
-                UINTtoHEX  1 '"ff"'  255
-                UINTtoHEX  1 '"12c"' 300
+            # # UINTtoHEX
+            #     UINTtoHEX  1 '"0"'   0  
+            #     UINTtoHEX  1 '"a"'   10 
+            #     UINTtoHEX  1 '"f"'   15 
+            #     UINTtoHEX  1 '"10"'  16 
+            #     UINTtoHEX  1 '"64"'  100
+            #     UINTtoHEX  1 '"ff"'  255
+            #     UINTtoHEX  1 '"12c"' 300
 
-            # UINTtoHEX_systemSize
-                UINTtoHEX_systemSize  1 '"00"' 0  
-                UINTtoHEX_systemSize  1 '"0a"' 10 
-                UINTtoHEX_systemSize  1 '"0f"' 15 
-                UINTtoHEX_systemSize  1 '"10"' 16 
-                UINTtoHEX_systemSize  1 '"64"' 100
-                UINTtoHEX_systemSize  1 '"ff"' 255
-                UINTtoHEX_systemSize  1 '"2c"' 300
+            # # UINTtoHEX_systemSize
+            #     UINTtoHEX_systemSize  1 '"00"' 0  
+            #     UINTtoHEX_systemSize  1 '"0a"' 10 
+            #     UINTtoHEX_systemSize  1 '"0f"' 15 
+            #     UINTtoHEX_systemSize  1 '"10"' 16 
+            #     UINTtoHEX_systemSize  1 '"64"' 100
+            #     UINTtoHEX_systemSize  1 '"ff"' 255
+            #     UINTtoHEX_systemSize  1 '"2c"' 300
 
-            # HEXtoUINT
-                HEXtoUINT 1 0   '"0"'
-                HEXtoUINT 1 10  '"a"'
-                HEXtoUINT 1 16  '"10"'
-                HEXtoUINT 1 100 '"64"'
-                HEXtoUINT 1 255 '"ff"'
-                HEXtoUINT 1 300 '"12c"'
+            # # HEXtoUINT
+            #     HEXtoUINT 1 0   '"0"'
+            #     HEXtoUINT 1 10  '"a"'
+            #     HEXtoUINT 1 16  '"10"'
+            #     HEXtoUINT 1 100 '"64"'
+            #     HEXtoUINT 1 255 '"ff"'
+            #     HEXtoUINT 1 300 '"12c"'
 
-            # UINTtoBIN
-                UINTtoBIN  1 '"0"'         0  
-                UINTtoBIN  1 '"1010"'      10 
-                UINTtoBIN  1 '"1111"'      15 
-                UINTtoBIN  1 '"10000"'     16 
-                UINTtoBIN  1 '"1100100"'   100
-                UINTtoBIN  1 '"11111111"'  255
-                UINTtoBIN  1 '"100101100"' 300
+            # # UINTtoBIN
+            #     UINTtoBIN  1 '"0"'         0  
+            #     UINTtoBIN  1 '"1010"'      10 
+            #     UINTtoBIN  1 '"1111"'      15 
+            #     UINTtoBIN  1 '"10000"'     16 
+            #     UINTtoBIN  1 '"1100100"'   100
+            #     UINTtoBIN  1 '"11111111"'  255
+            #     UINTtoBIN  1 '"100101100"' 300
 
-            # UINTtoBIN_systemSize
-                UINTtoBIN_systemSize  1 '"00000000"'   0  
-                UINTtoBIN_systemSize  1 '"00001010"'  10 
-                UINTtoBIN_systemSize  1 '"00001111"'  15 
-                UINTtoBIN_systemSize  1 '"00010000"'  16 
-                UINTtoBIN_systemSize  1 '"01100100"' 100
-                UINTtoBIN_systemSize  1 '"11111111"' 255
-                UINTtoBIN_systemSize  1 '"00101100"' 300
+            # # UINTtoBIN_systemSize
+            #     UINTtoBIN_systemSize  1 '"00000000"'   0  
+            #     UINTtoBIN_systemSize  1 '"00001010"'  10 
+            #     UINTtoBIN_systemSize  1 '"00001111"'  15 
+            #     UINTtoBIN_systemSize  1 '"00010000"'  16 
+            #     UINTtoBIN_systemSize  1 '"01100100"' 100
+            #     UINTtoBIN_systemSize  1 '"11111111"' 255
+            #     UINTtoBIN_systemSize  1 '"00101100"' 300
 
-            # BINtoUINT
-                BINtoUINT 1 0   '"0"'       
-                BINtoUINT 1 10  '"1010"'    
-                BINtoUINT 1 15  '"1111"'    
-                BINtoUINT 1 16  '"10000"'   
-                BINtoUINT 1 100 '"1100100"' 
-                BINtoUINT 1 255 '"11111111"' 
-                BINtoUINT 1 300 '"100101100"'
+            # # BINtoUINT
+            #     BINtoUINT 1 0   '"0"'       
+            #     BINtoUINT 1 10  '"1010"'    
+            #     BINtoUINT 1 15  '"1111"'    
+            #     BINtoUINT 1 16  '"10000"'   
+            #     BINtoUINT 1 100 '"1100100"' 
+            #     BINtoUINT 1 255 '"11111111"' 
+            #     BINtoUINT 1 300 '"100101100"'
+
+            # # adjustBIN
+            #     adjustBIN 3 '"10000000"' '"00000000"' 0 true
+            #     adjustBIN 3 '"01000000"' '"00000000"' 1 true
+            #     adjustBIN 3 '"00000000"' '"00000000"' 1 false
+
+            # bitAdjustUINT_systemSize
+                bitAdjustUINT_systemSize 3 0 0 0 false
+                bitAdjustUINT_systemSize 3 1 0 7 true
                 
         );
 
