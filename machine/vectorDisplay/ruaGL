@@ -1,7 +1,0 @@
-shape, R G B, otherArguments..
-
-0 - no op
-1 - poly
-    comm R G B X0 Y0 X1 Y1 X2 Y2 ... repeat of first point
-
-    eg. 1 256 256 256 0 0 100 100 0 100 0 100

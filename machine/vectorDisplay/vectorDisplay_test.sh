@@ -5,7 +5,7 @@
 
 # compile files
     g++ -c metal.cpp
-    g++ -c vectorDisplay.cpp
+    g++ -c vectorDisplay.cpp 
     g++ externalVectorDisplayModule.cpp -o externalVectorDisplayModule -framework OpenGL -lglfw3
 
 # compile and run

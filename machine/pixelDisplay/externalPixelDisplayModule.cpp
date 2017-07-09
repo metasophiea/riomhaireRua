@@ -11,14 +11,14 @@ typedef boost::interprocess::vector   <float, ShmemAllocator> PixelVector;
 //shared pixel memory:
     #define pixelDisplay_sharedMemorySpaceName "pixelDisplay_memorySpace"
     //object names
-        #define pixelDisplay_pixelMemory  "pixels"
-        #define pixelDisplay_control      "control"     
-        #define pixelDisplay_pixelHeight  "pixelHeight" 
-        #define pixelDisplay_pixelWidth   "pixelWidth"  
-        #define pixelDisplay_windowHeight "windowHeight"
-        #define pixelDisplay_windowWidth  "windowWidth" 
-        #define pixelDisplay_pixelCountY  "pixelCountY" 
-        #define pixelDisplay_pixelCountX  "pixelCountX" 
+        #define pixelDisplay_pixelMemory  "pixelDisplay_pixels"
+        #define pixelDisplay_control      "pixelDisplay_control"     
+        #define pixelDisplay_pixelHeight  "pixelDisplay_pixelHeight" 
+        #define pixelDisplay_pixelWidth   "pixelDisplay_pixelWidth"  
+        #define pixelDisplay_windowHeight "pixelDisplay_windowHeight"
+        #define pixelDisplay_windowWidth  "pixelDisplay_windowWidth" 
+        #define pixelDisplay_pixelCountY  "pixelDisplay_pixelCountY" 
+        #define pixelDisplay_pixelCountX  "pixelDisplay_pixelCountX" 
 
 int main(void){
     //attempt to collect shared memory data

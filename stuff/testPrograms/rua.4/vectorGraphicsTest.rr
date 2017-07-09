@@ -1,0 +1,69 @@
+//prints out some shapes, then waits for 5 seconds
+
+    //green triangle
+        set:7:0
+            set:6:1
+        inc:7
+            set:6:28
+        inc:7
+            set:6:128
+        inc:7
+            set:6:55
+        inc:7
+            set:6:55
+        inc:7
+            set:6:200
+        inc:7
+            set:6:200
+        inc:7
+            set:6:200
+        inc:7
+            set:6:128
+        inc:7
+            set:6:55
+
+    //blue square
+        inc:7
+            set:6:2
+        inc:7
+            set:6:3
+        inc:7
+            set:6:50
+        inc:7
+            set:6:50
+        inc:7
+            set:6:50
+        inc:7
+            set:6:50
+        inc:7
+            set:6:10
+
+    //red square
+        inc:7
+            set:6:3
+        inc:7
+            set:6:224
+        inc:7
+            set:6:200
+        inc:7
+            set:6:100
+        inc:7
+            set:6:50
+        inc:7
+            set:6:50
+        inc:7
+            set:6:40
+
+    //yellow circle
+        inc:7
+            set:6:4
+        inc:7
+            set:6:252
+        inc:7
+            set:6:45
+        inc:7
+            set:6:140
+        inc:7
+            set:6:30
+
+wait:5000

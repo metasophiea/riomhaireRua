@@ -56,3 +56,5 @@ tag ::
     3 - pixel display access
     4 - pixel display address y
     5 - pixel display address x
+    6 - vectorDisplay memory byte access
+    7 - vectorDisplay memory byte address

@@ -4,7 +4,8 @@
     vectorDisplay::vectorDisplay(unsigned int bitSize, unsigned int dataVector_size, unsigned int windowWidth, unsigned int windowHeight):
         metal(bitSize),
         selectedByte(0),
-        selectedByte_vector( std::vector<unsigned int>() )
+        selectedByte_vector( std::vector<unsigned int>() ),
+        debugMode(false),isStarted(false)
         {
             //populate data vector memory
                 for(unsigned int a = 0; a < dataVector_size; a++){ this->dataMemory->push_back(0); }
@@ -19,24 +20,23 @@
             //setup address access values
                 for(unsigned int a = 0; a < selectedByte_byteCount; a++){ selectedByte_vector.push_back(0); }
 
-            start();
         }
     vectorDisplay::~vectorDisplay(){
-        //stop();
+        stop();
     }
 
 //shared memory setup
-    struct shm_remove{
-        shm_remove() { boost::interprocess::shared_memory_object::remove(vectorDisplay_sharedMemorySpaceName); }
-        ~shm_remove(){ boost::interprocess::shared_memory_object::remove(vectorDisplay_sharedMemorySpaceName); }
-    } remover;
-    boost::interprocess::managed_shared_memory segment(boost::interprocess::create_only, vectorDisplay_sharedMemorySpaceName, vectorMemorySize);
-    ShmemAllocator alloc_inst(segment.get_segment_manager());
+    struct vectorMemory_shm_remove{
+        vectorMemory_shm_remove() { boost::interprocess::shared_memory_object::remove(vectorDisplay_sharedMemorySpaceName); }
+        ~vectorMemory_shm_remove(){ boost::interprocess::shared_memory_object::remove(vectorDisplay_sharedMemorySpaceName); }
+    } vectorMemory_remover;
+    boost::interprocess::managed_shared_memory vectorMemory_segment(boost::interprocess::create_only, vectorDisplay_sharedMemorySpaceName, vectorMemorySize);
+   vectorDisplay_ShmemAllocator vectorMemory_alloc_inst(vectorMemory_segment.get_segment_manager());
     //now the objects
-         DataVector   *vectorDisplay::dataMemory   = segment.construct<DataVector>  (vectorDisplay_vectorMemory)(alloc_inst);
-         unsigned int *vectorDisplay::control      = segment.construct<unsigned int>(vectorDisplay_control     )(0);
-         unsigned int *vectorDisplay::windowHeight = segment.construct<unsigned int>(vectorDisplay_windowHeight)(0);
-         unsigned int *vectorDisplay::windowWidth  = segment.construct<unsigned int>(vectorDisplay_windowWidth )(0);
+         DataVector   *vectorDisplay::dataMemory   = vectorMemory_segment.construct<DataVector>  (vectorDisplay_vectorMemory)(vectorMemory_alloc_inst);
+         unsigned int *vectorDisplay::control      = vectorMemory_segment.construct<unsigned int>(vectorDisplay_control     )(0);
+         unsigned int *vectorDisplay::windowHeight = vectorMemory_segment.construct<unsigned int>(vectorDisplay_windowHeight)(0);
+         unsigned int *vectorDisplay::windowWidth  = vectorMemory_segment.construct<unsigned int>(vectorDisplay_windowWidth )(0);
 
 //readers and writers
      //address
@@ -89,7 +89,7 @@
             return UINTtoBIN_systemSize(getAddressByte(byte))[bit] == '1' ? true : false;
         }
     //byte
-        void vectorDisplay::setMemoryByte(unsigned int value){
+        void vectorDisplay::setMemoryByte(unsigned int value){start();
             if(debugMode){ std::cout << "vectorDisplay::setMemoryByte("<<value<<")"<< std::endl; }
             //input checking
                 if( value > getMaxPossibleValue(0) ){ std::cout << "vectorDisplay::setMemoryByte - error: value out of range: " << value << std::endl; return;}
@@ -123,10 +123,10 @@
                 return UINTtoBIN_systemSize(getMemoryByte())[bit] == '1' ? true : false;
         }
 
-
-
 //display unit functions
     void vectorDisplay::start(){
+        if(debugMode){ std::cout << "vectorDisplay::start - attempting to start the external vector display module"<< std::endl; }
+        if(isStarted){ if(debugMode){ std::cout << "vectorDisplay::start - display module already running; aborting start-up"<< std::endl;} return;}else{isStarted = true;}
         if(debugMode){ std::cout << "vectorDisplay::start - starting external vector display module"<< std::endl; }
 
         //fork process and start external pixel display module
@@ -141,6 +141,8 @@
             if(debugMode){ std::cout << "vectorDisplay::start - external vector display module has started and responded"<< std::endl; }
     }
     void vectorDisplay::stop(){
+        if(debugMode){ std::cout << "vectorDisplay::stop - attempting to stop the external vector display module"<< std::endl; }
+        if(!isStarted){ if(debugMode){ std::cout << "vectorDisplay::stop - display module was never started"<< std::endl;} return;}
         if(debugMode){ std::cout << "vectorDisplay::stop - stopping external vector display module"<< std::endl; }
         *control = 2;
     }

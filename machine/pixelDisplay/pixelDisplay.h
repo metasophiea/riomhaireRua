@@ -10,27 +10,28 @@
 
 #include "metal.h"
 
-typedef boost::interprocess::allocator<float, boost::interprocess::managed_shared_memory::segment_manager> ShmemAllocator;
-typedef boost::interprocess::vector   <float, ShmemAllocator> PixelVector;
+typedef boost::interprocess::allocator<float, boost::interprocess::managed_shared_memory::segment_manager> pixelDisplay_ShmemAllocator;
+typedef boost::interprocess::vector   <float, pixelDisplay_ShmemAllocator> PixelVector;
 
 //shared pixel memory:
     #define pixelMemorySize 16777215
     #define pixelDisplay_sharedMemorySpaceName "pixelDisplay_memorySpace"
     //object names
-        #define pixelDisplay_pixelMemory  "pixels"
-        #define pixelDisplay_control      "control"     
-        #define pixelDisplay_pixelHeight  "pixelHeight" 
-        #define pixelDisplay_pixelWidth   "pixelWidth"  
-        #define pixelDisplay_windowHeight "windowHeight"
-        #define pixelDisplay_windowWidth  "windowWidth" 
-        #define pixelDisplay_pixelCountY  "pixelCountY" 
-        #define pixelDisplay_pixelCountX  "pixelCountX" 
+        #define pixelDisplay_pixelMemory  "pixelDisplay_pixels"
+        #define pixelDisplay_control      "pixelDisplay_control"     
+        #define pixelDisplay_pixelHeight  "pixelDisplay_pixelHeight" 
+        #define pixelDisplay_pixelWidth   "pixelDisplay_pixelWidth"  
+        #define pixelDisplay_windowHeight "pixelDisplay_windowHeight"
+        #define pixelDisplay_windowWidth  "pixelDisplay_windowWidth" 
+        #define pixelDisplay_pixelCountY  "pixelDisplay_pixelCountY" 
+        #define pixelDisplay_pixelCountX  "pixelDisplay_pixelCountX" 
 
 class pixelDisplay: public metal
 {
     //inner components
     private:
         bool debugMode;
+        bool isStarted;
         static PixelVector *pixels; //shared pixel memory
             //vector of floats, three times larger than the number of pixels
             //each number represents a colour value, with a batch of three for

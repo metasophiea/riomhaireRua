@@ -30,7 +30,7 @@
         if(debugMode){ std::cout << "executer - instruction number: " << instructionSegments[0] << std::endl; } 
         switch( instructionSegments[0] ){
             /* nop               */ case  0: break;
-            /* goto              */ case  1: if(debugMode){ std::cout << std::endl << "executer - goto - going to instruction number " << instructionSegments[1] << " milliseconds" << std::endl; } programCounter = instructionSegments[1]; break;
+            /* goto              */ case  1: if(debugMode){ std::cout << std::endl << "executer - goto - going to instruction number " << instructionSegments[1] << std::endl; } programCounter = instructionSegments[1]; break;
             /* wait              */ case  2: if(debugMode){ std::cout << std::endl << "executer - wait - waiting for " << instructionSegments[1] << " milliseconds" << std::endl; } usleep(1000*instructionSegments[1]); break;
             /* ifBitSet          */ case  3: 
                 if(debugMode){ std::cout << std::endl << "executer - ifBitSet - testing bit " << instructionSegments[2] << " in byte " << instructionSegments[1] << std::endl; }  

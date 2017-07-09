@@ -1,0 +1,24 @@
+// this program creates a spinning red square
+// (which spins forever, so you need to end the program yourself)
+
+//create square
+    inc:7
+        set:6:3
+    inc:7
+        set:6:224
+    inc:7
+        set:6:127
+    inc:7
+        set:6:127
+    inc:7
+        set:6:50
+    inc:7
+        set:6:50
+    inc:7
+        set:6:10
+
+//update square angle and loop
+    ::loop
+        inc:6
+        wait:50
+    goto:loop

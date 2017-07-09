@@ -5,6 +5,7 @@
 #include "memoryBlock.h"
 #include "console.h"
 #include "pixelDisplay.h"
+#include "vectorDisplay.h"
 
 class accessManager: public metal
 {
@@ -14,6 +15,7 @@ class accessManager: public metal
         memoryBlock worktopBase;
         console console;
         pixelDisplay pixelDisplay;
+        vectorDisplay vectorDisplay;
 
     //ports
         /* 0: program counter high byte           */
@@ -22,6 +24,8 @@ class accessManager: public metal
         /* 3: pixelDisplay pixel byte access      */ private: static const unsigned int pixelDisplay_AccessPort = 3;
         /* 4: pixelDisplay address Y              */ private: static const unsigned int pixelDisplay_AddressPort_y = 4;
         /* 5: pixelDisplay address X              */ private: static const unsigned int pixelDisplay_AddressPort_x = 5;
+        /* 6: vectorDisplay memory byte access    */ private: static const unsigned int vectorDisplay_AccessPort = 6;
+        /* 7: vectorDisplay memory byte address   */ private: static const unsigned int vectorDisplay_AddressPort = 7;
 
     //construction/destruction
         public: accessManager(unsigned int bitSize, unsigned int worktopSize);

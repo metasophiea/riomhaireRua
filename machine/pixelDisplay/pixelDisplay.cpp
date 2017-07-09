@@ -4,7 +4,8 @@
     pixelDisplay::pixelDisplay(unsigned int bitSize, unsigned int selectedPixel_byteCount, unsigned int pixelCountX, unsigned int pixelCountY, unsigned int windowWidth, unsigned int windowHeight):
         metal(bitSize),
         selectedPixel(0),
-        selectedPixel_vector( std::vector<unsigned int>() )
+        selectedPixel_vector( std::vector<unsigned int>() ),
+        debugMode(false),isStarted(false)
         {
             //populate shared pixel vector
                 for(unsigned int a = 0; a < 3*pixelCountX*pixelCountY; a++){ this->pixels->push_back(0); }
@@ -20,28 +21,27 @@
             //setup address access values
                 for(unsigned int a = 0; a < selectedPixel_byteCount; a++){ selectedPixel_vector.push_back(0); }
 
-            start();
         }
     pixelDisplay::~pixelDisplay(){
         stop();
     }
 
 //shared memory setup
-    struct shm_remove{
-        shm_remove() { boost::interprocess::shared_memory_object::remove(pixelDisplay_sharedMemorySpaceName); }
-        ~shm_remove(){ boost::interprocess::shared_memory_object::remove(pixelDisplay_sharedMemorySpaceName); }
-    } remover;
-    boost::interprocess::managed_shared_memory segment(boost::interprocess::create_only, pixelDisplay_sharedMemorySpaceName, pixelMemorySize);
-    ShmemAllocator alloc_inst(segment.get_segment_manager());
+    struct pixelMemory_shm_remove{
+        pixelMemory_shm_remove() { boost::interprocess::shared_memory_object::remove(pixelDisplay_sharedMemorySpaceName); }
+        ~pixelMemory_shm_remove(){ boost::interprocess::shared_memory_object::remove(pixelDisplay_sharedMemorySpaceName); }
+    } pixelMemory_remover;
+    boost::interprocess::managed_shared_memory pixelMemory_segment(boost::interprocess::create_only, pixelDisplay_sharedMemorySpaceName, pixelMemorySize);
+    pixelDisplay_ShmemAllocator pixelMemory_alloc_inst(pixelMemory_segment.get_segment_manager());
     //now the objects
-         PixelVector  *pixelDisplay::pixels       = segment.construct<PixelVector> (pixelDisplay_pixelMemory )(alloc_inst);
-         unsigned int *pixelDisplay::control      = segment.construct<unsigned int>(pixelDisplay_control     )(0);
-         float        *pixelDisplay::pixelHeight  = segment.construct<float>       (pixelDisplay_pixelHeight )(0);
-         float        *pixelDisplay::pixelWidth   = segment.construct<float>       (pixelDisplay_pixelWidth  )(0);
-         unsigned int *pixelDisplay::windowHeight = segment.construct<unsigned int>(pixelDisplay_windowHeight)(0);
-         unsigned int *pixelDisplay::windowWidth  = segment.construct<unsigned int>(pixelDisplay_windowWidth )(0);
-         unsigned int *pixelDisplay::pixelCountY  = segment.construct<unsigned int>(pixelDisplay_pixelCountY )(0);
-         unsigned int *pixelDisplay::pixelCountX  = segment.construct<unsigned int>(pixelDisplay_pixelCountX )(0);
+         PixelVector  *pixelDisplay::pixels       = pixelMemory_segment.construct<PixelVector> (pixelDisplay_pixelMemory )(pixelMemory_alloc_inst);
+         unsigned int *pixelDisplay::control      = pixelMemory_segment.construct<unsigned int>(pixelDisplay_control     )(0);
+         float        *pixelDisplay::pixelHeight  = pixelMemory_segment.construct<float>       (pixelDisplay_pixelHeight )(0);
+         float        *pixelDisplay::pixelWidth   = pixelMemory_segment.construct<float>       (pixelDisplay_pixelWidth  )(0);
+         unsigned int *pixelDisplay::windowHeight = pixelMemory_segment.construct<unsigned int>(pixelDisplay_windowHeight)(0);
+         unsigned int *pixelDisplay::windowWidth  = pixelMemory_segment.construct<unsigned int>(pixelDisplay_windowWidth )(0);
+         unsigned int *pixelDisplay::pixelCountY  = pixelMemory_segment.construct<unsigned int>(pixelDisplay_pixelCountY )(0);
+         unsigned int *pixelDisplay::pixelCountX  = pixelMemory_segment.construct<unsigned int>(pixelDisplay_pixelCountX )(0);
 
 //readers and writers
      //address
@@ -93,7 +93,7 @@
             return UINTtoBIN_systemSize(getAddressByte(byte))[bit] == '1' ? true : false;
         }
     //pixel
-        void pixelDisplay::setPixelByte(unsigned int value){
+        void pixelDisplay::setPixelByte(unsigned int value){start();
             if(debugMode){ std::cout << "pixelDisplay::setPixelByte("<<value<<")"<< std::endl; }
             //input checking
                 if( value > getMaxPossibleValue(0) ){ std::cout << "pixelDisplay::setPixelByte - error: value out of range: " << value << std::endl; }
@@ -139,6 +139,8 @@
 
 //display unit functions
     void pixelDisplay::start(){
+        if(debugMode){ std::cout << "pixelDisplay::start - attempting to start the external pixel display module"<< std::endl; }
+        if(isStarted){ if(debugMode){ std::cout << "pixelDisplay::start - display module already running; aborting start-up"<< std::endl;} return;}else{isStarted = true;}
         if(debugMode){ std::cout << "pixelDisplay::start - starting external pixel display module"<< std::endl; }
 
         //fork process and start external pixel display module
@@ -153,6 +155,8 @@
             if(debugMode){ std::cout << "pixelDisplay::start - external pixel display module has started and responded"<< std::endl; }
     }
     void pixelDisplay::stop(){
+        if(debugMode){ std::cout << "pixelDisplay::stop - attempting to stop the external pixel display module"<< std::endl; }
+        if(!isStarted){ if(debugMode){ std::cout << "pixelDisplay::stop - display module was never started"<< std::endl; } return;}
         if(debugMode){ std::cout << "pixelDisplay::stop - stopping external pixel display module"<< std::endl; }
         *control = 2;
     }

@@ -10,23 +10,24 @@
 
 #include "metal.h"
 
-typedef boost::interprocess::allocator<unsigned int, boost::interprocess::managed_shared_memory::segment_manager> ShmemAllocator;
-typedef boost::interprocess::vector   <unsigned int, ShmemAllocator> DataVector;
+typedef boost::interprocess::allocator<unsigned int, boost::interprocess::managed_shared_memory::segment_manager> vectorDisplay_ShmemAllocator;
+typedef boost::interprocess::vector   <unsigned int, vectorDisplay_ShmemAllocator> DataVector;
 
 //shared vector memory:
     #define vectorMemorySize 65536
     #define vectorDisplay_sharedMemorySpaceName "vectorDisplay_memorySpace"
     //object names
-        #define vectorDisplay_vectorMemory "data"
-        #define vectorDisplay_control      "control"
-        #define vectorDisplay_windowHeight "windowHeight"
-        #define vectorDisplay_windowWidth  "windowWidth"
+        #define vectorDisplay_vectorMemory "vectorDisplay_data"
+        #define vectorDisplay_control      "vectorDisplay_control"
+        #define vectorDisplay_windowHeight "vectorDisplay_windowHeight"
+        #define vectorDisplay_windowWidth  "vectorDisplay_windowWidth"
 
 class vectorDisplay: public metal
 {
     //inner components
     private:
         bool debugMode;
+        bool isStarted;
         static DataVector *dataMemory; //shared vector memory
             //vector of unsigned int data. graphical language commands are written here
         static unsigned int *control; //shared control memory

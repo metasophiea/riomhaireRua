@@ -26,7 +26,7 @@
 
     g++ main.cpp *.o -o rua
 
-# delete undeeded files
+# delete un-needed files
     rm metal.*
 
     rm console.*
