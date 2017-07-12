@@ -2,7 +2,7 @@
     <img width="100%" src="https://raw.githubusercontent.com/metasophiea/riomhaireRua/master/images/banner.png">
 </p>
 
-A fun little virtual machine project with a custom language 'Rua', a little console access and some graphical ability
+A fun little virtual machine project with the custom language 'Rua', a little console access and some graphical ability
 
 ## The Riomhaire
 riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. The program you write is given to the worker, which goes through each command one after another, following each instruction wherever it may lead. Once the worker runs out of instructions, they will stop and the machine will switch off.
