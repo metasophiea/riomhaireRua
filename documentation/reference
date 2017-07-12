@@ -1,0 +1,154 @@
+- Worker/Workspace Concept
+    riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. The program 
+you write is given to the worker, which goes through each command one after another, following 
+each instruction wherever it may lead. Once the worker runs out of instructions, they will stop
+and the machine will switch off.
+
+    The worker uses the worktop to do jobs. The worktop is firstly a place to put bytes down. 
+It is secondly somewhere to find connections to other tools. These connections are called ports.
+Tools can have different amounts of ports depending on their designs.
+
+- Machine details
+    max program length: 65536 commands
+    worktop size: 256 bytes
+    byte size: 8 bits
+
+- Language
+    All values are in decimal
+
+    - - Special compiler commands
+        comment //
+        import #
+        tag ::
+
+    - flow control
+        - misc
+            nop                       
+            goto:location             
+            wait:time                 
+        - if statements
+            ifBitSet:byte:bit:location
+            ifResultZero:location     
+            ifResultOverflow:location 
+            ifResultUnderflow:location
+            ifResultNegative:location 
+            ifSAMmode:location        
+
+    - operations
+        - lone byte
+            set:byte:value  
+            setBit:byte:bit:value
+            clear:byte
+            flip:byte
+            lRotate:byte
+            rRotate:byte
+            copy:byte:destinationByte
+        - multi byte
+            and:byte:byte:destinationByte
+            nand:byte:byte:destinationByte
+            or:byte:byte:destinationByte
+            nor:byte:byte:destinationByte
+            xor:byte:byte:destinationByte
+
+    - math instructions
+        - control
+            mode:value
+        - lone byte
+            convert:byte:inputMode:outputMode
+            inc:byte
+            dec:byte
+            neg:byte
+        - multi byte
+            add:byte:byte:destinationByte
+            sub:byte:byte:destinationByte
+
+    See the appendix for a full description of what each the command does
+
+    - - Compilation
+        Source code files are stored as '.rua' while compiled programs are '.rr'
+
+        To compile a program, you can use the 'ruac' program like so:
+            ./ruac ./testPrograms/program.rua program.rr
+        The compiler will place the compiled program relative to the source program
+
+- Workspace Ports
+    0 - program counter (high)
+    1 - program counter (low)
+    2 - console
+    3 - pixel display access
+    4 - pixel display address y
+    5 - pixel display address x
+    6 - vectorDisplay memory byte access
+    7 - vectorDisplay memory byte address
+
+    // Coming soon
+        x - program counter buffer (high) (coming soon)
+        x - program counter buffer (low) (coming soon)
+        x - storage access
+        x - storage address (high) (coming soon)
+        x - storage address (low) (coming soon)
+
+- - Program Counter
+        These ports contain the number of the next command to be run, working together as a 
+    sort of double-byte. The values here can be retrieved and edited like any other byte.
+
+- - Console
+        Writing 0 to the port will prompt the user for input. This data is stored in a 
+    buffer that one can access with repeated reads from the console port. Reading the bit
+    vales of the port will not trigger the console to progress to the next byte. If there
+    are not more bytes in the buffer; the value will be zero.
+
+        See the appendix for a list of all the ASCII characters that can be written or read. 
+    There are also some extra special characters available for character codes above 127,
+    which are not ASCII but could prove useful.
+
+- - pixelDisplay
+        This unit controls a 256x256 8-bit colour pixel array display, that one can use to
+    draw graphics. The display itself will not start until the first pixel is written to.
+
+        Three ports are used: Access, X Address and Y Address. The X and Y Address ports
+    are used to select which pixel in the display to work on, and the Access port can be
+    used to edit or retrieve the colour value of this selected pixel.
+
+    See the appendix for details on 8-bit colour
+
+- - vectorDisplay
+        This unit controls the 1000*1000 pixel 8-bit colour vector graphics display unit, 
+    which is capable of drawing complex shapes. The display itself will not start until 
+    the first pixel is written to.
+
+        Two ports are used: Access and Address. The unit has an internal memory where graphical
+    commands written in the ruaGL language may be placed. These commands are run by the display
+    unit to produce the graphical imagery. To access the bytes in this memory; the Address port
+    may be used to select a byte, while the Access port is used to retrieve or edit the value.
+
+    See the appendix for details on 8-bit colour
+
+    ruaGL
+        0 - no op
+        1 - poly
+            comm RGB X0 Y0 X1 Y1 X2 Y2 ... repeat of first point
+
+            eg. 1 256 0 0 100 100 0 100 0 100
+
+        2 - Rectangle
+            comm RGB x y width height angle
+
+            eg. 3 3 30 30 30 30 10 
+
+        3 - Central Rectangle
+            comm RGB x y width height angle
+
+            eg. 3 44 30 30 30 30 20 
+
+        4 - Circle
+            comm RGB x y radius
+
+            eg. 4 100 40 40 50
+
+-- Appendix Contents
+    - Console Character Codes
+    - 8-Bit Colour
+    - Rua Command Description
+
+-- Future Ideas

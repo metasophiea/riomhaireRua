@@ -1,0 +1,519 @@
+- Console Character Codes
+    number | code | symbol
+    -------|------|-------
+    1      |  01  | NUL (null)
+    2      |  02  | SOH (start of header)
+    3      |  03  | STX (start of text)
+    4      |  04  | ETX (end of text)
+    5      |  05  | ENQ (enquiry)
+    6      |  06  | ACK (acknowledge)
+    7      |  07  | BEL (bell)
+    8      |  08  | BS (baskspace)
+    9      |  09  | HT (horizontal tab)
+    10     |  0a  | LF (line feed/new line)
+    11     |  0b  | VT (vertical tab)
+    12     |  0c  | FF (form feed / new page)
+    13     |  0d  | CR (carriage return)
+    14     |  0e  | SO (shift out)
+    15     |  0f  | SI (shift in)
+    16     |  10  | DLE (data link escape)
+    17     |  11  | DC1 (data control 1)
+    18     |  12  | DC2 (data control 2)
+    19     |  13  | DC3 (data control 3)
+    20     |  14  | DC4 (data control 4)
+    21     |  15  | NAK (negative acknowledge)
+    22     |  16  | SYN (synchronous idle)
+    23     |  17  | ETB (end of transmission block)
+    24     |  18  | CAN (cancel)
+    25     |  19  | EM (end of medium)
+    26     |  1a  | SUB (substitute)
+    27     |  1b  | ESC (escape)
+    28     |  1c  | FS (file separator)
+    29     |  1d  | GS (group separator)
+    30     |  1e  | RS (record separator)
+    31     |  1f  | US (unit separator)
+    32     |  20  | (space)
+    33     |  21  | !
+    34     |  22  | "
+    35     |  23  | #
+    36     |  24  | $
+    37     |  25  | %
+    38     |  26  | &
+    39     |  27  | '
+    40     |  28  | (
+    41     |  29  | )
+    42     |  2a  | *
+    43     |  2b  | +
+    44     |  2c  | ,
+    45     |  2d  | -
+    46     |  2e  | .
+    47     |  2f  | /
+    48     |  30  | 0
+    49     |  31  | 1
+    50     |  32  | 2
+    51     |  33  | 3
+    52     |  34  | 4
+    53     |  35  | 5
+    54     |  36  | 6
+    55     |  37  | 7
+    56     |  38  | 8
+    57     |  39  | 9
+    58     |  3a  | :
+    59     |  3b  | ;
+    60     |  3c  | <
+    61     |  3d  | =
+    62     |  3e  | >
+    63     |  3f  | ?
+    64     |  40  | @
+    65     |  41  | A
+    66     |  42  | B
+    67     |  43  | C
+    68     |  44  | D
+    69     |  45  | E
+    70     |  46  | F
+    71     |  47  | G
+    72     |  48  | H
+    73     |  49  | I
+    74     |  4a  | J
+    75     |  4b  | K
+    76     |  4c  | L
+    77     |  4d  | M
+    78     |  4e  | N
+    79     |  4f  | O
+    80     |  50  | P
+    81     |  51  | Q
+    82     |  52  | R
+    83     |  53  | S
+    84     |  54  | T
+    85     |  55  | U
+    86     |  56  | V
+    87     |  57  | W
+    88     |  58  | X
+    89     |  59  | Y
+    90     |  5a  | Z
+    91     |  5b  | [
+    92     |  5c  | \
+    93     |  5d  | ]
+    94     |  5e  | ^
+    95     |  5f  | _
+    96     |  60  | `
+    97     |  61  | a
+    98     |  62  | b
+    99     |  63  | c
+    100    |  64  | d
+    101    |  65  | e
+    102    |  66  | f
+    103    |  67  | g
+    104    |  68  | h
+    105    |  69  | i
+    106    |  6a  | j
+    107    |  6b  | k
+    108    |  6c  | l
+    109    |  6d  | m
+    110    |  6e  | n
+    111    |  6f  | o
+    112    |  70  | p
+    113    |  71  | q
+    114    |  72  | r
+    115    |  73  | s
+    116    |  74  | t
+    117    |  75  | u
+    118    |  76  | v
+    119    |  77  | w
+    120    |  78  | x
+    121    |  79  | y
+    122    |  7a  | z
+    123    |  7b  | {
+    124    |  7c  | |
+    125    |  7d  | }
+    126    |  7e  | ~
+    127    |  7f  | DEL (delete)
+    128    |  80  | prints: "riomhaireRua"
+    129    |  81  | ? (unused)
+    130    |  82  | ? (unused)
+    131    |  83  | ? (unused)
+    132    |  84  | ? (unused)
+    133    |  85  | ? (unused)
+    134    |  86  | ? (unused)
+    135    |  87  | ? (unused)
+    136    |  88  | ? (unused)
+    137    |  89  | ? (unused)
+    138    |  8a  | ? (unused)
+    139    |  8b  | ? (unused)
+    140    |  8c  | ? (unused)
+    141    |  8d  | ? (unused)
+    142    |  8e  | ? (unused)
+    143    |  8f  | ? (unused)
+    144    |  90  | ? (unused)
+    145    |  91  | ? (unused)
+    146    |  92  | ? (unused)
+    147    |  93  | ? (unused)
+    148    |  94  | ? (unused)
+    149    |  95  | ? (unused)
+    150    |  96  | ? (unused)
+    151    |  97  | ? (unused)
+    152    |  98  | ? (unused)
+    153    |  99  | ? (unused)
+    154    |  9a  | ? (unused)
+    155    |  9b  | ? (unused)
+    156    |  9c  | ? (unused)
+    157    |  9d  | ? (unused)
+    158    |  9e  | ? (unused)
+    159    |  9f  | ? (unused)
+    160    |  a0  | ? (unused)
+    161    |  a1  | ? (unused)
+    162    |  a2  | ? (unused)
+    163    |  a3  | ? (unused)
+    164    |  a4  | ? (unused)
+    165    |  a5  | ? (unused)
+    166    |  a6  | ? (unused)
+    167    |  a7  | ? (unused)
+    168    |  a8  | ? (unused)
+    169    |  a9  | ? (unused)
+    170    |  aa  | ? (unused)
+    171    |  ab  | ? (unused)
+    172    |  ac  | ? (unused)
+    173    |  ad  | ? (unused)
+    174    |  ae  | ? (unused)
+    175    |  af  | ? (unused)
+    176    |  b0  | ? (unused)
+    177    |  b1  | ? (unused)
+    178    |  b2  | ? (unused)
+    179    |  b3  | ? (unused)
+    180    |  b4  | ? (unused)
+    181    |  b5  | ? (unused)
+    182    |  b6  | ? (unused)
+    183    |  b7  | ? (unused)
+    184    |  b8  | ? (unused)
+    185    |  b9  | ? (unused)
+    186    |  ba  | ? (unused)
+    187    |  bb  | ? (unused)
+    188    |  bc  | ? (unused)
+    189    |  bd  | ? (unused)
+    190    |  be  | ? (unused)
+    191    |  bf  | ? (unused)
+    192    |  c0  | ? (unused)
+    193    |  c1  | ? (unused)
+    194    |  c2  | ? (unused)
+    195    |  c3  | ? (unused)
+    196    |  c4  | ? (unused)
+    197    |  c5  | ? (unused)
+    198    |  c6  | ? (unused)
+    199    |  c7  | ? (unused)
+    200    |  c8  | ? (unused)
+    201    |  c9  | ? (unused)
+    202    |  ca  | ? (unused)
+    203    |  cb  | ? (unused)
+    204    |  cc  | ? (unused)
+    205    |  cd  | ? (unused)
+    206    |  ce  | ? (unused)
+    207    |  cf  | ? (unused)
+    208    |  d0  | ? (unused)
+    209    |  d1  | ? (unused)
+    210    |  d2  | ? (unused)
+    211    |  d3  | ? (unused)
+    212    |  d4  | ? (unused)
+    213    |  d5  | ? (unused)
+    214    |  d6  | ? (unused)
+    215    |  d7  | ? (unused)
+    216    |  d8  | ? (unused)
+    217    |  d9  | ? (unused)
+    218    |  da  | ? (unused)
+    219    |  db  | ? (unused)
+    220    |  dc  | ? (unused)
+    221    |  dd  | ? (unused)
+    222    |  de  | ? (unused)
+    223    |  df  | ? (unused)
+    224    |  e0  | ? (unused)
+    225    |  e1  | ? (unused)
+    226    |  e2  | ? (unused)
+    227    |  e3  | ? (unused)
+    228    |  e4  | ? (unused)
+    229    |  e5  | ? (unused)
+    230    |  e6  | ? (unused)
+    231    |  e7  | ? (unused)
+    232    |  e8  | ? (unused)
+    233    |  e9  | ? (unused)
+    234    |  ea  | ? (unused)
+    235    |  eb  | ? (unused)
+    236    |  ec  | ? (unused)
+    237    |  ed  | ? (unused)
+    238    |  ee  | ? (unused)
+    239    |  ef  | ? (unused)
+    240    |  f0  | ? (unused)
+    241    |  f1  | ? (unused)
+    242    |  f2  | ? (unused)
+    243    |  f3  | ? (unused)
+    244    |  f4  | ? (unused)
+    245    |  f5  | ? (unused)
+    246    |  f6  | ? (unused)
+    247    |  f7  | ? (unused)
+    248    |  f8  | ? (unused)
+    249    |  f9  | ? (unused)
+    250    |  fa  | ? (unused)
+    251    |  fb  | ? (unused)
+    252    |  fc  | ? (unused)
+    253    |  fd  | ? (unused)
+    254    |  fe  | ? (unused)
+    255    |  ff  | ? (unused)
+
+- 8-Bit Colour
+    RRRGGGBB
+
+    Examples:
+        Black : 0   : 00000000
+        White : 255 : 11111111
+        Red   : 224 : 11100000
+        Green : 28  : 00011100
+        Blue  : 3   : 00000011
+
+- Rua Command Description
+    - - Special compiler commands
+        -- // comments
+                All text after a double slash, will be 
+            removed during compilation
+            
+            - usage example:
+                //This text will be removed
+
+        -- # included file 
+                A file's contents will replace this code
+
+            - usage example:
+                #file.rr
+
+        -- :: tag
+                Used with goto commands. tag must have no 
+            spaces in them
+
+            - usage example:
+                goto:myTag
+                ::myTag
+
+    - flow control
+        - misc
+            -- nop
+                No action will be taken (useful for timing)
+
+            - usage example:
+                nop
+
+            -- goto:location
+                goes to the command following the named tag
+
+            - usage example:
+                goto:myTag
+                ::myTag
+
+            -- wait:time
+                Tells the machine to wait for a certain
+            number of milliseconds
+
+            - usage example:
+                wait:5000
+
+        - if statements
+            -- ifBitSet:byte:bit:location
+                Tests value of a selected bit in the 
+            chosen byte. If this bit is '1', execution goes
+            to the command following the named tag
+
+            - usage example:
+                ifBitSet:10:0:myTag
+
+            -- ifResultZero:location     
+                If the most recent result from a command 
+            was zero, then execution goes to the command 
+            following the named tag
+
+            - usage example:
+                ifResultZero:myTag
+
+            -- ifResultOverflow:location
+                If the most recent result from a command 
+            was a value larger than a byte can hold, then 
+            execution goes to the command following the 
+            named tag
+
+            - usage example:
+                ifResultZero:myTag
+
+            -- ifResultUnderflow:location
+                If the most recent result from a command 
+            was a value lower than a byte can hold, then 
+            execution goes to the command following the 
+            named tag
+
+            - usage example:
+                ifResultUnderflow:myTag
+
+            -- ifResultNegative:location
+                If the most recent result from a command 
+            was a negative value, then execution goes to 
+            the command following the named tag 
+
+            - usage example:
+                ifResultNegative:myTag
+
+            -- ifSAMmode:location
+                If SignAndMagnitude mode is active, then 
+            execution goes to the command following the 
+            named tag 
+
+            - usage example:
+                ifSAMmode:myTag
+
+    - operations
+        - lone byte
+            -- set:byte:value  
+                Sets the value of a byte to the provided 
+            value
+
+            - usage example:
+                set:10:42
+
+            -- setBit:byte:bit:value
+                Sets the value of a bit in a  byte to the 
+            provided value
+
+            - usage example:
+                set:10:2:1
+
+            -- clear:byte
+                Sets the value of a byte to zero
+
+            - usage example:
+                clear:10
+
+            -- flip:byte
+                Flips the bits in a byte
+
+            - usage example:
+                flip:10
+
+            -- lRotate:byte
+                Left rotates a byte
+
+            - usage example:
+                lRotate:10
+
+            -- rRotate:byte
+                Right rotates a byte
+
+            - usage example:
+                rRotate:10
+
+            -- copy:byte:destinationByte
+                Copies the value of a byte into another
+
+            - usage example:
+                copy:10:11
+
+        - multi byte
+            -- and:byte:byte:destinationByte
+                'And's the bits of a byte with those of 
+            another, placing the result in a destination 
+            byte
+
+            - usage example:
+                and:10:11:12
+
+            -- nand:byte:byte:destinationByte
+                'Nand's the bits of a byte with those of 
+            another, placing the result in a destination 
+            byte
+
+            - usage example:
+                nand:10:11:12
+
+            -- or:byte:byte:destinationByte
+                'Or's the bits of a byte with those of 
+            another, placing the result in a destination 
+            byte
+
+            - usage example:
+                or:10:11:12
+
+            -- nor:byte:byte:destinationByte
+                'Nor's the bits of a byte with those of 
+            another, placing the result in a destination 
+            byte
+
+            - usage example:
+                nor:10:11:12
+
+            -- xor:byte:byte:destinationByte
+                'Xor's the bits of a byte with those of 
+            another, placing the result in a destination 
+            byte
+
+            - usage example:
+                xor:10:11:12
+
+    - math instructions
+        - control
+            -- mode:value
+                Sets the calculation mode of the machine
+
+            0 - Absolute
+                    Values are between 0 and 255 with 
+                every bit in a byte being used for 
+                magnitude
+            1 - Sign and Magnitude
+                    Values are between -127 and 127, with
+                the leftist bit of the byte representing
+                the sign of the value
+                
+            - usage example:
+                mode:1
+
+        - lone byte
+            -- convert:byte:inputMode:outputMode
+                Converts a bytes value format from one mode
+            to another.
+
+            0 -> 1
+                absolute values above 127 will be clipped
+                and stored as the value 127
+
+            1 -> 0
+                SignAndMagnitude values below 0 will be
+                wrapped around (eg. -1 -> 255)
+
+            - example usage
+                convert:10:0:1
+
+            -- inc:byte
+                Adds 1 to a byte
+
+            - usage example:
+                inc:10
+
+            -- dec:byte
+                Subtracts 1 from a byte
+
+            - usage example:
+                dec:10
+
+            -- neg:byte
+                Sets the value in the selected byte to the
+            negative of that number (absolute values will 
+            be wrapped)
+
+            - usage example:
+                neg:10
+
+        - multi byte
+            -- add:byte:byte:destinationByte
+                Adds two bytes together, placing the result
+            in a destination byte
+
+            - usage example:
+                add:10:11:12
+
+            -- sub:byte:byte:destinationByte
+                Subtracts a byte from another, placing the 
+            result in a destination byte
+
+            - usage example:
+                sub:10:20

@@ -36,9 +36,9 @@ int main(int argumentCount, char *arguments[]){
 
     //print program
         //look to see if output file name has been provided; if so; use that name and place it back in the folder
-        //if not; take the original name, attach '.rua' and place it back in the folder
+        //if not; take the original name, attach '.rr' and place it back in the folder
         if(outputFileName.length() != 0){ outputFileName = inputFileFolder + outputFileName;  }
-        else{ outputFileName = inputFileName + ".rua"; }
+        else{ outputFileName = inputFileName + ".rr"; }
 
         //printing
         FILE* output = fopen((outputFileName).c_str(), "w");
