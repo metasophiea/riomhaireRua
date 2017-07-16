@@ -20,6 +20,10 @@ class accessManager: public metal
     //ports
         /* 0: program counter high byte           */
         /* 1: program counter low byte            */
+        /* x: program counter buffer high byte    */     
+        /* x: program counter buffer low byte     */
+        /* x: indirect access                     */
+        /* x: indirect address                    */
         /* 2: console                             */ private: static const unsigned int console_port = 2;
         /* 3: pixelDisplay pixel byte access      */ private: static const unsigned int pixelDisplay_AccessPort = 3;
         /* 4: pixelDisplay address Y              */ private: static const unsigned int pixelDisplay_AddressPort_y = 4;

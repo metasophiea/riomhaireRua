@@ -9,7 +9,6 @@ class executer: public metal
 {
     private:
         bool debugMode;
-        unsigned int programCounter;
         unsigned int programCounterByteCount;
         logicUnit logicUnit;
         accessManager accessManager;
@@ -20,8 +19,8 @@ class executer: public metal
 
     //process controls
         public: virtual void runInstruction(std::string instruction);
-        public: virtual unsigned int nextInstructionNumber();
-        private: virtual void update();
+        public: virtual unsigned int getProgramCounter();
+        public: virtual void setProgramCounter(unsigned int newValue);
 
     //utilities
         private: virtual std::vector<std::string> splitString(std::string string, char splitChar);
