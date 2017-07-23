@@ -42,7 +42,7 @@
 //printers and debug
     void memoryBlock::printMemory(){
         if(debugMode){ std::cout << "memoryBlock - printing memory" << std::endl; }
-        unsigned int bytePerLine = 30;
+        unsigned int bytePerLine = 50;
 
         //y axis numbering, divider and data
         for(unsigned int a = 0; a < memorySize; a++){

@@ -8,7 +8,8 @@
         worktopBase(bitSize, worktopSize),
         console(bitSize),
         pixelDisplay(bitSize,2,256,256,1000,1000),
-        vectorDisplay(bitSize,256,1000,1000)
+        vectorDisplay(bitSize,256,1000,1000),
+        internalStorageDevice_A(bitSize,65536)
         {}
     accessManager::~accessManager(){}
 
@@ -22,6 +23,7 @@
             case pixelDisplay_AddressPort_x:  return pixelDisplay.getAddressByte(0);  break;
             case vectorDisplay_AccessPort:    return vectorDisplay.getMemoryByte();   break;
             case vectorDisplay_AddressPort:   return vectorDisplay.getAddressByte(0); break;
+            case internalStorageDevice_A_accessPort:  return internalStorageDevice_A.getByte( getByte(internalStorageDevice_A_address_1)*10 + getByte(internalStorageDevice_A_address_0) ); break;
         }
 
         return worktopBase.getByte(byte);
@@ -35,6 +37,7 @@
             case pixelDisplay_AddressPort_x: pixelDisplay.setAddressByte(0,value);  break;
             case vectorDisplay_AccessPort:   vectorDisplay.setMemoryByte(value);    break;
             case vectorDisplay_AddressPort:  vectorDisplay.setAddressByte(0,value); break;
+            case internalStorageDevice_A_accessPort:  return internalStorageDevice_A.setByte( getByte(internalStorageDevice_A_address_1)*10 + getByte(internalStorageDevice_A_address_0), value ); break;
         }
 
         worktopBase.setByte(byte,value);
@@ -48,6 +51,7 @@
             case pixelDisplay_AddressPort_x: return pixelDisplay.getAddressBit(0,bit);  break;
             case vectorDisplay_AccessPort:   return vectorDisplay.getMemoryBit(bit);    break;
             case vectorDisplay_AddressPort:  return vectorDisplay.getAddressBit(0,bit); break;
+            case internalStorageDevice_A_accessPort: return internalStorageDevice_A.getBit( getByte(internalStorageDevice_A_address_1)*10 + getByte(internalStorageDevice_A_address_0), bit ); break;
         }
 
         return worktopBase.getBit(byte,bit);
@@ -61,6 +65,7 @@
             case pixelDisplay_AddressPort_x: pixelDisplay.setAddressBit(0,bit,value);  break;
             case vectorDisplay_AccessPort:   vectorDisplay.setMemoryBit(bit,value);    break;
             case vectorDisplay_AddressPort:  vectorDisplay.setAddressBit(0,bit,value); break;
+            case internalStorageDevice_A_accessPort: return internalStorageDevice_A.setBit( getByte(internalStorageDevice_A_address_1)*10 + getByte(internalStorageDevice_A_address_0), bit, value ); break;
         }
 
         worktopBase.setBit(byte,bit,value); 
@@ -85,9 +90,17 @@
             if( vectorDisplay.isStarted ){ vectorDisplay.printMemory(); }
             else{ std::cout << "- vector display was never started" << std::endl; }
             std::cout << std::endl;
+
+        std::cout << "Internal Storage Device A" << std::endl;
+            internalStorageDevice_A.printMemory();
+            std::cout << std::endl;
+
     }
     void accessManager::debug(bool onOff){ 
         debugMode = onOff;
         worktopBase.debug(onOff);
         console.debug(onOff);
+        pixelDisplay.debug(onOff);
+        vectorDisplay.debug(onOff);
+        internalStorageDevice_A.debug(onOff);
     }

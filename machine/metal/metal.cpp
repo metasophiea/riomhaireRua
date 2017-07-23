@@ -82,8 +82,8 @@
         else{ return (bin[ bin.length()-1-bit ] == '0') ? false : true; }
     }
     std::string metal::adjustBIN(std::string BIN, unsigned int bit, bool value){
-        if( BIN.length() > bit ){ value ? BIN[bit] = '1' : BIN[bit] = '0'; }
-        else{ for(unsigned int a = BIN.length()-1; a < bit-1; a++){ BIN = BIN + '0'; } BIN = BIN + ( value ? '1' : '0'); }
+        if( BIN.length() > bit ){ value ? BIN[BIN.length()-1-bit] = '1' : BIN[BIN.length()-1-bit] = '0'; }
+        else{ for(unsigned int a = BIN.length()-1; a < bit-1; a++){ BIN = BIN + '0'; } BIN = ( value ? '1' : '0') + BIN; }
         return BIN;
     }
     unsigned int metal::bitAdjustUINT_systemSize(unsigned int UINT, unsigned int bit, bool value){
