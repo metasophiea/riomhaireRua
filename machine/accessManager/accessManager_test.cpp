@@ -14,7 +14,6 @@ int main(){
     obj.setByte(4,200);
 
     std::cout << std::endl;
-
     obj.printMemory();
 
     return 0;
