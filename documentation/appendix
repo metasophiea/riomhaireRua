@@ -305,6 +305,13 @@
                 goto:myTag
                 ::myTag
 
+            -- jump
+                Puts the values in the program counter buffers
+            into their program counter counterparts
+
+            - usage example:
+                jump
+
             -- wait:time
                 Tells the machine to wait for a certain
             number of milliseconds
