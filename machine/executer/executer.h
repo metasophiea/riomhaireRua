@@ -18,9 +18,9 @@ class executer: public metal
         public: virtual ~executer();
 
     //process controls
-        public: virtual void runInstruction(std::string instruction);
-        public: virtual unsigned int getProgramCounter();
-        public: virtual void setProgramCounter(unsigned int newValue);
+        public:  virtual void runInstruction(std::string instruction);
+        public:  virtual unsigned int getProgramCounter();
+        private: virtual void setProgramCounter(unsigned int newValue);
 
     //utilities
         private: virtual std::vector<std::string> splitString(std::string string, char splitChar);

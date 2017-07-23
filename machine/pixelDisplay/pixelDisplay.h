@@ -28,10 +28,12 @@ typedef boost::interprocess::vector   <float, pixelDisplay_ShmemAllocator> Pixel
 
 class pixelDisplay: public metal
 {
+    //flags
+    public:
+        bool isStarted;    
     //inner components
     private:
         bool debugMode;
-        bool isStarted;
         static PixelVector *pixels; //shared pixel memory
             //vector of floats, three times larger than the number of pixels
             //each number represents a colour value, with a batch of three for

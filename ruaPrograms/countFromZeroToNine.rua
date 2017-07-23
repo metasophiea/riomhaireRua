@@ -4,9 +4,9 @@ mode:1
 
 ::loop
     //print byte 31
-        copy:31:2
+        copy:31:6
     //print new line
-        set:2:10
+        set:6:10
     //inc byte 30 and 31
         inc:30
         inc:31

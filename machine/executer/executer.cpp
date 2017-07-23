@@ -28,80 +28,85 @@
         //match instruction number to the action
         if(debugMode){ std::cout << "executer - instruction number: " << instructionSegments[0] << std::endl; } 
         switch( instructionSegments[0] ){
-            /* nop               */ case  0: if(debugMode){ std::cout << std::endl << "executer - nop " << std::endl; } break;
-            /* goto              */ case  1: if(debugMode){ std::cout << std::endl << "executer - goto - going to instruction number " << instructionSegments[1] << std::endl; } setProgramCounter(instructionSegments[1]); break;
-            /* wait              */ case  2: if(debugMode){ std::cout << std::endl << "executer - wait - waiting for " << instructionSegments[1] << " milliseconds" << std::endl; } usleep(1000*instructionSegments[1]); break;
-            /* ifBitSet          */ case  3: 
+            /* nop               */ case  0: if(debugMode){ std::cout << std::endl << "executer::nop" << std::endl; } break;
+            /* goto              */ case  1: if(debugMode){ std::cout << std::endl << "executer::goto - going to instruction number " << instructionSegments[1] << std::endl; } setProgramCounter(instructionSegments[1]); break;
+            /* jump              */ case  2: 
+                if(debugMode){ std::cout << "executer::jump: high byte: " << accessManager.getByte(2) << std::endl; std::cout << "executer::jump: low byte: "  << accessManager.getByte(3) << std::endl; }
+                setProgramCounter( accessManager.getByte(2)*10 + accessManager.getByte(3) );
+            break;
+            /* wait              */ case  3: if(debugMode){ std::cout << std::endl << "executer - wait - waiting for " << instructionSegments[1] << " milliseconds" << std::endl; } usleep(1000*instructionSegments[1]); break;
+            /* ifBitSet          */ case  4: 
                 if(debugMode){ std::cout << std::endl << "executer - ifBitSet - testing bit " << instructionSegments[2] << " in byte " << instructionSegments[1] << std::endl; }  
                 if( accessManager.getBit(instructionSegments[1],instructionSegments[2]) ){
                     setProgramCounter(instructionSegments[3]);
-                    if(debugMode){ std::cout << "executer - ifBitSet - bit set; going to location: " << instructionSegments[3] << std::endl; }
-                }else{ if(debugMode){ std::cout << "executer - ifBitSet - bit not set" << std::endl; } }
+                    if(debugMode){ std::cout << "executer::ifBitSet - bit set; going to location: " << instructionSegments[3] << std::endl; }
+                }else{ if(debugMode){ std::cout << "executer::ifBitSet - bit not set" << std::endl; } }
             break;
-            /* ifResultZero      */ case  4: 
-                if(debugMode){ std::cout << std::endl << "executer - ifResultZero - testing if result is zero" << std::endl; }  
+            /* ifResultZero      */ case  5: 
+                if(debugMode){ std::cout << std::endl << "executer::ifResultZero - testing if result is zero" << std::endl; }  
                 if( logicUnit.getIsZero() ){
                     setProgramCounter(instructionSegments[1]);
-                    if(debugMode){ std::cout << "executer - ifResultZero - result is zero; going to location: " << instructionSegments[1] << std::endl; }
-                }else{ if(debugMode){ std::cout << "executer - ifResultZero - continuing as normal" << std::endl; } }
+                    if(debugMode){ std::cout << "executer::ifResultZero - result is zero; going to location: " << instructionSegments[1] << std::endl; }
+                }else{ if(debugMode){ std::cout << "executer::ifResultZero - continuing as normal" << std::endl; } }
             break;
-            /* ifResultOverflow  */ case  5: 
-                if(debugMode){ std::cout << std::endl << "executer - ifResultOverflow - testing if result more than the maximum value" << std::endl; }  
+            /* ifResultOverflow  */ case  6: 
+                if(debugMode){ std::cout << std::endl << "executer::ifResultOverflow - testing if result more than the maximum value" << std::endl; }  
                 if( logicUnit.getOverflowed() ){
                     setProgramCounter(instructionSegments[1]);
-                    if(debugMode){ std::cout << "executer - ifResultOverflow - result overflowed; going to location: " << instructionSegments[1] << std::endl; }
-                }else{ if(debugMode){ std::cout << "executer - ifResultOverflow - continuing as normal" << std::endl; } }
+                    if(debugMode){ std::cout << "executer::ifResultOverflow - result overflowed; going to location: " << instructionSegments[1] << std::endl; }
+                }else{ if(debugMode){ std::cout << "executer::ifResultOverflow - continuing as normal" << std::endl; } }
             break;
-            /* ifResultUnderflow */ case  6: 
-                if(debugMode){ std::cout << std::endl << "executer - ifResultUnderflow - testing if result less than the minumum value" << std::endl; }  
+            /* ifResultUnderflow */ case  7: 
+                if(debugMode){ std::cout << std::endl << "executer::ifResultUnderflow - testing if result less than the minumum value" << std::endl; }  
                 if( logicUnit.getUnderflowed() ){
                     setProgramCounter(instructionSegments[1]);
-                    if(debugMode){ std::cout << "executer - ifResultUnderflow - result underflowed; going to location: " << instructionSegments[1] << std::endl; }
-                }else{ if(debugMode){ std::cout << "executer - ifResultUnderflow - continuing as normal" << std::endl; } }
+                    if(debugMode){ std::cout << "executer::ifResultUnderflow - result underflowed; going to location: " << instructionSegments[1] << std::endl; }
+                }else{ if(debugMode){ std::cout << "executer::ifResultUnderflow - continuing as normal" << std::endl; } }
             break;
-            /* ifResultNegative  */ case  7: 
-                if(debugMode){ std::cout << std::endl << "executer - ifResultNegative - testing if result is negative" << std::endl; }  
+            /* ifResultNegative  */ case  8: 
+                if(debugMode){ std::cout << std::endl << "executer::ifResultNegative - testing if result is negative" << std::endl; }  
                 if( logicUnit.getSign() ){
                     setProgramCounter(instructionSegments[1]);
-                    if(debugMode){ std::cout << "executer - ifResultNegative - result is negative; going to location: " << instructionSegments[1] << std::endl;}
-                }else{ if(debugMode){ std::cout << "executer - ifResultNegative - continuing as normal" << std::endl; } }
+                    if(debugMode){ std::cout << "executer::ifResultNegative - result is negative; going to location: " << instructionSegments[1] << std::endl;}
+                }else{ if(debugMode){ std::cout << "executer::ifResultNegative - continuing as normal" << std::endl; } }
             break;
-            /* ifSAMmode         */ case  8: 
-                if(debugMode){ std::cout << std::endl << "executer - ifSAMmode - testing if SAM mode is active " << std::endl; }  
+            /* ifSAMmode         */ case  9: 
+                if(debugMode){ std::cout << std::endl << "executer::ifSAMmode - testing if SAM mode is active " << std::endl; }  
                 if( logicUnit.SAMmode() ){ 
                     setProgramCounter(instructionSegments[1]);
-                    if(debugMode){ std::cout << "executer - ifSAMmode - SAM mode active; going to location: " << instructionSegments[1] << std::endl;}
-                }else{ if(debugMode){ std::cout << "executer - ifSAMmode - continuing as normal" << std::endl; } }
+                    if(debugMode){ std::cout << "executer::ifSAMmode - SAM mode active; going to location: " << instructionSegments[1] << std::endl;}
+                }else{ if(debugMode){ std::cout << "executer::ifSAMmode - continuing as normal" << std::endl; } }
             break;
-            /* setBit            */ case  9: 
-                if(debugMode){ std::cout << std::endl << "executer - setBit - setting the bit: " << instructionSegments[2] << " of the byte " << instructionSegments[1] << " to the value " << instructionSegments[3] << std::endl; }  
+            /* setBit            */ case  10: 
+                if(debugMode){ std::cout << std::endl << "executer::setBit - setting the bit: " << instructionSegments[2] << " of the byte " << instructionSegments[1] << " to the value " << instructionSegments[3] << std::endl; }  
                 accessManager.setBit(
                     instructionSegments[1],
                     instructionSegments[2],
                     (instructionSegments[3] != 0)
                 ); 
             break;
-            /* clear             */ case 10: accessManager.setByte(instructionSegments[1],0); break;
-            /* flip              */ case 11: accessManager.setByte(instructionSegments[1], logicUnit.flip      ( accessManager.getByte(instructionSegments[1]) )); break;
-            /* lrotate           */ case 12: accessManager.setByte(instructionSegments[1], logicUnit.lRotate   ( accessManager.getByte(instructionSegments[1]) )); break;
-            /* rrotate           */ case 13: accessManager.setByte(instructionSegments[1], logicUnit.rRotate   ( accessManager.getByte(instructionSegments[1]) )); break;
-            /* copy              */ case 14: accessManager.setByte(instructionSegments[2], logicUnit.logicCheck( accessManager.getByte(instructionSegments[1]) )); break;
-            /* and               */ case 15: accessManager.setByte(instructionSegments[2], logicUnit.AND ( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
-            /* nand              */ case 16: accessManager.setByte(instructionSegments[2], logicUnit.NAND( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
-            /* or                */ case 17: accessManager.setByte(instructionSegments[2], logicUnit.OR  ( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
-            /* nor               */ case 18: accessManager.setByte(instructionSegments[2], logicUnit.NOR ( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
-            /* xor               */ case 19: accessManager.setByte(instructionSegments[2], logicUnit.XOR ( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
-            /* mode              */ case 20: logicUnit.setCalculationMode( instructionSegments[1] ); break;
-            /* convert           */ case 21: accessManager.setByte(instructionSegments[1], logicUnit.convert( accessManager.getByte(instructionSegments[1]),instructionSegments[2],instructionSegments[3]) ); break;
-            /* set               */ case 22: accessManager.setByte(instructionSegments[1], logicUnit.logicCheck(instructionSegments[2]) ); break;
-            /* inc               */ case 23: accessManager.setByte(instructionSegments[1], logicUnit.inc( accessManager.getByte(instructionSegments[1]) )); break;
-            /* dec               */ case 24: accessManager.setByte(instructionSegments[1], logicUnit.dec( accessManager.getByte(instructionSegments[1]) )); break;
-            /* neg               */ case 25: accessManager.setByte(instructionSegments[1], logicUnit.neg( accessManager.getByte(instructionSegments[1]) ));break;
-            /* add               */ case 26: accessManager.setByte(instructionSegments[3], logicUnit.add( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
-            /* sub               */ case 27: accessManager.setByte(instructionSegments[3], logicUnit.sub( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
+            /* clear             */ case 11: accessManager.setByte(instructionSegments[1],0); break;
+            /* flip              */ case 12: accessManager.setByte(instructionSegments[1], logicUnit.flip      ( accessManager.getByte(instructionSegments[1]) )); break;
+            /* lrotate           */ case 13: accessManager.setByte(instructionSegments[1], logicUnit.lRotate   ( accessManager.getByte(instructionSegments[1]) )); break;
+            /* rrotate           */ case 14: accessManager.setByte(instructionSegments[1], logicUnit.rRotate   ( accessManager.getByte(instructionSegments[1]) )); break;
+            /* copy              */ case 15: accessManager.setByte(instructionSegments[2], logicUnit.logicCheck( accessManager.getByte(instructionSegments[1]) )); break;
+            /* and               */ case 16: accessManager.setByte(instructionSegments[2], logicUnit.AND ( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
+            /* nand              */ case 17: accessManager.setByte(instructionSegments[2], logicUnit.NAND( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
+            /* or                */ case 18: accessManager.setByte(instructionSegments[2], logicUnit.OR  ( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
+            /* nor               */ case 19: accessManager.setByte(instructionSegments[2], logicUnit.NOR ( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
+            /* xor               */ case 20: accessManager.setByte(instructionSegments[2], logicUnit.XOR ( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
+            /* mode              */ case 21: logicUnit.setCalculationMode( instructionSegments[1] ); break;
+            /* convert           */ case 22: accessManager.setByte(instructionSegments[1], logicUnit.convert( accessManager.getByte(instructionSegments[1]),instructionSegments[2],instructionSegments[3]) ); break;
+            /* set               */ case 23: accessManager.setByte(instructionSegments[1], logicUnit.logicCheck(instructionSegments[2]) ); break;
+            /* inc               */ case 24: accessManager.setByte(instructionSegments[1], logicUnit.inc( accessManager.getByte(instructionSegments[1]) )); break;
+            /* dec               */ case 25: accessManager.setByte(instructionSegments[1], logicUnit.dec( accessManager.getByte(instructionSegments[1]) )); break;
+            /* neg               */ case 26: accessManager.setByte(instructionSegments[1], logicUnit.neg( accessManager.getByte(instructionSegments[1]) ));break;
+            /* add               */ case 27: accessManager.setByte(instructionSegments[3], logicUnit.add( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
+            /* sub               */ case 28: accessManager.setByte(instructionSegments[3], logicUnit.sub( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
             default: std::cout << "executer error - unknown instruction: " << instructionSegments[0] << std::endl; break;
         }
 
+        if(debugMode){ std::cout << "executer - end of instruction action" << std::endl << std::endl; }
     }
 
     unsigned int executer::getProgramCounter(){

@@ -24,10 +24,12 @@ typedef boost::interprocess::vector   <unsigned int, vectorDisplay_ShmemAllocato
 
 class vectorDisplay: public metal
 {
+    //flags
+    public:
+        bool isStarted;
     //inner components
     private:
         bool debugMode;
-        bool isStarted;
         static DataVector *dataMemory; //shared vector memory
             //vector of unsigned int data. graphical language commands are written here
         static unsigned int *control; //shared control memory

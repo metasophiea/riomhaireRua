@@ -6,166 +6,166 @@
     //  0   0   0   1   1   1   1   0
     //a user must enter "30"
 
-    set:2:128 //print machine name
-    set:2:10  //next line
-    set:2:114 //r
-    set:2:117 //u
-    set:2:108 //l
-    set:2:101 //e
-    set:2:32  //(space)
-    set:2:45  //-
-    set:2:62  //>
-    set:2:32  //(space)
-    set:2:0   //prompt input
+    set:6:128 //print machine name
+    set:6:10  //next line
+    set:6:114 //r
+    set:6:117 //u
+    set:6:108 //l
+    set:6:101 //e
+    set:6:32  //(space)
+    set:6:45  //-
+    set:6:62  //>
+    set:6:32  //(space)
+    set:6:0   //prompt input
 
-//extract that value (placing it into byte 13)
-    set:11:48
+//extract that value (placing it into byte 130)
+    set:110:48
     ::inputLoop
-        copy:2:10
+        copy:6:100
         ifResultZero:inputLoop_end
 
-        //multiply byte 13 by 10 (using 14 and 20)
-            set:14:0
-            set:20:10
+        //multiply byte 130 by 100 (using 140 and 200)
+            set:140:0
+            set:200:10
             ::miniLoop
                 ifResultZero:endMiniLoop
-                add:13:14:14
-                dec:20
+                add:130:140:140
+                dec:200
                 goto:miniLoop
             ::endMiniLoop
-            copy:14:13
+            copy:140:130
 
         //determine typed value of digit
-            sub:10:11:12
-        //add this value to the sum (byte 13)
-            add:12:13:13
+            sub:100:110:120
+        //add this value to the sum (byte 130)
+            add:120:130:130
 
     goto:inputLoop
     ::inputLoop_end
 
 //this is the selected rule, place this in byte 31
-    copy:13:31
+    copy:130:31
 
 //place initial pixel
-    set:5:128
-    set:3:255
+    set:9:128
+    set:7:255
 
 //run through next line and apply rules
-    inc:4
-    set:5:0
+    inc:8
+    set:9:0
 
 //x byte
-    set:10:0
+    set:100:0
 //holder byte
-    set:11:1
+    set:110:1
 
 ::mainLoop
-    inc:10
-    add:10:11:12
+    inc:100
+    add:100:110:120
     ifResultOverflow:main_endLoop //line finished
     //select pixel we're editing
-        copy:10:5
+        copy:100:9
 
-    //gather the three pixels above the selected into 20 21 22
-        dec:4
-        dec:5
-        copy:3:20
-        inc:5
-        copy:3:21
-        inc:5
-        copy:3:22
-        dec:5
-        inc:4
+    //gather the three pixels above the selected into 200 210 220
+        dec:8
+        dec:9
+        copy:7:200
+        inc:9
+        copy:7:210
+        inc:9
+        copy:7:220
+        dec:9
+        inc:8
 
-    //run rules found int byte 31, placing result in 23
+    //run rules found int byte 31, placing result in 230
         //reset pixel
-            set:23:0
+            set:230:0
 
         //decision tree
-            copy:20:30
+            copy:200:30
             ifResultZero:0xx
             //1xx
-                copy:21:30
+                copy:210:30
                 ifResultZero:10x
                 //11x
-                    copy:22:30
+                    copy:220:30
                     ifResultZero:110
                     //111
                         //check rule for this situation
                         ifBitSet:31:7:111_set
                             goto:end
                         ::111_set
-                            set:23:255
+                            set:230:255
                         goto:end
                     ::110
                         //check rule for this situation
                         ifBitSet:31:6:110_set
                             goto:end
                         ::110_set
-                            set:23:255
+                            set:230:255
                         goto:end
                     ::10x
-                    copy:22:30
+                    copy:220:30
                     ifResultZero:100
                     //101
                         //check rule for this situation
                         ifBitSet:31:5:101_set
                             goto:end
                         ::101_set
-                            set:23:255
+                            set:230:255
                         goto:end
                     ::100
                         //check rule for this situation
                         ifBitSet:31:4:100_set
                             goto:end
                         ::100_set
-                            set:23:255
+                            set:230:255
                         goto:end
             ::0xx
-                copy:21:30
+                copy:210:30
                 ifResultZero:00x
                 //01x
-                    copy:22:30
+                    copy:220:30
                     ifResultZero:010
                     //011
                         //check rule for this situation
                         ifBitSet:31:3:011_set
                             goto:end
                         ::011_set
-                            set:23:255
+                            set:230:255
                         goto:end
                     ::010
                         //check rule for this situation
                         ifBitSet:31:2:010_set
                             goto:end
                         ::010_set
-                            set:23:255
+                            set:230:255
                         goto:end
                     ::00x
-                    copy:22:30
+                    copy:220:30
                     ifResultZero:000
                     //001
                         //check rule for this situation
                         ifBitSet:31:1:001_set
                             goto:end
                         ::001_set
-                            set:23:255
+                            set:230:255
                         goto:end
                     ::000
                         //check rule for this situation
                         ifBitSet:31:0:000_set
                             goto:end
                         ::000_set
-                            set:23:255
+                            set:230:255
                         goto:end
             ::end
 
-    //copy 23 into pixel
-        copy:23:3
+    //copy 230 into pixel
+        copy:230:7
 
     goto:mainLoop
 ::main_endLoop
-inc:4
+inc:8
 ifResultOverflow:endProgram
 goto:mainLoop
 ::endProgram

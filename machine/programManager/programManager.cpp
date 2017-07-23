@@ -34,9 +34,9 @@
     void programManager::run(){if(debugMode){ std::cout << "programManager - running program" << std::endl; }
         unsigned int nextCommand = 0;
         while(true){
-            nextCommand = executer.nextInstructionNumber();
+            nextCommand = executer.getProgramCounter();
+            if(debugMode){ std::cout << "programManager - current command: " << nextCommand << program[nextCommand] << std::endl; }
             if( nextCommand >= programLength || nextCommand >= maxProgramLength ){ break; }
-            if(debugMode){ std::cout << "programManager - next command number: " << nextCommand << " | " << program[nextCommand] << std::endl; }
             executer.runInstruction(program[nextCommand]); 
         }
     }

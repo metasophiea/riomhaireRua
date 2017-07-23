@@ -24,8 +24,9 @@ Tools can have different amounts of ports depending on their designs.
     - flow control
         - misc
             nop                       
-            goto:location             
-            wait:time                 
+            goto:location   
+            - jump          
+            wait:time
         - if statements
             ifBitSet:byte:bit:location
             ifResultZero:location     
@@ -72,14 +73,18 @@ Tools can have different amounts of ports depending on their designs.
         The compiler will place the compiled program relative to the source program
 
 - Workspace Ports
-    0 - program counter (high)
-    1 - program counter (low)
-    2 - console
-    3 - pixel display access
-    4 - pixel display address y
-    5 - pixel display address x
-    6 - vectorDisplay memory byte access
-    7 - vectorDisplay memory byte address
+    0  - program counter (high)
+    1  - program counter (low)
+    2  - program counter buffer (high)
+    3  - program counter buffer (low)
+    4  - indirect access (unimplemented)
+    5  - indirect address (unimplemented)
+    6  - console
+    7  - pixel display access
+    8  - pixel display address y
+    9  - pixel display address x
+    10 - vectorDisplay memory byte access
+    11 - vectorDisplay memory byte address
 
     // Coming soon
         x - program counter buffer (high) (coming soon)

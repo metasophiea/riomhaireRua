@@ -2,23 +2,23 @@
 // (which spins forever, so you need to end the program yourself)
 
 //create square
-    inc:7
-        set:6:3
-    inc:7
-        set:6:224
-    inc:7
-        set:6:127
-    inc:7
-        set:6:127
-    inc:7
-        set:6:50
-    inc:7
-        set:6:50
-    inc:7
-        set:6:10
+    inc:11
+        set:10:3
+    inc:11
+        set:10:224
+    inc:11
+        set:10:127
+    inc:11
+        set:10:127
+    inc:11
+        set:10:50
+    inc:11
+        set:10:50
+    inc:11
+        set:10:10
 
 //update square angle and loop
     ::loop
-        inc:6
+        inc:10
         wait:50
     goto:loop

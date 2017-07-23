@@ -27,23 +27,23 @@
     }
     void accessManager::setByte(unsigned int byte, unsigned int value){if(debugMode){ std::cout << "accessManager - setting byte: " << byte << " to the value " << value << std::endl; } 
         switch(byte){
-            case console_port:               console.write(value);                 break;
-            case pixelDisplay_AccessPort:    pixelDisplay.setPixelByte(value);     break;
-            case pixelDisplay_AddressPort_y: pixelDisplay.setAddressByte(1,value); break;
-            case pixelDisplay_AddressPort_x: pixelDisplay.setAddressByte(0,value); break;
-            case vectorDisplay_AccessPort:   return vectorDisplay.setMemoryByte(value); break;
-            case vectorDisplay_AddressPort:  return vectorDisplay.setAddressByte(0,value); break;
+            case console_port:               console.write(value);                  break;
+            case pixelDisplay_AccessPort:    pixelDisplay.setPixelByte(value);      break;
+            case pixelDisplay_AddressPort_y: pixelDisplay.setAddressByte(1,value);  break;
+            case pixelDisplay_AddressPort_x: pixelDisplay.setAddressByte(0,value);  break;
+            case vectorDisplay_AccessPort:   vectorDisplay.setMemoryByte(value);    break;
+            case vectorDisplay_AddressPort:  vectorDisplay.setAddressByte(0,value); break;
         }
 
         worktopBase.setByte(byte,value);
     }
     bool accessManager::getBit(unsigned int byte, unsigned int bit){if(debugMode){ std::cout << "accessManager - getting bit: " << bit << " of byte " << byte << std::endl; } 
         switch(byte){
-            case console_port:               return console.readBit(bit);              break;
-            case pixelDisplay_AccessPort:    return pixelDisplay.getPixelBit(bit);     break;
-            case pixelDisplay_AddressPort_y: return pixelDisplay.getAddressBit(1,bit); break;
-            case pixelDisplay_AddressPort_x: return pixelDisplay.getAddressBit(0,bit); break;
-            case vectorDisplay_AccessPort:   return vectorDisplay.getMemoryBit(bit);   break;
+            case console_port:               return console.readBit(bit);               break;
+            case pixelDisplay_AccessPort:    return pixelDisplay.getPixelBit(bit);      break;
+            case pixelDisplay_AddressPort_y: return pixelDisplay.getAddressBit(1,bit);  break;
+            case pixelDisplay_AddressPort_x: return pixelDisplay.getAddressBit(0,bit);  break;
+            case vectorDisplay_AccessPort:   return vectorDisplay.getMemoryBit(bit);    break;
             case vectorDisplay_AddressPort:  return vectorDisplay.getAddressBit(0,bit); break;
         }
 
@@ -51,12 +51,12 @@
     }
     void accessManager::setBit(unsigned int byte, unsigned int bit, bool value){if(debugMode){ std::cout << "accessManager - setting bit: " << bit << " of byte " << byte << " to the value " << value << std::endl; } 
         switch(byte){
-            case console_port:               console.writeBit(bit,value);             break;
-            case pixelDisplay_AccessPort:    pixelDisplay.setPixelBit(bit,value);     break;
-            case pixelDisplay_AddressPort_y: pixelDisplay.setAddressBit(1,bit,value); break;
-            case pixelDisplay_AddressPort_x: pixelDisplay.setAddressBit(0,bit,value); break;
-            case vectorDisplay_AccessPort:   return vectorDisplay.setMemoryBit(bit,value); break;
-            case vectorDisplay_AddressPort:  return vectorDisplay.setAddressBit(0,bit,value); break;
+            case console_port:               console.writeBit(bit,value);              break;
+            case pixelDisplay_AccessPort:    pixelDisplay.setPixelBit(bit,value);      break;
+            case pixelDisplay_AddressPort_y: pixelDisplay.setAddressBit(1,bit,value);  break;
+            case pixelDisplay_AddressPort_x: pixelDisplay.setAddressBit(0,bit,value);  break;
+            case vectorDisplay_AccessPort:   vectorDisplay.setMemoryBit(bit,value);    break;
+            case vectorDisplay_AddressPort:  vectorDisplay.setAddressBit(0,bit,value); break;
         }
 
         worktopBase.setBit(byte,bit,value); 
@@ -73,11 +73,13 @@
             std::cout << std::endl;
 
         std::cout << "Pixel Display" << std::endl;
-            pixelDisplay.printMemory();
+            if( pixelDisplay.isStarted ){ pixelDisplay.printMemory(); }
+            else{ std::cout << "- pixel display was never started" << std::endl; }
             std::cout << std::endl;
 
         std::cout << "Vector Display" << std::endl;
-            vectorDisplay.printMemory();
+            if( vectorDisplay.isStarted ){ vectorDisplay.printMemory(); }
+            else{ std::cout << "- vector display was never started" << std::endl; }
             std::cout << std::endl;
     }
     void accessManager::debug(bool onOff){ 

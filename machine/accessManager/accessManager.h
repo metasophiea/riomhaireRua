@@ -18,18 +18,18 @@ class accessManager: public metal
         vectorDisplay vectorDisplay;
 
     //ports
-        /* 0: program counter high byte           */
-        /* 1: program counter low byte            */
-        /* x: program counter buffer high byte    */     
-        /* x: program counter buffer low byte     */
-        /* x: indirect access                     */
-        /* x: indirect address                    */
-        /* 2: console                             */ private: static const unsigned int console_port = 2;
-        /* 3: pixelDisplay pixel byte access      */ private: static const unsigned int pixelDisplay_AccessPort = 3;
-        /* 4: pixelDisplay address Y              */ private: static const unsigned int pixelDisplay_AddressPort_y = 4;
-        /* 5: pixelDisplay address X              */ private: static const unsigned int pixelDisplay_AddressPort_x = 5;
-        /* 6: vectorDisplay memory byte access    */ private: static const unsigned int vectorDisplay_AccessPort = 6;
-        /* 7: vectorDisplay memory byte address   */ private: static const unsigned int vectorDisplay_AddressPort = 7;
+        /*  0: program counter high byte           */
+        /*  1: program counter low byte            */
+        /*  2: program counter buffer high byte    */     
+        /*  3: program counter buffer low byte     */
+        /*  4: indirect access                     */
+        /*  5: indirect address                    */
+        /*  6: console                             */ private: static const unsigned int console_port               = 6;
+        /*  7: pixelDisplay pixel byte access      */ private: static const unsigned int pixelDisplay_AccessPort    = 7;
+        /*  8: pixelDisplay address Y              */ private: static const unsigned int pixelDisplay_AddressPort_y = 8;
+        /*  9: pixelDisplay address X              */ private: static const unsigned int pixelDisplay_AddressPort_x = 9;
+        /* 10: vectorDisplay memory byte access    */ private: static const unsigned int vectorDisplay_AccessPort   = 10;
+        /* 11: vectorDisplay memory byte address   */ private: static const unsigned int vectorDisplay_AddressPort  = 11;
 
     //construction/destruction
         public: accessManager(unsigned int bitSize, unsigned int worktopSize);

@@ -31,8 +31,8 @@
     rm metal.*
     rm console.*
     rm memoryBlock.*
-    rm pixelDisplay.*; rm externalPixelDisplayModule.*
-    rm vectorDisplay.*; rm externalVectorDisplayModule.*
+    rm pixelDisplay.*; rm externalPixelDisplayModule*
+    rm vectorDisplay.*; rm externalVectorDisplayModule*
     rm accessManager.*
     rm logicUnit.*
     rm executer.o

@@ -248,6 +248,7 @@ languageDescription loadDescription(unsigned int languageNumber){
             std::string desc[] = {
                 "nop",
                 "goto:location",
+                "jump",
                 "wait:time",
                 "ifBitSet:byte:bit:location",
                 "ifResultZero:location",
