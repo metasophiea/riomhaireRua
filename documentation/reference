@@ -83,19 +83,24 @@ Tools can have different amounts of ports depending on their designs.
     7  - pixel display access
     8  - pixel display address y
     9  - pixel display address x
-    10 - vectorDisplay memory byte access
-    11 - vectorDisplay memory byte address
+    10 - vectorDisplay memory access
+    11 - vectorDisplay memory address
+    12 - internal storage device A access
+    13 - internal storage device A address (high)
+    14 - internal storage device A address (low)
 
     // Coming soon
-        x - program counter buffer (high) (coming soon)
-        x - program counter buffer (low) (coming soon)
-        x - storage access
-        x - storage address (high) (coming soon)
-        x - storage address (low) (coming soon)
+        x - external storage device access
+        x - external storage device address (high)
+        x - external storage device address (low)
 
     -- Program Counter
             These ports contain the number of the next command to be run, working together as a 
         sort of double-byte. The values here can be retrieved and edited like any other byte.
+
+    -- Program Counter buffer
+            When the 'jump' command is run, these bytes are placed into the corresponding Program 
+        Counter bytes in one go.
 
     -- Console
             Writing 0 to the port will prompt the user for input. This data is stored in a 
@@ -150,6 +155,10 @@ Tools can have different amounts of ports depending on their designs.
                 comm RGB x y radius
 
                 eg. 4 100 40 40 50
+
+    -- Internal Storage Device A
+            This unit contains 65536 bytes for general storage, accessible through use of the access
+        port and two address ports.
 
 -- Appendix Contents
     - Console Character Codes
