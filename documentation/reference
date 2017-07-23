@@ -77,8 +77,8 @@ Tools can have different amounts of ports depending on their designs.
     1  - program counter (low)
     2  - program counter buffer (high)
     3  - program counter buffer (low)
-    4  - indirect access (unimplemented)
-    5  - indirect address (unimplemented)
+    4  - indirect access
+    5  - indirect address
     6  - console
     7  - pixel display access
     8  - pixel display address y

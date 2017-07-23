@@ -15,6 +15,7 @@
 //getters and setters
     unsigned int accessManager::getByte(unsigned int byte){if(debugMode){ std::cout << "accessManager - getting byte: " << byte << std::endl; } 
         switch(byte){
+            case indirect_access: if( getByte(indirect_address) == indirect_access ){ return 0; /*to guard against an access loop*/ } return getByte(indirect_address); break;
             case console_port:                return console.read();                  break;
             case pixelDisplay_AccessPort:     return pixelDisplay.getPixelByte();     break;
             case pixelDisplay_AddressPort_y:  return pixelDisplay.getAddressByte(1);  break;
@@ -27,6 +28,7 @@
     }
     void accessManager::setByte(unsigned int byte, unsigned int value){if(debugMode){ std::cout << "accessManager - setting byte: " << byte << " to the value " << value << std::endl; } 
         switch(byte){
+            case indirect_access:            if( getByte(indirect_address) != indirect_access ){ setByte(getByte(indirect_address),value); } break;
             case console_port:               console.write(value);                  break;
             case pixelDisplay_AccessPort:    pixelDisplay.setPixelByte(value);      break;
             case pixelDisplay_AddressPort_y: pixelDisplay.setAddressByte(1,value);  break;
@@ -39,6 +41,7 @@
     }
     bool accessManager::getBit(unsigned int byte, unsigned int bit){if(debugMode){ std::cout << "accessManager - getting bit: " << bit << " of byte " << byte << std::endl; } 
         switch(byte){
+            case indirect_access:            if( getByte(indirect_address) == indirect_access ){ return false; /*to guard against an access loop*/ } return getBit(getByte(indirect_address),bit); break;
             case console_port:               return console.readBit(bit);               break;
             case pixelDisplay_AccessPort:    return pixelDisplay.getPixelBit(bit);      break;
             case pixelDisplay_AddressPort_y: return pixelDisplay.getAddressBit(1,bit);  break;
@@ -51,6 +54,7 @@
     }
     void accessManager::setBit(unsigned int byte, unsigned int bit, bool value){if(debugMode){ std::cout << "accessManager - setting bit: " << bit << " of byte " << byte << " to the value " << value << std::endl; } 
         switch(byte){
+            case indirect_access:            if(getByte(indirect_address) != indirect_access ){ setBit(getByte(indirect_address),bit,value); } break;
             case console_port:               console.writeBit(bit,value);              break;
             case pixelDisplay_AccessPort:    pixelDisplay.setPixelBit(bit,value);      break;
             case pixelDisplay_AddressPort_y: pixelDisplay.setAddressBit(1,bit,value);  break;
