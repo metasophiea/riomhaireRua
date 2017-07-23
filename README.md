@@ -21,11 +21,14 @@ riomhaireRua uses a simple 'worker' and 'worktop' model for getting stuff done. 
 ### Program Position Locator
 These ports are used to show which instruction on the program the worker is going to do next. The number of ports used depends on how long the instruction program is allowed to be.
 
-### Machine Status
-The ports here are used to interact with some of the machine's special functions, and learn about the current goings on. For example, you can check to see if the most recent calculation resulted in a zero or not.
-
 ### Console
 Console ports are used to communicate with the user console. With this tool, you can print messages to the user, or ask for input.
 
 ### Visual Display
 Display connections are used to work with the visual display module. This module can contain a simple array of pixel bytes, or a more complicated list of shapes, with their size, coloring, position, etc.
+
+### Storage Devices
+These can be used to store a large number of bytes for use later on, all accessible through ports similar to the ones the Visual Display uses.
+
+### ~~Machine Status~~
+~~The ports here are used to interact with some of the machine's special functions, and learn about the current goings on.~~ (not yet implemented)
