@@ -103,14 +103,17 @@ Tools can have different amounts of ports depending on their designs.
         Counter bytes in one go.
 
     -- Console
-            Writing 0 to the port will prompt the user for input. This data is stored in a 
-        buffer that one can access with repeated reads from the console port. Reading the bit
-        vales of the port will not trigger the console to progress to the next byte. If there
-        are not more bytes in the buffer; the value will be zero.
+            Writing 0 to the port will prompt the user for input. The received data is store
+        in a buffer that one can access with repeated reads from the console port. Reading the 
+        bit vales of the port will not trigger the console to progress to the next byte. If there
+        are no more bytes in the buffer; the value will be zero.
 
-            See the appendix for a list of all the ASCII characters that can be written or read. 
-        There are also some extra special characters available for character codes above 127,
-        which are not ASCII but could prove useful.
+            Writing the values 1-127 will produce their ASCII counterparts on the console. See 
+        the appendix for a list of all the ASCII characters that can be written or read. The 
+        remaining values (128 to 255) are used with the prePrint system. PrePrint allows one to
+        to create pre-made collections (or strings) of codes which can then be called upon by 
+        entering the prePrint's code, just like a regular character. See the appendix for
+        instructions on how to use prePrint.
 
     -- pixelDisplay
             This unit controls a 256x256 8-bit colour pixel array display, that one can use to
@@ -164,3 +167,4 @@ Tools can have different amounts of ports depending on their designs.
     - Console Character Codes
     - 8-Bit Colour
     - Rua Command Description
+    - prePrint Description

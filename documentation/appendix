@@ -524,3 +524,62 @@
 
             - usage example:
                 sub:10:20
+
+- prePrint Description
+
+        prePrint is handy for creating pre-made strings of 
+    characters which can be used repeatedly thereafter. One
+    prints one of these strings in the same way you print any
+    other character, by simply writing it's code to the port.
+        prePrint strings can also contain references to other
+    prePrint codes, thus one can string together strings. Though 
+    be careful, as this can lead to an infinite loop if you
+    include prePrint code's code in itself.
+
+    - operation example
+            In this example, we want to create a prePrint 
+        code for the sentence "Hello everyone" in prePrint
+        buffer number 132.
+
+        To do this, first we need to activate prePrint, clear 
+        whatever was already in the string, then write the 
+        characters, and finally signal the end of the string.
+
+            128 // activate prePrint edit mode
+            132 // the prePrint code
+            129 // clear
+            72  // H
+            101 // e
+            108 // l
+            108 // l
+            111 // o
+            20  // (space)
+            101 // e
+            118 // v
+            101 // e
+            114 // r
+            121 // y
+            111 // o
+            110 // n
+            101 // e
+            131 // finish
+
+    - commands
+        128 : Activate prePrint edit mode and select code number
+                The next value entered after this will be the
+            code selected to work on. The code must be higher
+            than 131 otherwise this command will be ignored 
+            and normal operation will resume.
+                After selecting a valid code; one can write 
+            to the buffer by writing codes to the port.
+
+        129 : Clear
+                Clears the selected code of any string it 
+            currently has
+
+        130 : Clear All
+            Clears all the codes (can be run at any time)
+
+        131 : Finish
+                Indicates the end of writing a string, 
+            returning the port to normal operation
