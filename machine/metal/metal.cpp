@@ -75,6 +75,16 @@
         return ANYTHINGtoUINT(BIN,charArray,2);
     }
 
+    std::string metal::UINTtoDEC(unsigned int UINT){
+        char charArray[] = {'0','1','2','3','4','5','6','7','8','9'};
+        return UINTtoANYTHING(UINT,charArray,10);
+    }
+    std::string metal::UINTtoDEC_systemSize(unsigned int UINT){ return resize(UINTtoDEC(UINT),bitSize); }
+    unsigned int metal::DECtoUINT(std::string DEC){
+        char charArray[] = {'0','1','2','3','4','5','6','7','8','9'};
+        return ANYTHINGtoUINT(DEC,charArray,10);
+    }
+
 //adjusters/getters
     bool metal::getBitFromUINT(unsigned int UINT, unsigned int bit){
         std::string bin = UINTtoBIN(UINT);

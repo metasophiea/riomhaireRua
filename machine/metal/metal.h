@@ -27,6 +27,9 @@ class metal{
             virtual std::string UINTtoBIN(unsigned int UINT);
             virtual std::string UINTtoBIN_systemSize(unsigned int UINT);
             virtual unsigned int BINtoUINT(std::string BIN);
+            virtual std::string UINTtoDEC(unsigned int UINT);
+            virtual std::string UINTtoDEC_systemSize(unsigned int UINT);
+            virtual unsigned int DECtoUINT(std::string DEC);
 
         //adjusters/getters
             virtual bool getBitFromUINT(unsigned int UINT, unsigned int bit);
