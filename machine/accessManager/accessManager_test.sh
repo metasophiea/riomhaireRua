@@ -4,6 +4,7 @@
     cp ../metal/metal.* .
 
     cp ../memoryBlock/memoryBlock.* .
+    cp ../removableMemory/removableMemory.* .
     cp ../console/console.* .
     cp ../pixelDisplay/pixelDisplay.* .; cp ../pixelDisplay/externalPixelDisplayModule.cpp .
     cp ../vectorDisplay/vectorDisplay.* .;  cp ../vectorDisplay/externalVectorDisplayModule.cpp .
@@ -13,6 +14,7 @@
 
     g++ -c console.cpp
     g++ -c memoryBlock.cpp
+    g++ -c removableMemory.cpp
     g++ -c pixelDisplay.cpp; g++ externalPixelDisplayModule.cpp -o externalPixelDisplayModule -framework OpenGL -lglfw3
     g++ -c vectorDisplay.cpp; g++ externalVectorDisplayModule.cpp -o externalVectorDisplayModule -framework OpenGL -lglfw3
  
@@ -26,6 +28,7 @@
     rm metal.*
     rm console.*
     rm memoryBlock.*
+    rm removableMemory.*
     rm pixelDisplay.*; rm externalPixelDisplayModule*
     rm vectorDisplay.*; rm externalVectorDisplayModule*
     rm accessManager.o

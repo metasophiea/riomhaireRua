@@ -5,14 +5,14 @@
 
 # compile files
     g++ -c metal.cpp
-    g++ -c removeableMemory.cpp
+    g++ -c removableMemory.cpp
 
 # compile and run
-    g++ removeableMemory_test.cpp *.o -o test
+    g++ removableMemory_test.cpp *.o -o test
     ./test
 
 # delete undeeded files
     rm metal.*
-    rm removeableMemory.o
+    rm removableMemory.o
 
     rm test

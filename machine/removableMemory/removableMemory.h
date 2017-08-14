@@ -1,10 +1,10 @@
-#ifndef _INCL_GUARD_HEX_UINT_removeableMemory
-#define _INCL_GUARD_HEX_UINT_removeableMemory
+#ifndef _INCL_GUARD_HEX_UINT_removableMemory
+#define _INCL_GUARD_HEX_UINT_removableMemory
 
 #include <iostream>
 #include "metal.h"
 
-class removeableMemory: public metal
+class removableMemory: public metal
 {
     private:
         bool debugMode;
@@ -14,8 +14,8 @@ class removeableMemory: public metal
 
     public:
     //construction/destruction
-        removeableMemory(unsigned int bitSize, unsigned int memorySize);
-        virtual ~removeableMemory();
+        removableMemory(unsigned int bitSize, unsigned int memorySize, std::string fileName);
+        virtual ~removableMemory();
 
     //getters and setters
         virtual unsigned int getByte(unsigned int byte);

@@ -28,7 +28,7 @@ Console ports are used to communicate with the user console. With this tool, you
 Display connections are used to work with the visual display module. This module can contain a simple array of pixel bytes, or a more complicated list of shapes, with their size, coloring, position, etc.
 
 ### Storage Devices
-These can be used to store a large number of bytes for use later on, all accessible through ports similar to the ones the Visual Display uses.
+These can be used to store a large number of bytes for use later on, all accessible through ports similar to the ones the Visual Display uses. These devices can also write and read a file, we call that 'removable storage'.
 
 ### ~~Machine Status~~
 ~~The ports here are used to interact with some of the machine's special functions, and learn about the current goings on.~~ (not yet implemented)

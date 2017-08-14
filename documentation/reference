@@ -163,6 +163,11 @@ Tools can have different amounts of ports depending on their designs.
             This unit contains 65536 bytes for general storage, accessible through use of the access
         port and two address ports.
 
+    -- Removable Storage Device A
+            This unit contains 256 bytes for general storage, accessible through use of the access
+        and address ports. It uses a file named "removableStorage" which you can edit outside of 
+        Riomhaire Rua.
+
 -- Appendix Contents
     - Console Character Codes
     - 8-Bit Colour

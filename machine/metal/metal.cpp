@@ -79,7 +79,10 @@
         char charArray[] = {'0','1','2','3','4','5','6','7','8','9'};
         return UINTtoANYTHING(UINT,charArray,10);
     }
-    std::string metal::UINTtoDEC_systemSize(unsigned int UINT){ return resize(UINTtoDEC(UINT),bitSize); }
+    std::string metal::UINTtoDEC_systemSize(unsigned int UINT){ 
+        if( UINT > getMaxPossibleValue(0) ){UINT = getMaxPossibleValue(0); }
+        return UINTtoDEC(UINT);
+    }
     unsigned int metal::DECtoUINT(std::string DEC){
         char charArray[] = {'0','1','2','3','4','5','6','7','8','9'};
         return ANYTHINGtoUINT(DEC,charArray,10);
