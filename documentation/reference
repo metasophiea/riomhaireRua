@@ -25,7 +25,7 @@ Tools can have different amounts of ports depending on their designs.
         - misc
             nop                       
             goto:location   
-            - jump          
+            jump          
             wait:time
         - if statements
             ifBitSet:byte:bit:location
