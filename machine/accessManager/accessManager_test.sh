@@ -3,9 +3,9 @@
 # copy in needed files
     cp ../metal/metal.* .
 
+    cp ../console/console.* .
     cp ../memoryBlock/memoryBlock.* .
     cp ../removableMemory/removableMemory.* .
-    cp ../console/console.* .
     cp ../pixelDisplay/pixelDisplay.* .; cp ../pixelDisplay/externalPixelDisplayModule.cpp .
     cp ../vectorDisplay/vectorDisplay.* .;  cp ../vectorDisplay/externalVectorDisplayModule.cpp .
 

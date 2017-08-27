@@ -10,6 +10,7 @@ class executer: public metal
     private:
         bool debugMode;
         unsigned int programCounterByteCount;
+        std::vector<unsigned int> programCounterStack;
         logicUnit logicUnit;
         accessManager accessManager;
 
@@ -21,6 +22,8 @@ class executer: public metal
         public:  virtual void runInstruction(std::string instruction);
         public:  virtual unsigned int getProgramCounter();
         private: virtual void setProgramCounter(unsigned int newValue);
+        public:  virtual void pushCurrentProgramPositionToStack(unsigned int newValue);
+        public:  virtual void pullProgramPositionFromStack();
 
     //utilities
         private: virtual std::vector<std::string> splitString(std::string string, char splitChar);

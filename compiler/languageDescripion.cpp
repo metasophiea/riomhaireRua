@@ -289,7 +289,7 @@ languageDescription loadDescription(unsigned int languageNumber){
                     }
                     rua.commandDetails.push_back(commandDetails_tempVector);
 
-                //determine if command is tagAble, and add to the tagableCommands list if it is
+                //determine if command is tagable, and add to the tagableCommands list if it is
                     for(unsigned int b = 0; b < commandDetails_tempVector.size(); b++){
                         if( commandDetails_tempVector[b].compare("location") == 0 ){
                             rua.tagableCommands.push_back( commandDetails_splitVector[0] );

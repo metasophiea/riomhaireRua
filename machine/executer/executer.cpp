@@ -10,6 +10,7 @@
         metal(bitSize),
         debugMode(false),
         programCounterByteCount(programCounterByteCount),
+        programCounterStack(std::vector<unsigned int>()),
         logicUnit(bitSize),
         accessManager(bitSize,worktopSize)
         {}
@@ -132,6 +133,17 @@
             }
     }
 
+    void executer::pushCurrentProgramPositionToStack(unsigned int newValue){
+        if(debugMode){ unsigned int programCounterNumber = getProgramCounter(); std::cout << "executer - pushing current program position (which is: " << programCounterNumber << ") to the stack (position "<< programCounterStack.size() <<" on the stack)" << " to be replaced by: " << newValue << std::endl; }
+        programCounterStack.push_back( getProgramCounter() ); if(debugMode){ std::cout << "executer - old program counter position added to stack" << std::endl; }
+        setProgramCounter(newValue); if(debugMode){ std::cout << "executer - new program counter position added" << std::endl; }
+    }
+    void executer::pullProgramPositionFromStack(){
+        if(debugMode){ std::cout << "executer - pulling program position from stack, position: " << programCounterStack.size() -1 << " which refers to location " << programCounterStack.back() << std::endl; }
+        setProgramCounter( programCounterStack.back() ); if(debugMode){ std::cout << "executer - top program counter position from stack inserted into current program counter position" << std::endl; }
+        programCounterStack.pop_back(); if(debugMode){ std::cout << "executer - top stack position removed" << std::endl; }
+    }
+
 //utilities
     std::vector<std::string> executer::splitString(std::string string, char splitChar){
         std::vector<std::string> output; std::string temp = "";
@@ -147,6 +159,11 @@
 
 //printers and debug
     void executer::printMemory(){if(debugMode){ std::cout << "executer - printing memory" << std::endl; } 
+        std::cout << "Executer" << std::endl;
+        std::cout << "- current program counter position: " << getProgramCounter() << std::endl;
+        std::cout << "- program counter stack" << std::endl;
+        for(int a = programCounterStack.size()-1; a >= 0; a--){ std::cout << a << " | " << programCounterStack[a] << std::endl; }
+        std::cout << std::endl;
         accessManager.printMemory();
     }
     void executer::debug(bool onOff){

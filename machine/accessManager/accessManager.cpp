@@ -101,7 +101,7 @@
             std::cout << std::endl;
 
         std::cout << "Internal Storage Device A" << std::endl;
-            internalStorageDevice_A.printMemory();
+            //internalStorageDevice_A.printMemory();
             std::cout << std::endl;
 
         std::cout << "Removable Storage Device A" << std::endl;
