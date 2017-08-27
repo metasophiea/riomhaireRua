@@ -3,7 +3,7 @@
 
     cp console/console.* .
     cp memoryBlock/memoryBlock.* .    
-    cp ../removableMemory/removableMemory.* .
+    cp removableMemory/removableMemory.* .
     cp pixelDisplay/pixelDisplay.* .; cp pixelDisplay/externalPixelDisplayModule.* .
     cp vectorDisplay/vectorDisplay.* .; cp vectorDisplay/externalVectorDisplayModule.* .
     cp accessManager/accessManager.* .
