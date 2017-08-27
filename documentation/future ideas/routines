@@ -14,6 +14,14 @@ routine:routName
 command:data
 command:data
 command:data
-run:routName
+routName
+
+
+
+ - in conversion -  
+routine:routName      ->      commandNumber:routineNumber
+end                   ->      commandNumber
+routName              ->      commandNumber:routineNumber
+so essentially, the converter changes the calling of a routine, from just being the routine's name to a 'run routine' command followed by the routine's number
 
 

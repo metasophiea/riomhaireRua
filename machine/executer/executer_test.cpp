@@ -6,7 +6,7 @@ int main(){
     std::cout << "Hello" << std::endl;
 
     executer obj = executer(8,256,2);
-    obj.debug(true);
+    //obj.debug(true);
     obj.pushCurrentProgramPositionToStack(10);
     std::cout << std::endl;
     obj.pushCurrentProgramPositionToStack(130);
@@ -14,9 +14,11 @@ int main(){
     obj.pullProgramPositionFromStack();
     std::cout << std::endl;
 
-    // std::cout << obj.getProgramCounter() << std::endl;
-    // obj.runInstruction("0");
-    // std::cout << obj.getProgramCounter() << std::endl;
+    std::cout << obj.getProgramCounter() << std::endl;
+    obj.runInstruction("0");
+    std::cout << obj.getProgramCounter() << std::endl;
+    obj.pullProgramPositionFromStack();
+    std::cout << obj.getProgramCounter() << std::endl;
     // obj.runInstruction("1:10");
     // std::cout << obj.getProgramCounter() << std::endl;
     // obj.runInstruction("0");
