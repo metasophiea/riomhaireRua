@@ -3,12 +3,6 @@ import sys
 
 maxProgramLength = 65536
 
-# def errorHandler(type,program,line):
-#     for l in program:
-#         if line in l:
-#             break
-
-#     sys.exit( type + " error with on line: " + str(program.index(l)+1) + " -> \"" + line + "\"")
 files = []
 def errorHandler(type,offendingLine=""):
     print(type)
