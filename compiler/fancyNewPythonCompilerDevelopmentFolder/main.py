@@ -1,59 +1,250 @@
 # Rua compiler | Python Edition
 import sys
 
-def errorHandler(type,program,line):
-    for l in program:
-        if line in l:
-            break
+maxProgramLength = 65536
+
+# def errorHandler(type,program,line):
+#     for l in program:
+#         if line in l:
+#             break
+
+#     sys.exit( type + " error with on line: " + str(program.index(l)+1) + " -> \"" + line + "\"")
+files = []
+def errorHandler(type,offendingLine=""):
+    print(type)
+    print(offendingLine)
+    if offendingLine == "":
+        exit()
+
+    bail = False
+    for file in files:
+        file_obj = open(file)
+
+        for index,line in enumerate(file_obj):
+            if line == offendingLine:
+                print( "\"" + file + "\" : " + str(index) + " : " + offendingLine )
+                bail = True
+                break
+
+            if bail:
+                break
+
+        file_obj.close()
+
+    exit()
 
 
-    sys.exit( type + " error with on line: " + str(program.index(l)+1) + " -> \"" + line + "\"")
+
+
+
 
 
 
 # setup jobs
     # check that inputs are present
         # input arguments: exe, code file, output file name
+inputFileName = ""
+outputFileName = ""
+if len(sys.argv) < 2:
+    print("argument error: too few")
+    exit()
+elif len(sys.argv) > 3:
+    print("argument error: too many")
+    exit()
+else:
+    inputFileName = sys.argv[1]
+    if len(sys.argv) > 2:
+        outputFileName = sys.argv[2]
+
     # load in description
+def gatherTextFromFile(fileName):
+    workingProgram = []
+    try:
+        file_obj = open(fileName)
+    except FileNotFoundError:
+        # these errors are handled elsewhere error
+        pass
+    else:
+        for line in file_obj:
+            line = line.replace("\n","").rstrip().lstrip() # little bit of cleaning
+            workingProgram.append(line)
+        file_obj.close()
+    return workingProgram
+
+def parseLanguageDescription(text):
+    if len(text) == 0:
+        errorHandler("Language Description Missing")
+        exit()
+
+    returnData = {}
+    temp = []
+    tempData = {}
+    for index,line in enumerate(text):
+        temp = line.split(":")
+        tempData = {}
+        tempData["arguments"] = temp[1:]
+        tempData["code"] = index
+        returnData[temp[0]] = tempData
+
+    return returnData
+
+languageDescription = parseLanguageDescription(gatherTextFromFile("./languageDescription"))
+
     # load in program
-rawProgram = []
-workingProgram = []
-file_obj = open("countFromZeroToNine.rua")
-for line in file_obj:
-    rawProgram.append(line)
-    line = line.replace("\n","").rstrip().lstrip() # little bit of cleaning
-    if len(line) != 0:
-        workingProgram.append(line)
-file_obj.close()
+def cleanCode(code):
+    outputCode = []
+    for line in code:
+        if len(line) != 0:
+            outputCode.append(line)
+
+    return outputCode
+
+files.append(inputFileName)
+
+text = gatherTextFromFile(inputFileName)
+if len(text) == 0:
+    errorHandler("Main File Missing")
+    exit()
+workingProgram = cleanCode(text)
+
+
+
+
+
+
+
 
 # compile jobs
     # check for imports and do imports
     #     find file (stop if can't be found)
     #     paste text in from where this import was
     #     remove import command
+def importHandler(program, importFileFolder):
+    a = 0
+    while a < len(program):
+        index = program[a].find("#")
+        if index != -1:
+            newCode = gatherTextFromFile(importFileFolder+"/"+program[a][index+1:])
+            if len(newCode) == 0:
+                errorHandler("Import Error",program[a]) # error
+            del program[a]
+            newCode.reverse()
+            files.append(importFileFolder+"/"+program[a][index+1:])
+
+            for line in newCode:
+                program.insert(a,line)
+
+        a += 1
+
+    return program
+
+workingProgram = cleanCode(importHandler(workingProgram,"."))
 
     # check for comments, tabs/spacing and blank lines; and remove
     #     look for slash
     #     no second slash -> stop
-for line in workingProgram:
-    index = line.find("/")
-    if index != -1:
-        if line[index+1] != "/":
-            errorHandler("Comment",rawProgram,line)
-        else:
-            workingProgram.remove(line)
+def commentHandler(program):
+    a = 0
+    while a < len(program):
+        index = program[a].find("/")
+        if index != -1:
+            if program[a][index+1] != "/":
+                errorHandler("Comment Error",program[a]) # error
+            else:
+                program[a] = program[a][:index].rstrip()
+                if len(program[a]) == 0:
+                    del program[a]
+                    a -= 1
+
+        a += 1
+
+    return program
+
+workingProgram = commentHandler(workingProgram) 
 
     # tags
     #     find tag
     #     add tag name to list with corresponding line number
     #     remove tag
     #     if line number is larger than maxProgramLength -> stop
-    #     go through code again, replace goto:X tags with line numbers (in apropiate number format) from tag list
+    #     go through code again, replace location jumping tags with line numbers (in apropiate number format) from tag list
+def gatherTags(program):
+    outputDict = {}
+
+    # gathering tags data and removing tags from program 
+    a = 0
+    while a < len(program):
+        if program[a][0] == ":":
+            if program[a][1] != ":":
+                errorHandler("Tagging Error",program[a]) # error
+            else:
+                # remove tag
+                outputDict[program[a][2:]] = a
+                del program[a]
+
+        a += 1
+
+    return (program,outputDict)
+
+workingProgram, tagData = gatherTags(workingProgram)
 
     # check if resulting code is too long; if so stop
+if len(workingProgram) > maxProgramLength:
+    errorHandler("Compilation Failed - program too long") # error
+    exit()
 
     # convert to byte code
+def converter(program, languageDescription, tagData):
+    lexicon = list(languageDescription.keys())
+
+    workingLine = []
+
+    for a in range(len(program)):
+        workingLine = program[a].split(":")
+
+        if workingLine[0] not in lexicon:
+            errorHandler("Unknown Command", program[a]) # error
+        elif len(workingLine) != len(languageDescription[workingLine[0]]["arguments"])+1:
+            errorHandler("Incorrect Number of Command Arguments", program[a]) # error
+        elif not all(workingLine):
+            errorHandler("Argument Missing From Command", program[a]) # error
+        else:
+            # placing in tag location
+            if "location" in languageDescription[workingLine[0]]["arguments"]:
+                index = languageDescription[workingLine[0]]["arguments"].index("location")
+                workingLine[index+1] = tagData[workingLine[index+1]]
+
+            # check that all arguments are numbers:
+            for b in range(1, len(workingLine)):
+                if not workingLine[b].isdigit():
+                    errorHandler("Incorrect Command Argument", program[a])
+
+            # replacing code name with code number
+            workingLine[0] = languageDescription[workingLine[0]]["code"]
+
+            program[a] = ":".join(str(e) for e in workingLine)
+
+    return program
+
+workingProgram = converter(workingProgram, languageDescription, tagData)
+
+
+
+
+
+
+
 
 # aftermath jobs
-    # look to see if output file name has been provided; if so; use that name and place it back in the folder if not; take the original name, attach '.rr' and place it back in the folder
+    # look to see if output file name has been provided; if so; use that name and place it back
+    # in the folder if not; take the original name, attach '.rr' and place it back in the folder
+if outputFileName == "":
+    outputFileName = inputFileName+".rr"
+
     # printing
+file_obj = open(outputFileName, "w")
+for a in range(len(workingProgram)):
+    file_obj.write(workingProgram[a])
+    if a < len(workingProgram)-1:
+        file_obj.write("\n")
+file_obj.close()
