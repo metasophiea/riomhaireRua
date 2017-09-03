@@ -56,7 +56,7 @@ def gatherTextFromFile(fileName):
     try:
         file_obj = open(fileName)
     except FileNotFoundError:
-        # these errors are handled elsewhere error
+        # these errors are handled elsewhere
         pass
     else:
         for line in file_obj:

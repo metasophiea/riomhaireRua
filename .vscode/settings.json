@@ -45,5 +45,13 @@
         "limits": "cpp",
         "ostream": "cpp",
         "sstream": "cpp"
-    }
+    },
+    "python.unitTest.unittestArgs": [
+        "-v",
+        "-s",
+        "./compiler",
+        "-p",
+        "*_test.py"
+    ],
+    "python.unitTest.unittestEnabled": true
 }
