@@ -101,9 +101,12 @@
             /* set               */ case 23: accessManager.setByte(instructionSegments[1], logicUnit.logicCheck(instructionSegments[2]) ); break;
             /* inc               */ case 24: accessManager.setByte(instructionSegments[1], logicUnit.inc( accessManager.getByte(instructionSegments[1]) )); break;
             /* dec               */ case 25: accessManager.setByte(instructionSegments[1], logicUnit.dec( accessManager.getByte(instructionSegments[1]) )); break;
-            /* neg               */ case 26: accessManager.setByte(instructionSegments[1], logicUnit.neg( accessManager.getByte(instructionSegments[1]) ));break;
+            /* neg               */ case 26: accessManager.setByte(instructionSegments[1], logicUnit.neg( accessManager.getByte(instructionSegments[1]) )); break;
             /* add               */ case 27: accessManager.setByte(instructionSegments[3], logicUnit.add( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
             /* sub               */ case 28: accessManager.setByte(instructionSegments[3], logicUnit.sub( accessManager.getByte(instructionSegments[1]),accessManager.getByte(instructionSegments[2]) )); break;
+            /* routine           */ case 29: std::cout << "executer error - rutine definition command found: " << instruction << std::endl; break;
+            /* end:routName      */ case 30: pullProgramPositionFromStack(); break;
+            /* run:routName      */ case 31: pushCurrentProgramPositionToStack(instructionSegments[1]); break;
             default: std::cout << "executer error - unknown instruction: " << instructionSegments[0] << std::endl; break;
         }
 

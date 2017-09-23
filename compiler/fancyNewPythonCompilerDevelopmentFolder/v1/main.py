@@ -15,7 +15,7 @@ def errorHandler(type,offendingLine=""):
         file_obj = open(file)
 
         for index,line in enumerate(file_obj):
-            if line == offendingLine:
+            if offendingLine in line:
                 print( "\"" + file + "\" : " + str(index) + " : " + offendingLine )
                 bail = True
                 break
@@ -173,7 +173,7 @@ def gatherTags(program):
                 errorHandler("Tagging Error",program[a]) # error
             else:
                 # remove tag
-                outputDict[program[a][2:]] = a
+                outputDict[program[a][2:]] = str(a)
                 del program[a]
 
         a += 1
@@ -181,6 +181,27 @@ def gatherTags(program):
     return (program,outputDict)
 
 workingProgram, tagData = gatherTags(workingProgram)
+
+    # routines
+def gatherRoutines(program):
+    defLocations, endLocations = {}, {}
+
+    for a,line in enumerate(program):
+        line = program[a].split(":")
+        if line[0] == "routine":
+            if line[1] in defLocations:
+                errorHandler("Routine Definition Error",program[a]) # error
+            else:
+                defLocations[line[1]] = str(a+1)
+        elif line[0] == "end":
+            if line[1] in endLocations:
+                errorHandler("Routine Ending Error",program[a]) # error
+            else:
+                endLocations[line[1]] = str(a+1)
+
+    return {"def":defLocations,"end":endLocations}
+
+routinesData = gatherRoutines(workingProgram)
 
     # check if resulting code is too long; if so stop
 if len(workingProgram) > maxProgramLength:
@@ -203,10 +224,23 @@ def converter(program, languageDescription, tagData):
         elif not all(workingLine):
             errorHandler("Argument Missing From Command", program[a]) # error
         else:
-            # placing in tag location
+            # placing in tag and routine location
             if "location" in languageDescription[workingLine[0]]["arguments"]:
                 index = languageDescription[workingLine[0]]["arguments"].index("location")
                 workingLine[index+1] = tagData[workingLine[index+1]]
+            elif "routName" in languageDescription[workingLine[0]]["arguments"]:
+                index = languageDescription[workingLine[0]]["arguments"].index("routName")
+                if workingLine[index+1] not in routinesData["def"]:
+                    errorHandler("Routine Definition Missing", program[a]) # error
+                else:
+                    workingLine[index+1] = routinesData["def"][workingLine[index+1]]
+
+            # replacing routine definitions with gotos, pointing at their end commands
+            if program[a].split(":")[0] == "routine":
+                if program[a].split(":")[1] not in routinesData["end"]:
+                    errorHandler("Routine End Missing", program[a]) # error
+                else:
+                    workingLine = ["goto",routinesData["end"][program[a].split(":")[1]]]
 
             # check that all arguments are numbers:
             for b in range(1, len(workingLine)):

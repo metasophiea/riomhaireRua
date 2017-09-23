@@ -8,20 +8,23 @@ routine:routName
     command:data
     command:data
     command:data
-    end
+    end:routName
 
 ~
 command:data
 command:data
 command:data
-routName
+run:routName
+command:data
+command:data
+command:data
 
 
 
  - in conversion -  
-routine:routName      ->      commandNumber:routineNumber
-end                   ->      commandNumber
-routName              ->      commandNumber:routineNumber
+routine:routName      ->      essentially produces a goto command that points to the routine's associated 'end' command
+end                   ->      commandNumber:routineNumber   -> activates the machine's "get top address from stack" function
+runRoutine:routName   ->      commandNumber:routineNumber   -> activates the machine's "place address on stack" function, and goes to the first line of the routine
 so essentially, the converter changes the calling of a routine, from just being the routine's name to a 'run routine' command followed by the routine's number
 
 
