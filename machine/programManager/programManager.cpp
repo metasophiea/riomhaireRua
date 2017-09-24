@@ -35,7 +35,7 @@
         unsigned int nextCommand = 0;
         while(true){
             nextCommand = executer.getProgramCounter();
-            if(debugMode){ std::cout << "programManager - current command: " << nextCommand << program[nextCommand] << std::endl; }
+            if(debugMode){ std::cout << "programManager - current command: " << nextCommand << " - " << program[nextCommand] << std::endl; }
             if( nextCommand >= programLength || nextCommand >= maxProgramLength ){ break; }
             executer.runInstruction(program[nextCommand]); 
         }
@@ -50,4 +50,8 @@
     void programManager::debug(bool onOff){ 
         debugMode = onOff;
         executer.debug(onOff);
+    }
+    void programManager::debug(bool onOff, unsigned int depth){
+        debugMode = onOff;
+        if(depth > 0){ executer.debug(onOff,depth-1); }
     }

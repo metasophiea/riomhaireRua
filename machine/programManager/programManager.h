@@ -28,6 +28,7 @@ class programManager
             virtual void printProgram();
             virtual void printMemory();
             virtual void debug(bool onOff);
+            virtual void debug(bool onOff, unsigned int depth);
 
 };
 

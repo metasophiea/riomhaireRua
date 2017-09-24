@@ -31,6 +31,7 @@ class executer: public metal
     //printers and debug
         public: virtual void printMemory();
         public: virtual void debug(bool onOff);
+        public: virtual void debug(bool onOff, unsigned int depth);
 };
 
 #endif

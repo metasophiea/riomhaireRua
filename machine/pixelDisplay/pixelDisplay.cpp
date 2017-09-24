@@ -212,3 +212,7 @@
         }
     }
     void pixelDisplay::debug(bool onOff){ debugMode = onOff; }
+    void pixelDisplay::debug(bool onOff, unsigned int depth){
+        debugMode = onOff;
+        if(depth > 0){}
+    }

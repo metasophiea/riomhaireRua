@@ -26,6 +26,7 @@ class removableMemory: public metal
     //printers and debug
         virtual void printMemory();
         virtual void debug(bool onOff);
+        virtual void debug(bool onOff, unsigned int depth);
 };
 
 #endif

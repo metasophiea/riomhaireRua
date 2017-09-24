@@ -39,6 +39,7 @@ class console: public metal
     public:
         virtual void printMemory();
         virtual void debug(bool onOff);
+        virtual void debug(bool onOff, unsigned int depth);
 };
 
 #endif

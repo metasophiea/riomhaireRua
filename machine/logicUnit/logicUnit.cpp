@@ -326,3 +326,7 @@
 //printers and debug
     void logicUnit::printMemory(){}
     void logicUnit::debug(bool onOff){debugMode = onOff;}
+    void logicUnit::debug(bool onOff, unsigned int depth){
+        debugMode = onOff;
+        if(depth > 0){}
+    }

@@ -155,3 +155,7 @@
             std::cout << std::endl;
     }
     void removableMemory::debug(bool onOff){ debugMode = onOff; }
+    void removableMemory::debug(bool onOff, unsigned int depth){
+        debugMode = onOff;
+        if(depth > 0){}
+    }

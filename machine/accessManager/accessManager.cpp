@@ -117,3 +117,13 @@
         vectorDisplay.debug(onOff);
         internalStorageDevice_A.debug(onOff);
     }
+    void accessManager::debug(bool onOff, unsigned int depth){
+        debugMode = onOff;
+        if(depth > 0){ 
+            worktopBase.debug(onOff,depth-1);
+            console.debug(onOff,depth-1);
+            pixelDisplay.debug(onOff,depth-1);
+            vectorDisplay.debug(onOff,depth-1);
+            internalStorageDevice_A.debug(onOff,depth-1);
+        }
+    }

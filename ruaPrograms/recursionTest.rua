@@ -1,0 +1,15 @@
+//  This program tests the recursive capabilities of the routine command structure
+// The routine increments byte 50, then tests whether the value there is equal to
+// the value in byte 51. If not, it calls itself, otherwise the routine ends
+
+set:51:10
+
+routine:subRoutine
+    inc:50
+    sub:50:51:52
+    ifResultZero:skip
+        run:subRoutine
+    ::skip
+    end:subRoutine
+
+run:subRoutine

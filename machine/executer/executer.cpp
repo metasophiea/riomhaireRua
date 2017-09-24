@@ -161,7 +161,7 @@
     }
 
 //printers and debug
-    void executer::printMemory(){if(debugMode){ std::cout << "executer - printing memory" << std::endl; } 
+    void executer::printMemory(){
         std::cout << "Executer" << std::endl;
         std::cout << "- current program counter position: " << getProgramCounter() << std::endl;
         std::cout << "- program counter stack" << std::endl;
@@ -173,4 +173,11 @@
         debugMode = onOff;
         accessManager.debug(onOff);
         logicUnit.debug(onOff);
+    }
+    void executer::debug(bool onOff, unsigned int depth){
+        debugMode = onOff;
+        if(depth > 0){ 
+            accessManager.debug(onOff,depth-1);
+            logicUnit.debug(onOff,depth-1);
+        }
     }

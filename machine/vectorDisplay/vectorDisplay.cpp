@@ -164,3 +164,7 @@
         std::cout << std::endl;
     }
     void vectorDisplay::debug(bool onOff){ debugMode = onOff; }
+    void vectorDisplay::debug(bool onOff, unsigned int depth){
+        debugMode = onOff;
+        if(depth > 0){}
+    }

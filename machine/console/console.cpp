@@ -161,3 +161,7 @@
         }
     }
     void console::debug(bool onOff){ debugMode = onOff; }
+    void console::debug(bool onOff, unsigned int depth){
+        debugMode = onOff;
+        if(depth > 0){}
+    }

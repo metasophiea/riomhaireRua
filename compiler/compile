@@ -1,4 +1,6 @@
-# Rua compiler | Python Edition
+#!/usr/local/bin/python3
+# Rua compiler | Python3 Edition
+
 import sys
 
 maxProgramLength = 65536
@@ -195,7 +197,9 @@ def gatherRoutines(program):
                 defLocations[line[1]] = str(a+1)
         elif line[0] == "end":
             if line[1] in endLocations:
-                errorHandler("Routine Ending Error",program[a]) # error
+                errorHandler("Routine Ending Duplication Error",program[a]) # error
+            elif line[1] not in defLocations:
+                errorHandler("Routine Ending Without Definition Error",program[a]) # error
             else:
                 endLocations[line[1]] = str(a+1)
 
