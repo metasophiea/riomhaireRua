@@ -9,14 +9,14 @@ int main(){
         removableMemory obj = removableMemory(8,16,"loadedMemory_2.txt");
 
         //debuggin'
-            //obj.debug(true);
-            //obj.getByte(10);
-            //obj.setByte(10,100);
+            obj.debug(true);
+            obj.getByte(10);
+            obj.setByte(10,100);
 
-            //obj.getBit(1, 0);
-            //obj.setBit(1, 0, false);
+            obj.getBit(1, 0);
+            obj.setBit(1, 0, false);
 
-            //obj.printMemory();
+            obj.printMemory();
 
         // breakin' stuff
             //obj.getByte(1000);

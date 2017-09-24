@@ -6,9 +6,7 @@
         memorySize(memorySize),
         debugMode(false),
         fileName(fileName)
-        {
-
-        }
+        {}
     removableMemory::~removableMemory(){}
 
 //getters and setters
@@ -42,6 +40,9 @@
     void removableMemory::setByte(unsigned int byte, unsigned int value){
         if(debugMode){ std::cout << "removableMemory::setByte - setting byte: " << byte << " to the value " << value << std::endl;}
         if( byte >= memorySize ){std::cout << "removableMemory error - attempting to access unavailable byte: " << byte << " - action will be ignored" << std::endl; return;}
+
+        //check if file exists first
+            if( fopen(fileName.c_str(), "r") == 0 ){ std::cout << "- no removable stoarage device attached" << std::endl; return; }
 
         //rename original file, then set it up for reading and create a new file with the old name for writing
             if(debugMode){ std::cout << "removableMemory::setByte - renaming input file and opening a fresh file" << std::endl;}
