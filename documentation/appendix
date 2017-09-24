@@ -368,7 +368,37 @@
             named tag 
 
             - usage example:
-                ifSAMmode:myTag
+                ifSAMmode:myTag   
+
+        - routine commands
+                These commands are used to define and call
+            routines (which are little blocks of code
+            bundled into a new command)
+                Routines are defined with the 'routine'
+            and 'end' commands, which both take the 
+            routine's name. The 'end' command will return 
+            execution to where it left off, but only one is
+            allowed per definition.
+                Code within the block will not be executed
+            if execution naturally runs into it; only when
+            the 'run' command is used with the routines
+            name.
+                Recursion is possible, and the routine's
+            definition can be placed anywhere in the code.
+            Be aware however that all routines are global,
+            and one is not allowed define multiple routines
+            with the same name.
+
+            -- routine:routName
+            -- end:routName
+            -- run:routName
+
+            - usage example:
+                routine:myRoutine
+                    - whatever code you like -
+                    end:myRoutine
+                
+                run:myRoutine
 
     - operations
         - lone byte
@@ -546,8 +576,8 @@
         characters, and finally signal the end of the string.
 
             128 // activate prePrint edit mode
-            132 // the prePrint code
-            129 // clear
+            132 // select the prePrint buffer number
+            129 // clear buffer
             72  // H
             101 // e
             108 // l

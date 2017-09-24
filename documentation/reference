@@ -33,7 +33,11 @@ Tools can have different amounts of ports depending on their designs.
             ifResultOverflow:location 
             ifResultUnderflow:location
             ifResultNegative:location 
-            ifSAMmode:location        
+            ifSAMmode:location      
+        - routine commands
+            routine:routName
+            end:routName
+            run:routName
 
     - operations
         - lone byte
