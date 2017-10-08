@@ -128,7 +128,7 @@
     125    |  7d  | }
     126    |  7e  | ~
     127    |  7f  | DEL (delete)
-    128    |  80  | prints: "riomhaireRua"
+    128    |  80  | ? (unused)
     129    |  81  | ? (unused)
     130    |  82  | ? (unused)
     131    |  83  | ? (unused)
@@ -281,6 +281,13 @@
 
             - usage example:
                 #file.rr
+
+        -- = define value
+                Used to define a replacement word
+
+            - usage example:
+                variable = 10
+                comm:variable
 
         -- :: tag
                 Used with goto commands. tag must have no 

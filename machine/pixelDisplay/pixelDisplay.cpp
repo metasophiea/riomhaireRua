@@ -145,8 +145,8 @@
 
         //fork process and start external pixel display module
             pid_t pid = fork();
-            if(pid == 0){ /* new process to be replaced */ execl("externalPixelDisplayModule", "", 0, 0); }
-            else if(pid != 0){ /* this is the original process */ }
+            if(pid == 0){ /* new process to be replaced */ if(execl("externalPixelDisplayModule", "", 0, 0) < 0){ std::cout << "pixelDisplay::start - external pixel display module process replacement failure" << std::endl; *control = 2; } }
+            else if(pid > 0){ /* this is the original process */ }
             else{ std::cout << "pixelDisplay::start - external pixel display module forking failure" << std::endl; *control = 2;}
 
         //wait for external pixel display module to respond

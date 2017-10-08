@@ -130,10 +130,11 @@
         if(debugMode){ std::cout << "vectorDisplay::start - starting external vector display module"<< std::endl; }
 
         //fork process and start external pixel display module
+
             pid_t pid = fork();
-            if(pid == 0){ /* new process to be replaced */ execl("externalVectorDisplayModule", "", 0, 0); }
-            else if(pid != 0){ /* this is the original process */ }
-            else{ std::cout << "vectorDisplay::start - external vector display module forking failure" << std::endl; *control = 2;}
+            if(pid == 0){ /* new process to be replaced */ if(execl("externalVectorDisplayModule", "", 0, 0) < 0){ std::cout << "vectorDisplay::start - external vector display module process replacement failure" << std::endl; *control = 2; } }
+            else if(pid > 0){ /* this is the original process */ }
+            else{ std::cout << "vectorDisplay::start - external pixel display module forking failure" << std::endl; *control = 2;}
 
         //wait for external pixel display module to respond
             if(debugMode){ std::cout << "vectorDisplay::start - waiting on external vector display module to start"<< std::endl; }

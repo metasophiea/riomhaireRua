@@ -1,7 +1,7 @@
 #!/usr/local/bin/python3
 # Rua compiler | Python3 Edition
 
-import sys
+import sys, os
 
 maxProgramLength = 65536
 
@@ -84,7 +84,7 @@ def parseLanguageDescription(text):
 
     return returnData
 
-languageDescription = parseLanguageDescription(gatherTextFromFile("./languageDescription"))
+languageDescription = parseLanguageDescription(gatherTextFromFile("/".join(os.path.realpath(__file__).split("/")[0:-1])+"/languageDescription"))
 
     # load in program
 def cleanCode(code):
@@ -118,23 +118,46 @@ workingProgram = cleanCode(text)
 def importHandler(program, importFileFolder):
     a = 0
     while a < len(program):
-        index = program[a].find("#")
-        if index != -1:
-            newCode = gatherTextFromFile(importFileFolder+"/"+program[a][index+1:])
+        if program[a][0] == "#":
+            newCode = gatherTextFromFile(importFileFolder+"/"+program[a][1:])
             if len(newCode) == 0:
                 errorHandler("Import Error",program[a]) # error
             del program[a]
             newCode.reverse()
-            files.append(importFileFolder+"/"+program[a][index+1:])
+            files.append(importFileFolder+"/"+program[a][1:])
 
             for line in newCode:
                 program.insert(a,line)
+
+            program = cleanCode(program)
 
         a += 1
 
     return program
 
 workingProgram = cleanCode(importHandler(workingProgram,"."))
+
+    # check for defines, collect values then replace
+        # go through program looking for the defile symbol, collecting a map as we go removing the definitions (we do the replacement later)
+
+def gatherDefinedValues(program):
+    outputMap = {}
+
+    a = 0
+    while a < len(program):
+        if "=" in program[a]:
+            key, value = program[a].replace(" ","").split("=")
+            if key in outputMap:
+                errorHandler("Define Error - Duplicate Definition",program[a]) # error
+            else:
+                outputMap.update({key:value})
+            del program[a]
+            a -= 1
+
+        a += 1
+    return [program,outputMap]
+
+workingProgram,definedValues = gatherDefinedValues(workingProgram)
 
     # check for comments, tabs/spacing and blank lines; and remove
     #     look for slash
@@ -213,7 +236,7 @@ if len(workingProgram) > maxProgramLength:
     exit()
 
     # convert to byte code
-def converter(program, languageDescription, tagData):
+def converter(program, languageDescription, tagData, definedValues):
     lexicon = list(languageDescription.keys())
 
     workingLine = []
@@ -231,7 +254,10 @@ def converter(program, languageDescription, tagData):
             # placing in tag and routine location
             if "location" in languageDescription[workingLine[0]]["arguments"]:
                 index = languageDescription[workingLine[0]]["arguments"].index("location")
-                workingLine[index+1] = tagData[workingLine[index+1]]
+                if workingLine[index+1] not in tagData:
+                    errorHandler("Unknown Location Tag", program[a]) # error
+                else:
+                    workingLine[index+1] = tagData[workingLine[index+1]]
             elif "routName" in languageDescription[workingLine[0]]["arguments"]:
                 index = languageDescription[workingLine[0]]["arguments"].index("routName")
                 if workingLine[index+1] not in routinesData["def"]:
@@ -246,19 +272,25 @@ def converter(program, languageDescription, tagData):
                 else:
                     workingLine = ["goto",routinesData["end"][program[a].split(":")[1]]]
 
-            # check that all arguments are numbers:
+            # defined value replacement
+                # if an argument isn't a number, check the definedValues data for a suitable replacement 
+                # if one doesn't exist, raise an error
             for b in range(1, len(workingLine)):
                 if not workingLine[b].isdigit():
-                    errorHandler("Incorrect Command Argument", program[a])
+                    if workingLine[b] in definedValues:
+                        workingLine[b] = definedValues[workingLine[b]]
+                    else:
+                        errorHandler("Incorrect Command Argument", program[a])
 
             # replacing code name with code number
             workingLine[0] = languageDescription[workingLine[0]]["code"]
 
+            # rejoin the line
             program[a] = ":".join(str(e) for e in workingLine)
 
     return program
 
-workingProgram = converter(workingProgram, languageDescription, tagData)
+workingProgram = converter(workingProgram, languageDescription, tagData, definedValues)
 
 
 

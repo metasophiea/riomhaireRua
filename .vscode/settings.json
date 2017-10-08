@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.hdl": "vhdl",
-        "*.ipp": "cpp"
+        "*.ipp": "cpp",
+        "*.tcc": "cpp"
     }
 }

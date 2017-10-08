@@ -36,8 +36,8 @@ class accessManager: public metal
         /* 12: storage device A byte access             */ private: static const unsigned int internalStorageDevice_A_accessPort = 12;
         /* 13: storage device A byte address 1          */ private: static const unsigned int internalStorageDevice_A_address_1  = 13;
         /* 14: storage device A byte address 0          */ private: static const unsigned int internalStorageDevice_A_address_0  = 14;
-        /* 10: removable storage device A byte access   */ private: static const unsigned int removableStorageDevice_A_AccessPort  = 15;
-        /* 11: removable storage device A byte address  */ private: static const unsigned int removableStorageDevice_A_AddressPort = 16;
+        /* 15: removable storage device A byte access   */ private: static const unsigned int removableStorageDevice_A_AccessPort  = 15;
+        /* 16: removable storage device A byte address  */ private: static const unsigned int removableStorageDevice_A_AddressPort = 16;
 
     //construction/destruction
         public: accessManager(unsigned int bitSize, unsigned int worktopSize);

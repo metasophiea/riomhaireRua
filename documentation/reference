@@ -19,6 +19,7 @@ Tools can have different amounts of ports depending on their designs.
     -- Special compiler commands
         comment //
         import #
+        define =
         tag ::
 
     - flow control
@@ -92,11 +93,8 @@ Tools can have different amounts of ports depending on their designs.
     12 - internal storage device A access
     13 - internal storage device A address (high)
     14 - internal storage device A address (low)
-
-    // Coming soon
-        x - external storage device access
-        x - external storage device address (high)
-        x - external storage device address (low)
+    15 - removable storage device A byte access
+    16 - removable storage device A byte address
 
     -- Program Counter
             These ports contain the number of the next command to be run, working together as a 

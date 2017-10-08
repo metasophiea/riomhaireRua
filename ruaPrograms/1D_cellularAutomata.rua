@@ -1,3 +1,5 @@
+#printLib.rualib
+
 //request rule from user
     //entered rule is a binary reaction to the following situations
     // 111 110 101 100 011 010 001 000
@@ -6,17 +8,20 @@
     //  0   0   0   1   1   1   1   0
     //a user must enter "30"
 
-    set:6:128 //print machine name
-    set:6:10  //next line
-    set:6:114 //r
-    set:6:117 //u
-    set:6:108 //l
-    set:6:101 //e
-    set:6:32  //(space)
-    set:6:45  //-
-    set:6:62  //>
-    set:6:32  //(space)
-    set:6:0   //prompt input
+    consolePort = 6
+    //print machine name
+    run:printRiomhreRuaAndDetails
+    set:consolePort:10 //next line
+
+    set:consolePort:114 //r
+    set:consolePort:117 //u
+    set:consolePort:108 //l
+    set:consolePort:101 //e
+    set:consolePort:32  //(space)
+    set:consolePort:45  //-
+    set:consolePort:62  //>
+    set:consolePort:32  //(space)
+    set:consolePort:0   //prompt input
 
 //extract that value (placing it into byte 130)
     set:110:48
@@ -44,15 +49,19 @@
     ::inputLoop_end
 
 //this is the selected rule, place this in byte 31
-    copy:130:31
+    ruleByte = 31
+    copy:130:ruleByte
 
 //place initial pixel
-    set:9:128
-    set:7:255
+    pixelDisplayAccess = 7
+    pixelDisplayAddress_y = 8
+    pixelDisplayAddress_x = 9
+    set:pixelDisplayAddress_x:128
+    set:pixelDisplayAccess:255
 
 //run through next line and apply rules
-    inc:8
-    set:9:0
+    inc:pixelDisplayAddress_y
+    set:pixelDisplayAddress_x:0
 
 //x byte
     set:100:0
@@ -64,108 +73,114 @@
     add:100:110:120
     ifResultOverflow:main_endLoop //line finished
     //select pixel we're editing
-        copy:100:9
+        copy:100:pixelDisplayAddress_x
 
     //gather the three pixels above the selected into 200 210 220
-        dec:8
-        dec:9
-        copy:7:200
-        inc:9
-        copy:7:210
-        inc:9
-        copy:7:220
-        dec:9
-        inc:8
+        aboveLeft = 200
+        aboveCenter = 210
+        aboveRight = 220
 
-    //run rules found int byte 31, placing result in 230
+        dec:pixelDisplayAddress_y
+        dec:pixelDisplayAddress_x
+        copy:pixelDisplayAccess:aboveLeft
+        inc:pixelDisplayAddress_x
+        copy:pixelDisplayAccess:aboveCenter
+        inc:pixelDisplayAddress_x
+        copy:pixelDisplayAccess:aboveRight
+        dec:pixelDisplayAddress_x
+        inc:pixelDisplayAddress_y
+
+    //run rules found ruleByte, placing result in workingPixel (230)
+        workingPixel = 230
+        temp = 30
         //reset pixel
-            set:230:0
+            set:workingPixel:0
 
         //decision tree
-            copy:200:30
+            copy:aboveLeft:temp
             ifResultZero:0xx
             //1xx
-                copy:210:30
+                copy:aboveCenter:temp
                 ifResultZero:10x
                 //11x
-                    copy:220:30
+                    copy:aboveRight:temp
                     ifResultZero:110
                     //111
                         //check rule for this situation
-                        ifBitSet:31:7:111_set
+                        ifBitSet:ruleByte:pixelDisplayAccess:111_set
                             goto:end
                         ::111_set
-                            set:230:255
+                            set:workingPixel:255
                         goto:end
                     ::110
                         //check rule for this situation
-                        ifBitSet:31:6:110_set
+                        ifBitSet:ruleByte:6:110_set
                             goto:end
                         ::110_set
-                            set:230:255
+                            set:workingPixel:255
                         goto:end
                     ::10x
-                    copy:220:30
+                    copy:aboveRight:temp
                     ifResultZero:100
                     //101
                         //check rule for this situation
-                        ifBitSet:31:5:101_set
+                        ifBitSet:ruleByte:5:101_set
                             goto:end
                         ::101_set
-                            set:230:255
+                            set:workingPixel:255
                         goto:end
                     ::100
                         //check rule for this situation
-                        ifBitSet:31:4:100_set
+                        ifBitSet:ruleByte:4:100_set
                             goto:end
                         ::100_set
-                            set:230:255
+                            set:workingPixel:255
                         goto:end
             ::0xx
-                copy:210:30
+                copy:aboveCenter:temp
                 ifResultZero:00x
                 //01x
-                    copy:220:30
+                    copy:aboveRight:temp
                     ifResultZero:010
                     //011
                         //check rule for this situation
-                        ifBitSet:31:3:011_set
+                        ifBitSet:ruleByte:3:011_set
                             goto:end
                         ::011_set
-                            set:230:255
+                            set:workingPixel:255
                         goto:end
                     ::010
                         //check rule for this situation
-                        ifBitSet:31:2:010_set
+                        ifBitSet:ruleByte:2:010_set
                             goto:end
                         ::010_set
-                            set:230:255
+                            set:workingPixel:255
                         goto:end
                     ::00x
-                    copy:220:30
+                    copy:aboveRight:temp
                     ifResultZero:000
                     //001
                         //check rule for this situation
-                        ifBitSet:31:1:001_set
+                        ifBitSet:ruleByte:1:001_set
                             goto:end
                         ::001_set
-                            set:230:255
+                            set:workingPixel:255
                         goto:end
                     ::000
                         //check rule for this situation
-                        ifBitSet:31:0:000_set
+                        ifBitSet:ruleByte:0:000_set
                             goto:end
                         ::000_set
-                            set:230:255
+                            set:workingPixel:255
                         goto:end
             ::end
 
     //copy 230 into pixel
-        copy:230:7
+        copy:workingPixel:pixelDisplayAccess
 
     goto:mainLoop
 ::main_endLoop
-inc:8
+inc:pixelDisplayAddress_y
 ifResultOverflow:endProgram
 goto:mainLoop
 ::endProgram
