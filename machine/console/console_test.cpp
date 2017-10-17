@@ -8,6 +8,9 @@ int main(){
     console obj = console(8);
     //obj.debug(true);
 
+    obj.write(129); //attempt to access prePrint edit commands while outside of prePrint edit mode
+
+
     //testing the prePrint functionality
     obj.write(128); //begin prePrint
     obj.write(132); //select code to edit
@@ -27,6 +30,7 @@ int main(){
 
     obj.write(130); //clear all buffer codes
     obj.write(132); //attempt to print the code created before the clearing
+
 
     return 0;
 }

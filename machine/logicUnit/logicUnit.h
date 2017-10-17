@@ -30,6 +30,7 @@ class logicUnit: public metal
     //functions
     public: 
         //checks
+            virtual void resetFlags();
             virtual unsigned int logicCheck( int value );
             virtual unsigned int mathCheck( int value,unsigned int calculationMode );
 

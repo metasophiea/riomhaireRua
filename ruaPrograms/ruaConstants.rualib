@@ -1,0 +1,17 @@
+ruaport_progamCounter_high                 = 0
+ruaport_progamCounter_low                  = 1
+ruaport_programCounterBuffer_high          = 2
+ruaport_programCounterBuffer_low           = 3
+ruaport_indirectAccess                     = 4
+ruaport_indirectAddress                    = 5
+ruaport_console                            = 6
+ruaport_pixelDisplayAccess                 = 7
+ruaport_pixelDisplayAddress_Y              = 8
+ruaport_pixelDisplayAddress_X              = 9
+ruaport_vectorDisplayMemoryAccess          = 10
+ruaport_vectorDisplayMemoryAddress         = 11
+ruaport_internalStorageDeviceAAccess       = 12
+ruaport_internalStorageDeviceAAddress_high = 13
+ruaport_internalStorageDeviceAAddress_low  = 14
+ruaport_removableStorageDeviceAAccess      = 15
+ruaport_removableStorageDeviceAAddress     = 16

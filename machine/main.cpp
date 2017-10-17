@@ -37,7 +37,7 @@ int main(int argumentCount, char *arguments[]){
         unsigned int worktopSize = 256;
         unsigned int programCounterByteCount = 2;
         programManager machine = programManager(bitSize,worktopSize,programCounterByteCount);
-        //machine.debug(true,1);
+        //machine.debug(true);
 
     //load in program
         std::ifstream inputFile(arguments[1]); 
@@ -48,7 +48,7 @@ int main(int argumentCount, char *arguments[]){
     //run, and print memory when all is done
         machine.run();
         std::cout << std::endl << std::endl << "program done - printing memory" << std::endl << std::endl;
-        //machine.printMemory();
+        machine.printMemory();
         
     return 0;
 }

@@ -15,7 +15,7 @@
         if( byte >= memorySize ){std::cout << "removableMemory error - attempting to access unavailable byte: " << byte << " - action will be ignored" << std::endl; return 0;}
 
         loadedMemory = fopen(fileName.c_str(), "r");
-        if( loadedMemory == 0 ){ std::cout << "- no removable stoarage device attached" << std::endl; return 0; }
+        if( loadedMemory == 0 ){ std::cout << "- no removable storage device attached" << std::endl; return 0; }
         unsigned int currentByte = 0;
         unsigned int tempData = 0;
         std::string tempString;
@@ -42,7 +42,7 @@
         if( byte >= memorySize ){std::cout << "removableMemory error - attempting to access unavailable byte: " << byte << " - action will be ignored" << std::endl; return;}
 
         //check if file exists first
-            if( fopen(fileName.c_str(), "r") == 0 ){ std::cout << "- no removable stoarage device attached" << std::endl; return; }
+            if( fopen(fileName.c_str(), "r") == 0 ){ std::cout << "- no removable storage device attached" << std::endl; return; }
 
         //rename original file, then set it up for reading and create a new file with the old name for writing
             if(debugMode){ std::cout << "removableMemory::setByte - renaming input file and opening a fresh file" << std::endl;}
@@ -121,7 +121,7 @@
         std::cout << "- memory size: " << memorySize << " bytes" << std::endl;
         std::cout << "- bits per byte: " << getBitSize() << std::endl;
         loadedMemory = fopen(fileName.c_str(), "r");
-        if( loadedMemory == 0 ){ std::cout << "- no removable stoarage device attached" << std::endl; return; }
+        if( loadedMemory == 0 ){ std::cout << "- no removable storage device attached" << std::endl; return; }
         std::cout << std::endl;
 
         //load memory into a temporary array

@@ -61,6 +61,7 @@
         if(value == 130){ 
             if(debugMode){ std::cout << "console - clearing all preprint buffers" << std::endl; } 
             for(unsigned int a = 0; a < prePrintBuffer.size(); a++){ prePrintBuffer[a].clear(); }
+            return;
         }
 
     //enter correct mode
@@ -76,9 +77,10 @@
     //regular print mode
         if(debugMode){ std::cout << "console - writing value: " << value << std::endl; } 
 
-        if( value < 128 ){ /*direct convert value to char*/ std::cout << (char)value; }
+        if( value < 128 ){ /*direct convert value to char*/ std::cout << (char)value << std::flush; }
+        else if( value <= 131 ){ /*attempting to write a prePrint command, ignoring */if(debugMode){ std::cout << "console - attempting to write a prePrint command, ignoring" << value << std::endl; } }
         else{//this is a buffer; run through each code in the buffer, pushing them through the writeToOutput function
-            unsigned int actualBufferNumber = prePrintBuffer_selectedCode - ((pow(2,8)/2)+4);
+            unsigned int actualBufferNumber = value - ((pow(2,8)/2)+4);
             for(unsigned int a = 0; a < prePrintBuffer[actualBufferNumber].size(); a++){
                 writeToOutput( prePrintBuffer[actualBufferNumber][a] );
             }

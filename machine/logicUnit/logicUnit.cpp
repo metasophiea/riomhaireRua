@@ -23,8 +23,18 @@
     bool logicUnit::SAMmode()       { return calculationMode==1; }
 
 //logical functions
+    void logicUnit::resetFlags(){
+        resultIsZero = false;
+        resultSign = false;
+        resultOverflowed = false;
+        resultUnderflowed = false;
+    }
+
     unsigned int logicUnit::logicCheck( int value ){
         if(debugMode){ std::cout << "logicUnit - logicCheck" << std::endl; } 
+        //reset flags
+            resetFlags();
+
         //check if value is zero, if so, you can just return now
             if(debugMode){ std::cout << "logicUnit - checking if value: " << value << " is zero: " << ((value == 0)?"yes":"no") << std::endl; } 
             resultIsZero = (value == 0);
@@ -34,7 +44,7 @@
         if(debugMode){ std::cout << "logicUnit - correcting value size to suit system bit size - value: " << value << " result: " << HEXtoUINT( UINTtoHEX_systemSize(value) ) << std::endl; } 
         return HEXtoUINT( UINTtoHEX_systemSize(value) );
     }
-    unsigned int logicUnit::mathCheck( int value,unsigned int calculationMode ){
+    unsigned int logicUnit::mathCheck( int value, unsigned int calculationMode ){
         if(debugMode){ std::cout << "logicUnit - mathCheck" << std::endl; } 
         //detect invalid calculationMode
             if( calculationMode >= calculationModeCount ){ std::cout << "logicUnit error - mathCheck - unknown calculationMode: " << calculationMode << " setting to 0" << std::endl; calculationMode = 0; }
@@ -50,14 +60,17 @@
         //split into modes
             if(debugMode){ std::cout << "logicUnit - mathCheck - calculation mode: " << calculationMode << std::endl; } 
             if( calculationMode == 0 ){
-                //check if value overflowed
+                //check if value overflowed, if so wrap around
                     if(debugMode){ std::cout << "logicUnit - mathCheck - checking for overflow: " << ((value >= (int)getMaxPossibleValue(calculationMode))?"yes":"no") << std::endl; } 
                     resultOverflowed = value > (int)getMaxPossibleValue(calculationMode);
+                    if(resultOverflowed){ value = value - ((int)getMaxPossibleValue(calculationMode)+1); }
 
                 //check if value underflowed, if so wrap around
                     if(debugMode){ std::cout << "logicUnit - mathCheck - checking for underflow: " << ((value < 0)?"yes - wrap":"no") << std::endl; } 
                     resultUnderflowed = value < 0; 
-                    if(resultUnderflowed){ value = value + (unsigned int)getMaxPossibleValue(calculationMode)+1; }
+                    if(resultUnderflowed){ value = value + ((int)getMaxPossibleValue(calculationMode)+1); }
+
+                /* check for a zero while we're here */ resultIsZero = (value == 0);
 
                 //correct value size to suit system bit size, and return
                     return HEXtoUINT( UINTtoHEX_systemSize(value) );

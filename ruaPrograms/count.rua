@@ -1,0 +1,9 @@
+mode:0
+
+::loop
+    inc:50
+
+    ifResultZero:endLoop
+    ifResultOverflow:endLoop 
+    goto:loop
+::endLoop

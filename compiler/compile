@@ -129,6 +129,8 @@ def importHandler(program, importFileFolder):
             for line in newCode:
                 program.insert(a,line)
 
+            a -= 1
+
             program = cleanCode(program)
 
         a += 1
@@ -200,6 +202,7 @@ def gatherTags(program):
                 # remove tag
                 outputDict[program[a][2:]] = str(a)
                 del program[a]
+                a -= 1
 
         a += 1
 

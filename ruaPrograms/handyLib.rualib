@@ -1,0 +1,58 @@
+#ruaConstants.rualib
+
+routine:printRiomhreRuaAndDetails
+    set:ruaport_console:114 //r
+    set:ruaport_console:105 //i
+    set:ruaport_console:111 //o
+    set:ruaport_console:109 //m
+    set:ruaport_console:104 //h
+    set:ruaport_console:97  //a
+    set:ruaport_console:105 //i
+    set:ruaport_console:114 //r
+    set:ruaport_console:101 //e
+    set:ruaport_console:82  //R
+    set:ruaport_console:117 //u
+    set:ruaport_console:97  //a
+    end:printRiomhreRuaAndDetails
+
+routine:setPixelDisplayToBlack
+    setPixelDisplayToBlack_colourToSetTo = 0
+
+    set:ruaport_pixelDisplayAddress_X:0
+    set:ruaport_pixelDisplayAddress_Y:0
+    set:ruaport_pixelDisplayAccess:0
+
+    ::setPixelDisplayToBlack_startYLOOP
+        ::setPixelDisplayToBlack_startXLOOP
+            set:ruaport_pixelDisplayAccess:setPixelDisplayToBlack_colourToSetTo
+            inc:ruaport_pixelDisplayAddress_X
+        ifResultOverflow:setPixelDisplayToBlack_endXLOOP
+        goto:setPixelDisplayToBlack_startXLOOP
+        ::setPixelDisplayToBlack_endXLOOP
+    inc:ruaport_pixelDisplayAddress_Y
+    ifResultOverflow:setPixelDisplayToBlack_endYLOOP
+    goto:setPixelDisplayToBlack_startYLOOP
+    ::setPixelDisplayToBlack_endYLOOP
+
+    end:setPixelDisplayToBlack
+
+routine:formatInternalStorageDeviceA
+    setPixelDisplayToBlack_formatData = 0
+
+    set:ruaport_internalStorageDeviceAAddress_high:0
+    set:ruaport_internalStorageDeviceAAddress_low:0
+    set:ruaport_internalStorageDeviceAAccess:0
+
+    ::formatInternalStorageDeviceA_startHIGHLOOP
+        ::formatInternalStorageDeviceA_startLOWLOOP
+            set:ruaport_internalStorageDeviceAAccess:setPixelDisplayToBlack_formatData
+            inc:ruaport_internalStorageDeviceAAddress_low
+        ifResultOverflow:formatInternalStorageDeviceA_endLOWLOOP
+        goto:formatInternalStorageDeviceA_startLOWLOOP
+        ::formatInternalStorageDeviceA_endLOWLOOP
+    inc:ruaport_internalStorageDeviceAAddress_high
+    ifResultOverflow:formatInternalStorageDeviceA_endHIGHLOOP
+    goto:formatInternalStorageDeviceA_startHIGHLOOP
+    ::formatInternalStorageDeviceA_endHIGHLOOP
+
+    end:formatInternalStorageDeviceA

@@ -1,0 +1,109 @@
+#handyLib.rualib
+
+//run:printRiomhreRuaAndDetails
+//set:ruaport_console:10 //next line
+//run:setPixelDisplayToBlack
+//run:formatInternalStorageDeviceA
+//
+////setup initial data
+//    set:ruaport_pixelDisplayAddress_X:128
+//    set:ruaport_pixelDisplayAddress_Y:128
+//    set:ruaport_pixelDisplayAccess:255
+//
+//
+////run simulation
+//    //copy data to storage device A
+//    ::copy_yLoop
+//        ::copy_xLoop
+//            copy:ruaport_pixelDisplayAccess:ruaport_internalStorageDeviceAAccess
+//
+//            inc:ruaport_pixelDisplayAddress_X
+//            inc:ruaport_internalStorageDeviceAAddress_low
+//        ifResultOverflow:copy_xLoopEnd
+//        goto:copy_xLoop
+//        ::copy_xLoopEnd
+//
+//        inc:ruaport_pixelDisplayAddress_Y
+//        inc:ruaport_internalStorageDeviceAAddress_high
+//    ifResultOverflow:copy_yLoopEnd
+//    goto:copy_yLoop
+//    ::copy_yLoopEnd
+
+    //go through pixels in display, setting them based on the data in storage device A
+    set:ruaport_pixelDisplayAddress_Y:128
+    set:ruaport_pixelDisplayAddress_X:128
+    set:ruaport_pixelDisplayAccess:255
+    set:ruaport_pixelDisplayAddress_Y:0
+    set:ruaport_pixelDisplayAddress_X:0
+
+
+    routine:decideOnPixel
+        //count how many of the surrounding pixels are white (255)
+        decideOnPixel_count = 50
+        decideOnPixel_subtractor = 51
+        set:decideOnPixel_subtractor:255
+        decideOnPixel_resultBox = 52
+
+        routine:decideOnPixel_dataGatherer
+            sub:decideOnPixel_subtractor:ruaport_pixelDisplayAccess:decideOnPixel_resultBox
+
+            ifResultZero:decideOnPixel_itsZero
+            goto:decideOnPixel_itsZero_end
+            ::decideOnPixel_itsZero
+                inc:decideOnPixel_count
+            ::decideOnPixel_itsZero_end
+
+            end:decideOnPixel_dataGatherer
+
+
+        dec:ruaport_pixelDisplayAddress_Y
+        dec:ruaport_pixelDisplayAddress_X
+            run:decideOnPixel_dataGatherer
+        inc:ruaport_pixelDisplayAddress_X
+            run:decideOnPixel_dataGatherer
+        inc:ruaport_pixelDisplayAddress_X
+            run:decideOnPixel_dataGatherer
+
+        inc:ruaport_pixelDisplayAddress_Y
+        dec:ruaport_pixelDisplayAddress_X
+        dec:ruaport_pixelDisplayAddress_X
+            run:decideOnPixel_dataGatherer
+        inc:ruaport_pixelDisplayAddress_X
+        inc:ruaport_pixelDisplayAddress_X
+            run:decideOnPixel_dataGatherer
+
+        inc:ruaport_pixelDisplayAddress_Y
+        dec:ruaport_pixelDisplayAddress_X
+        dec:ruaport_pixelDisplayAddress_X
+            run:decideOnPixel_dataGatherer
+        inc:ruaport_pixelDisplayAddress_X
+            run:decideOnPixel_dataGatherer
+        inc:ruaport_pixelDisplayAddress_X
+            run:decideOnPixel_dataGatherer
+
+        dec:ruaport_pixelDisplayAddress_Y
+        dec:ruaport_pixelDisplayAddress_X
+
+        // you've counted the pixels, now make the appropriate action (also, speed this up)
+
+        end:decideOnPixel
+
+
+
+    ::yLoop
+        ::xLoop
+
+            run:decideOnPixel
+
+            inc:ruaport_pixelDisplayAddress_X
+        ifResultOverflow:xLoopEnd
+        goto:xLoop
+        ::xLoopEnd
+
+        inc:ruaport_pixelDisplayAddress_Y
+    ifResultOverflow:yLoopEnd
+    goto:yLoop
+    ::yLoopEnd
+
+
+wait:1000
